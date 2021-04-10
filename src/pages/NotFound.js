@@ -18,8 +18,6 @@ const Title = styled.div`
    font-size: 20px;
    text-align: center;
    margin-top:200px;
-   &:hover{
-       color: grey;
-   };
+
 `
 export default NotFound;
