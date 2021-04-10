@@ -7,7 +7,7 @@ import NotFound from  "../pages/NotFound"
 import {Switch, Route, BrowserRouter} from "react-router-dom"
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
-
+import {actionCreators as markerActions} from '../redux/modules/marker';
 
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
           <Route path="/signup" exact component={Signup}/>
           <Route exact component={NotFound}/>
         </Switch>
-    </ConnectedRouter>
+      </ConnectedRouter>
     </React.Fragment>
   )
 }

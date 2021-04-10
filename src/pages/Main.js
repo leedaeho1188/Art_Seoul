@@ -6,7 +6,7 @@ import Map from  "../components/Map"
 function Main() {
   return (
     <React.Fragment>
-     <Map/>
+      <Map/>
     </React.Fragment>
   )
 }
