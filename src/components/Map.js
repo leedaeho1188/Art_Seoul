@@ -1,9 +1,14 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
+import MarkerModal from './MarkerModal'
+import map from '../redux/modules/user'
 
 const { kakao } = window;
 
 const Map = () => {
+  const [is_modal, setModal ] = useState(false);
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
 
   useEffect(() => {
     const container = document.getElementById('myMap'); //지도 표시할 div
@@ -26,7 +31,7 @@ const Map = () => {
     
     var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
-    //지도를 클릭한 위치에 표출할 마커입니다.
+    // 지도를 클릭한 위치에 표출할 마커입니다.
     positions.map((p, idx) => {
 
       var imageSize = new kakao.maps.Size(24, 35);
@@ -36,7 +41,7 @@ const Map = () => {
       const markers = new kakao.maps.Marker({
         // 지도 중심좌표에 마커를 생성합니다.
         map: map,
-        position: p.latlng,
+        position: p.latlng ,
         title: p.title,
         image: markerImage,
       });
@@ -60,19 +65,28 @@ const Map = () => {
 
       const resultDiv = document.getElementById('ClickLatlng');
       resultDiv.innerHTML = message;
+
+      setLatitude(latlng.getLat())
+      setLongitude(latlng.getLng())
     })
 
     //마커에 클릭이벤트를 등록하기
     kakao.maps.event.addListener(marker, 'click', function(){
-      window.alert('안녕!')
+      setModal(true)
     })
   }, [])
   
+  const closeModal = () => {
+    setModal(false)
+  }
+
   return(
     <React.Fragment>
       <MapContainer id='myMap' >
       </MapContainer>
       <div id='ClickLatlng'></div>
+      {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} />
+      : null }
     </React.Fragment>
   )
 

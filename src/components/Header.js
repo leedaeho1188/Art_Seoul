@@ -40,7 +40,7 @@ const HeaderInnerContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     margin:auto;
-    width: 975px;
+    width: 940px;
     height: 100%;
     padding: 0 20px 0 20px;
     box-sizing: border-box;
