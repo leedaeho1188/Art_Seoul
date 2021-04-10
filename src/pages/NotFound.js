@@ -3,11 +3,11 @@ import styled from 'styled-components'
 
 
 
-const Login =()=> {
+const NotFound =()=> {
 
   return(
     <React.Fragment>
-      <Title>로그인페이지입니다</Title>
+    <Title>올바른 주소가 아닙니다</Title>
     </React.Fragment>
   )
 
@@ -22,5 +22,4 @@ const Title = styled.div`
        color: grey;
    };
 `
-
-export default Login;
+export default NotFound;
