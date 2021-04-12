@@ -1,44 +1,58 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Upload from '../shared/Upload'
 
 import { useDispatch, useSelector } from "react-redux";
 import {actionCreators as markerActions} from "../redux/modules/marker"
-
+import {actionCreators as postActions} from "../redux/modules/post"
 import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 
 const PostWrite = (props) => {
   const dispatch = useDispatch()
-  const marker_info = useSelector((state) => state.marker.list)
+  const [title, setTitle] = useState()
+  const [contents, setContents] = useState()
   const marker_id = props.match.params.id
-  const idx = marker_info.findIndex(m => m.id === marker_id )
-  const marker = marker_info[idx]
   const preview = useSelector((state) => state.image.preview)
   
   useEffect(() => {
-    console.log("야호")
     dispatch(markerActions.getMarkerAX())
   }, [])
   
+  const changeTitle = (e) => {
+    setTitle(e.target.value)
+  }
+
+  const changeContents = (e) => {
+    setContents(e.target.value)
+  }
+
+  const addPost = () => {
+    let post = {
+      markerId: marker_id,
+      title: title,
+      contents: contents,
+    }
+    dispatch(postActions.addPostAX(post))
+  }
+
   return (
     <React.Fragment>
       <WriteBox>
-        <WriteHeader>
+        {/* <WriteHeader>
           <WriteHeaderLeft>
             <PostAuthor>
-              user_name
+              {marker? marker.title :null}
             </PostAuthor>
           </WriteHeaderLeft>
-          {marker? marker.title :null}
-        </WriteHeader>
+        </WriteHeader> */}
         <WriteContent>
           <WriteUpload>
             <Upload/>
           </WriteUpload>
           <WriteImg src={preview ? preview : "http://via.placeholder.com/400x300"} />
           <WriteTitle>
-            <TextField id="standard-basic" label="📝글 제목" style={{width: "100%"}} />
+            <TextField id="standard-basic" label="📝글 제목" style={{width: "100%"}} onChange={changeTitle} />
           </WriteTitle>
           <TextField
                 id="outlined-multiline-static"
@@ -46,11 +60,11 @@ const PostWrite = (props) => {
                 multiline
                 rows={6}
                 variant="outlined"
-                // value={contents}
-                // onChange = {changeContents}
+                value={contents}
+                onChange = {changeContents}
               />
           <WriteSubmit onClick={() => {
-
+            addPost()
           }} >
             게시글 작성
           </WriteSubmit>
@@ -80,7 +94,7 @@ const WriteHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 20px;
+  padding: 0px 30px;
 `
 
 const WriteHeaderLeft = styled.div`
@@ -89,7 +103,7 @@ const WriteHeaderLeft = styled.div`
 `
 
 const PostAuthor = styled.div`
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
 `
 const WriteContent = styled.div`
@@ -100,6 +114,7 @@ const WriteContent = styled.div`
 const WriteUpload = styled.div`
   width: 100%;
   padding: 10px 20px;
+  margin-top: 20px;
 `
 const WriteImg = styled.img`
   width: 100%;

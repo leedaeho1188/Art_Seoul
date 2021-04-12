@@ -11,7 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 const { kakao } = window;
 
-const Map = () => {
+const Map = (props) => {
   const dispatch = useDispatch()
   const [ is_modal, setModal ] = useState(false);
   const [ is_write, setWrite ] = useState(false);
@@ -78,6 +78,7 @@ const Map = () => {
   const markerDetail = (id) => {
     setmarkerId(id)
     setWrite(true)
+    props.showPost()
   }
 
   const closeModal = () => {
@@ -95,7 +96,7 @@ const Map = () => {
       <Fab color="primary" aria-label="add" variant="extended" onClick={() => {
         history.push(`/write/${markerId}`)
       }}>
-        <AddIcon /><Word>일정추가</Word>
+        <AddIcon /><Word>게시글추가</Word>
       </Fab>
       </AddBtn>
       : null}

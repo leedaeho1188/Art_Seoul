@@ -6,11 +6,13 @@ import { connectRouter } from 'connected-react-router';
 import Image from './modules/image'
 import Marker from './modules/marker';
 import User from './modules/user';
+import Post from  './modules/post'
 
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
+  post: Post,
   image: Image,
   marker: Marker,
   user: User,
