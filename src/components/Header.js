@@ -26,21 +26,21 @@ const Header = () => {
 //   })
 
 
-// const is_login = useSelector((state)=>state.user.is_login) // 사용
-const is_session = sessionStorage.getItem("JWT") ? true: false;    //..?
+const is_login = useSelector((state)=>state.user.is_login)
+const is_session = sessionStorage.getItem("JWT") ? true: false;
 
- // 버튼 누르면 로그아웃 상태가 되고 어디로 보낼지 생각해둘 것
-  if( is_session){
+  if(is_login && is_session){
     return(
         <React.Fragment>
             <HeaderContainer>
                 <HeaderInnerContainer>
-                    <Title>ART SEOUL</Title>
+                    <Title>ART SEOUL</Title> 
                     <HeaderIcons>
                     <button onClick={()=>{
                         // props.history.push("/login");
                         // localStorage.removeItem('hi')
-                        dispatch(userActions.logoutSV());
+                        dispatch(userActions.logOut());
+                        history.push("/login") //어디로 보낼지 정해야한다
                     }}>LOG OUT</button>
                     <button>MY PAGE</button>
                     </HeaderIcons>

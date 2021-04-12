@@ -17,14 +17,14 @@ import {actionCreators as markerActions} from '../redux/modules/marker';
 
 function App() {
 
-  const dispatch = useDispatch();
-  const is_session = sessionStorage.getItem('JWT') ? true : false;
+  // const dispatch = useDispatch();
+  // const is_session = sessionStorage.getItem('JWT') ? true : false;
 
-  React.useEffect(() => {
-    if (is_session) {
-      dispatch(userActions.loginCheckSV());
-    }
-  }, []);
+  // React.useEffect(() => {
+  //   if (is_session) {
+  //     dispatch(userActions.loginCheckSV());
+  //   }
+  // }, []);
 
   return (
     <React.Fragment>
