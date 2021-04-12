@@ -1,15 +1,15 @@
-import React, {useState} from 'react'
-import styled from 'styled-components'
+import React, {useState} from 'react';
+import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
-import {useDispatch} from 'react-redux'
-import {actionCreators as markerActions } from '../redux/modules/marker'
+
+import {useDispatch} from 'react-redux';
+import {actionCreators as markerActions} from '../redux/modules/marker';
+
 
 const MarkerModal =(props) => {
   const dispatch = useDispatch()
   const [ title, setTitle ] = useState()
-  console.log(props.latitude)
-  console.log(props.longitude)
 
   const selectTitle = (e) => {
     console.log(e.target.value)

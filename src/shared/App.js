@@ -11,6 +11,7 @@ import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
+import {actionCreators as markerActions} from '../redux/modules/marker';
 
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
           <Route path="/signup" exact component={Signup}/>
           <Route exact component={NotFound}/>
         </Switch>
-    </ConnectedRouter>
+      </ConnectedRouter>
     </React.Fragment>
   )
 }

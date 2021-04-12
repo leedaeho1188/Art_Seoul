@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import MarkerModal from './MarkerModal'
-import map from '../redux/modules/user'
+import {useSelector} from 'react-redux'
+
 
 const { kakao } = window;
 
@@ -9,6 +10,8 @@ const Map = () => {
   const [is_modal, setModal ] = useState(false);
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
+  const positions = useSelector((state) => state.marker.list)
+  console.log(positions)
 
   useEffect(() => {
     const container = document.getElementById('myMap'); //지도 표시할 div
@@ -18,16 +21,16 @@ const Map = () => {
       };
     const map = new kakao.maps.Map(container, options);//지도를 생성합니다.
     
-    const positions = [
-      {
-        title: '서울시청',
-        latlng: new kakao.maps.LatLng(37.56668898308216, 126.97826745018008)
-      },
-      {
-        title: '롯데백화점',
-        latlng: new kakao.maps.LatLng(37.52645731493873, 126.94443076781533)
-      }
-    ]
+    // const positions = [
+    //   {
+    //     title: '서울시청',
+    //     latlng: new kakao.maps.LatLng(37.56668898308216, 126.97826745018008)
+    //   },
+    //   {
+    //     title: '롯데백화점',
+    //     latlng: new kakao.maps.LatLng(37.52645731493873, 126.94443076781533)
+    //   }
+    // ]
     
     var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
@@ -41,7 +44,7 @@ const Map = () => {
       const markers = new kakao.maps.Marker({
         // 지도 중심좌표에 마커를 생성합니다.
         map: map,
-        position: p.latlng ,
+        position: new kakao.maps.LatLng(p.latitude, p.longitude) ,
         title: p.title,
         image: markerImage,
       });
@@ -60,12 +63,6 @@ const Map = () => {
       //마커 위치를 클릭한 위치로 옮깁니다.
       marker.setPosition(latlng);
 
-      const message = '클릭한 위치의 위도는' + latlng.getLat() + '이고,'
-      + '경도는' + latlng.getLng() + '입니다';
-
-      const resultDiv = document.getElementById('ClickLatlng');
-      resultDiv.innerHTML = message;
-
       setLatitude(latlng.getLat())
       setLongitude(latlng.getLng())
     })
@@ -74,7 +71,7 @@ const Map = () => {
     kakao.maps.event.addListener(marker, 'click', function(){
       setModal(true)
     })
-  }, [])
+  }, [positions])
   
   const closeModal = () => {
     setModal(false)
