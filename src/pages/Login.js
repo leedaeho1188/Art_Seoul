@@ -16,15 +16,15 @@ const Login =(props)=> {
   
   //Input값 받아오는 과정
   const [id,setId] = React.useState(null)
-  const [pw,setPw] = React.useState(null)
+  const [password,setPw] = React.useState(null)
 
   //Local Storage 저장하는 역할에서! actioncreator를 dispatch해서 reducer에 전달하는 함수로 변화!
   const login = ()=> {
-    if(id===""||pw===""){
+    if(id===""||password===""){
       window.alert("아이디 혹은 비밀번호를 입력해주세요!")
       return;
     }
-    dispatch(userActions.loginSV(id,pw));
+    dispatch(userActions.loginSV(id,password));
   }
 
   return(

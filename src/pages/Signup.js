@@ -12,34 +12,34 @@ const Signup=()=> {
   const dispatch = useDispatch();
 
   const [id,setId] = React.useState(null)
-  const [pw,setPw] = React.useState(null)
-  const [pwc,setPwc] = React.useState(null)
-  const [user_name,setName] = React.useState(null)
+  const [password,setPw] = React.useState(null)
+  const [passwordc,setPwc] = React.useState(null)
+  const [nickname,setName] = React.useState(null)
   
   //위치 고려해서 넣을 것(영문 숫자 특수문자 1자리 이상이면서 4자에서 16자리 사이 통과)
-  const pwCheck = (pw) => {
+  const pwCheck = (password) => {
     let _reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{4,16}$/;
-    return _reg.test(pw);
+    return _reg.test(password);
   }
 
   const signup=()=>{
 
-    if(id===""||pw===""||user_name===""){
+    if(id===""||password===""||nickname===""){
       window.alert("모든 항목을 입력해주세요!")
       return;
     }
     
-    if (pw!== pwc) {
+    if (password!== passwordc) {
       window.alert("비밀번호 설정을 다시 확인하세요!");
       return;
     }
 
-    if(!pwCheck(pw)){
+    if(!pwCheck(password)){
       window.alert('비밀번호는 숫자/영문/특수문자를 포함한 4자이상 16자이하로 구성되어야합니다!');
       return;
     }
 
-    dispatch(userActions.signupSV(id,pw,user_name))
+    dispatch(userActions.signupSV(id,password,nickname))
   }
 
   return(
