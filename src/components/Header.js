@@ -27,9 +27,8 @@ const Header = () => {
 
 
 const is_login = useSelector((state)=>state.user.is_login)
-const is_session = sessionStorage.getItem("JWT") ? true: false;
 
-  if(is_login && is_session){
+  if(is_login){
     return(
         <React.Fragment>
             <HeaderContainer>

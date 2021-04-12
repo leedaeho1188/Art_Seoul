@@ -48,8 +48,8 @@ const Signup=()=> {
         <Title>ART SEOUL</Title>
         <IdBox onChange={(e)=>{setName(e.target.value)}} placeholder="닉네임을 입력해주세요"/>
         <IdBox onChange={(e)=>{setId(e.target.value)}} placeholder="아이디를 입력해주세요"/>
-        <PwBox onChange={(e)=>{setPw(e.target.value)}} placeholder="비밀번호를 입력해주세요"/>
-        <PwBox onChange={(e)=>{setPwc(e.target.value)}} placeholder="비밀번호를 한번 더 입력해주세요"/>
+        <PwBox onChange={(e)=>{setPw(e.target.value)}} placeholder="비밀번호를 입력해주세요" type="password" />
+        <PwBox onChange={(e)=>{setPwc(e.target.value)}} placeholder="비밀번호를 한번 더 입력해주세요" type="password" />
         <SignupButton onClick={()=>{signup()}}>회원가입</SignupButton>
       </LoginContainer>
     </React.Fragment>
