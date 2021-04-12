@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 import {useDispatch} from 'react-redux'
-import {actionCreators} from '../redux/modules/marker'
+import {actionCreators as markerActions } from '../redux/modules/marker'
 
 const MarkerModal =(props) => {
   const dispatch = useDispatch()
@@ -23,7 +23,7 @@ const MarkerModal =(props) => {
       title: title,
     }
     console.log(marker)
-    // dispatch(markerActions.addMarker(marker))
+    dispatch(markerActions.addMarker(marker))
 
     props.close()
   }

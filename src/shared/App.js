@@ -8,9 +8,22 @@ import {Switch, Route, BrowserRouter} from "react-router-dom"
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
 
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+
 
 
 function App() {
+
+  const dispatch = useDispatch();
+  const is_session = sessionStorage.getItem('JWT') ? true : false;
+
+  React.useEffect(() => {
+    if (is_session) {
+      dispatch(userActions.loginCheckSV());
+    }
+  }, []);
+
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
