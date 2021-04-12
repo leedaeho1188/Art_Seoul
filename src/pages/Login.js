@@ -32,7 +32,7 @@ const Login =(props)=> {
       <LoginContainer>
         <Title>ART SEOUL</Title>
         <IdBox onChange={(e)=>{setId(e.target.value)}} placeholder="아이디를 입력해주세요"/>
-        <PwBox onChange={(e)=>{setPw(e.target.value)}} placeholder="비밀번호를 입력해주세요"/>
+        <PwBox onChange={(e)=>{setPw(e.target.value)}} placeholder="비밀번호를 입력해주세요" type="password"/>
         <SignupText onClick={()=>{history.push("/signup")}}>아직 회원가입을 하지 않으셨나요?</SignupText>
         <LoginButton onClick={()=>{login()}}>로그인</LoginButton>
       </LoginContainer>

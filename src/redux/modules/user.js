@@ -93,27 +93,11 @@ const signupSV = (id,password,nickname)=>{
 
 
 
-// const loginCheckSV = () => {
-//   return function (dispatch, getState, {history}){
-//     axios(
-//       {
-//         method: 'POST',
-//         headers: {
-//           "content-type": "application/json",
-//         },
-//         url:"벡엔드 url",
-//         data:{
-//           id : id,
-//           pw : pw,
-//         }
-//       })
-//       .then((response)=>{
-//       }).then((token)=>{
-//       }).catch(error=>{
-//         console.log(error);
-//       })
-//   }
-// };
+const loginCheck= (id,password) => {
+  return function (dispatch, getState, {history}){
+     dispatch(setUser({id:id, password:password}))
+  }
+};
 
 
 export default handleActions(
@@ -146,7 +130,7 @@ const actionCreators = {
   getUser,
   signupSV,
   loginSV,
-  // loginCheckSV,
+  loginCheck,
 
 };
 
