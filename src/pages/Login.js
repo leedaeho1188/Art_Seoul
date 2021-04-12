@@ -1,19 +1,40 @@
-import React from 'react'
-import styled from 'styled-components'
-import {withRouter} from 'react-router-dom'
+import React from 'react';
+import styled from 'styled-components';
+import {withRouter} from 'react-router-dom';
+import {StylesProvider} from '@material-ui/styles';
+import {useState} from 'react';
+import {useDispatch} from "react-redux";
+import {actionCreators as userActions } from '../redux/modules/user';
+import {history} from "../redux/configureStore";
+
 
 
 
 const Login =(props)=> {
 
+  const dispatch = useDispatch();
+  
+  //Input값 받아오는 과정
+  const [id,setId] = React.useState(null)
+  const [pw,setPw] = React.useState(null)
+
+  //Local Storage 저장하는 역할에서! actioncreator를 dispatch해서 reducer에 전달하는 함수로 변화!
+  const login = ()=> {
+    if(id===""||pw===""){
+      window.alert("아이디 혹은 비밀번호를 입력해주세요!")
+      return;
+    }
+    dispatch(userActions.loginSV(id,pw));
+  }
+
   return(
     <React.Fragment>
       <LoginContainer>
-        <Title>ART KOREA</Title>
-        <IdBox placeholder="아이디를 입력해주세요"/>
-        <PwBox placeholder="비밀번호를 입력해주세요"/>
-        <SignupText onClick={()=>{props.history.push("/signup")}}>아직 회원가입을 하지 않으셨나요?</SignupText>
-        <LoginButton>로그인</LoginButton>
+        <Title>ART SEOUL</Title>
+        <IdBox onChange={(e)=>{setId(e.target.value)}} placeholder="아이디를 입력해주세요"/>
+        <PwBox onChange={(e)=>{setPw(e.target.value)}} placeholder="비밀번호를 입력해주세요"/>
+        <SignupText onClick={()=>{history.push("/signup")}}>아직 회원가입을 하지 않으셨나요?</SignupText>
+        <LoginButton onClick={()=>{login()}}>로그인</LoginButton>
       </LoginContainer>
     </React.Fragment>
   )
@@ -49,6 +70,9 @@ const IdBox = styled.input`
     outline: none;
     font-size: 5px;
     font-weight: bold;
+    &:hover{
+      border-bottom: 1.5px solid black;
+    };
 `
 
 const PwBox = styled.input`
@@ -65,6 +89,9 @@ const PwBox = styled.input`
     outline: none;
     font-size: 5px;
     font-weight: bold;
+    &:hover{
+      border-bottom: 1.5px solid black;
+    };
 `
 const SignupText = styled.button`
    font-size: 2px;
@@ -88,8 +115,9 @@ const LoginButton = styled.button`
     border-radius: 5px;
     outline: none;
     
+    
 `
 
 
 
-export default withRouter(Login);
+export default Login;

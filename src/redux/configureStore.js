@@ -2,15 +2,20 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { createBrowserHistory } from 'history';
 import { connectRouter } from 'connected-react-router';
-import Marker from './modules/marker'
+
 import Image from './modules/image'
+import Marker from './modules/marker';
+import User from './modules/user';
+
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   image: Image,
   marker: Marker,
+  user: User,
   router: connectRouter(history),
+  
 });
 
 const middlewares = [thunk.withExtraArgument({ history: history })];

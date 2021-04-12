@@ -1,18 +1,63 @@
 import React from 'react'
 import styled from 'styled-components'
-import {withRouter} from 'react-router-dom'
+import LockIcon from '@material-ui/icons/Lock';
+import { useSelector } from 'react-redux';
+import {useDispatch} from "react-redux"
+import {actionCreators as userActions } from '../redux/modules/user'
+import {history} from "../redux/configureStore";
 
 
 
-const Header = (props) => {
+const Header = () => {
+    
+    const dispatch = useDispatch();
+    
+//const [is_login, setIsLogin] = React.useState(false);
+  
+//해당 아이디가 있으면 로그인 상태가 변하면서 헤더가 변한다
+//   React.useEffect(()=>{
+//       let data = localStorage.getItem("hi")
+//       console.log(data)
+//       if(data){
+//           setIsLogin(true)
+//       }else{
+//           setIsLogin(false)
+//       }
+//   })
+
+
+// const is_login = useSelector((state)=>state.user.is_login) // 사용
+const is_session = sessionStorage.getItem("JWT") ? true: false;    //..?
+
+ // 버튼 누르면 로그아웃 상태가 되고 어디로 보낼지 생각해둘 것
+  if( is_session){
+    return(
+        <React.Fragment>
+            <HeaderContainer>
+                <HeaderInnerContainer>
+                    <Title>ART SEOUL</Title>
+                    <HeaderIcons>
+                    <button onClick={()=>{
+                        // props.history.push("/login");
+                        // localStorage.removeItem('hi')
+                        dispatch(userActions.logoutSV());
+                    }}>LOG OUT</button>
+                    <button>MY PAGE</button>
+                    </HeaderIcons>
+                </HeaderInnerContainer>
+            </HeaderContainer>
+        </React.Fragment>
+      )
+  } 
+
   return(
     <React.Fragment>
         <HeaderContainer>
             <HeaderInnerContainer>
                 <Title>ART SEOUL</Title>
                 <HeaderIcons>
-                <button onClick={()=>{props.history.push("/login")}}>LOGIN</button>
-                <button>LOGOUT</button>
+                <button onClick={()=>{history.push("/login")}}>LOG IN</button>
+                <button onClick={()=>{history.push("/signup")}}>SIGN UP</button>
                 </HeaderIcons>
             </HeaderInnerContainer>
         </HeaderContainer>
@@ -64,4 +109,4 @@ const Title = styled.div`
    };
 `
 //opacity 사용 나중에 해보기!
-export default withRouter(Header);
+export default Header;
