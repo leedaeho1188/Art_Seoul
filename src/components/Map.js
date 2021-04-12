@@ -1,36 +1,34 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import MarkerModal from './MarkerModal'
-import {useSelector} from 'react-redux'
+import {useDispatch ,useSelector} from 'react-redux'
+import {history} from '../redux/configureStore'
 
+import {actionCreators as markerActions} from "../redux/modules/marker"
+
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 const { kakao } = window;
 
 const Map = () => {
-  const [is_modal, setModal ] = useState(false);
+  const dispatch = useDispatch()
+  const [ is_modal, setModal ] = useState(false);
+  const [ is_write, setWrite ] = useState(false);
+  const [ markerId, setmarkerId ] = useState();
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const positions = useSelector((state) => state.marker.list)
-  console.log(positions)
+
 
   useEffect(() => {
+
     const container = document.getElementById('myMap'); //지도 표시할 div
       const options = {
         center: new kakao.maps.LatLng(37.545642179638556, 126.98117041998981), //지도 중심 좌표
         level: 8 //지도의 확대 레벨
       };
     const map = new kakao.maps.Map(container, options);//지도를 생성합니다.
-    
-    // const positions = [
-    //   {
-    //     title: '서울시청',
-    //     latlng: new kakao.maps.LatLng(37.56668898308216, 126.97826745018008)
-    //   },
-    //   {
-    //     title: '롯데백화점',
-    //     latlng: new kakao.maps.LatLng(37.52645731493873, 126.94443076781533)
-    //   }
-    // ]
     
     var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
@@ -48,6 +46,10 @@ const Map = () => {
         title: p.title,
         image: markerImage,
       });
+
+      kakao.maps.event.addListener(markers, 'click', function(){
+        markerDetail(p.id)
+      })
     })
 
     const marker = new kakao.maps.Marker({
@@ -73,17 +75,31 @@ const Map = () => {
     })
   }, [positions])
   
+  const markerDetail = (id) => {
+    setmarkerId(id)
+    setWrite(true)
+  }
+
   const closeModal = () => {
     setModal(false)
   }
 
   return(
     <React.Fragment>
-      <MapContainer id='myMap' >
-      </MapContainer>
+      <MapContainer id='myMap' />
       <div id='ClickLatlng'></div>
       {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} />
       : null }
+      {is_write? 
+      <AddBtn>
+      <Fab color="primary" aria-label="add" variant="extended" onClick={() => {
+        history.push(`/write/${markerId}`)
+      }}>
+        <AddIcon /><Word>일정추가</Word>
+      </Fab>
+      </AddBtn>
+      : null}
+      
     </React.Fragment>
   )
 
@@ -104,5 +120,16 @@ const MapContainer = styled.div`
 
 `
 
+const AddBtn = styled.div`
+  position: fixed;
+  right: 10px;
+  bottom: 100px;
+  z-index: 10;
+`
+const Word = styled.span`
+  @media (max-width:425px){
+    display: none
+  }
+`
 
 export default Map

@@ -19,9 +19,10 @@ const MarkerModal =(props) => {
       latitude: props.latitude,
       longitude : props.longitude,
       title: title,
+      markertype: "일반마커",
     }
     console.log(marker)
-    dispatch(markerActions.addMarker(marker))
+    dispatch(markerActions.addMarkerAX(marker))
 
     props.close()
   }

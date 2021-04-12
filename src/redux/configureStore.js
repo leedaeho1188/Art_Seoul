@@ -3,10 +3,12 @@ import thunk from 'redux-thunk';
 import { createBrowserHistory } from 'history';
 import { connectRouter } from 'connected-react-router';
 import Marker from './modules/marker'
+import Image from './modules/image'
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
+  image: Image,
   marker: Marker,
   router: connectRouter(history),
 });
