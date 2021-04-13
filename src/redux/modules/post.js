@@ -24,13 +24,8 @@ const addPostAX = (post) => {
     formData.append("image", post.image);
     formData.append("title", post.title);
     formData.append("contents", post.contents);
+    formData.append("markername", post.markername);
     
-    for (var key of formData.keys()){
-      console.log(key)
-    }
-    for (var value of formData.values()){
-      console.log(value)
-    }
     axios.post(`${config.api}/board/${post.markerId}`, formData, config.token)
       .then((res) => {
         window.alert("성공")
@@ -65,6 +60,7 @@ const getPostAX = (markerId) => {
             id: _post.boardId,
             title: _post.title,
             markerId: _post.markerId,
+            markername: _post.markername,
             contents: _post.contents,
             nickname: _post.nickname,
             image_url: _post.img[0],
@@ -85,7 +81,7 @@ export default handleActions(
       draft.list.unshift(action.payload.post)
     }),
     [SET_POST]: (state, action) => produce(state, (draft) => {
-      draft.list.push(...action.payload.post_list);
+      draft.list = [action.payload.post_list];
       draft.list = draft.list.reduce((acc, cur) => {
         if(acc.findIndex(a => a.id === cur.id) === -1 ){
           return [...acc, cur];

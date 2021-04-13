@@ -5,6 +5,7 @@ import PostWrite from './PostWrite'
 
 import {useDispatch ,useSelector} from 'react-redux'
 import {actionCreators as markerActions} from "../redux/modules/marker"
+import {actionCreators as postActions} from "../redux/modules/post"
 
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -80,6 +81,7 @@ const Map = (props) => {
     setmarkerId(id)
     setWrite(true)
     props.showPost()
+    dispatch(postActions.getPostAX(id))
   }
 
   const closeWriteModal = () => {
@@ -89,7 +91,7 @@ const Map = (props) => {
   const closeModal = () => {
     setModal(false)
   }
-
+  console.log(is_writeModal)
   return(
     <React.Fragment>
       <MapContainer id='myMap' />
