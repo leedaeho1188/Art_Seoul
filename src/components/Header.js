@@ -35,13 +35,13 @@ const is_login = useSelector((state)=>state.user.is_login)
                 <HeaderInnerContainer>
                     <Title>ART SEOUL</Title> 
                     <HeaderIcons>
-                    <button onClick={()=>{
+                    <Minibutton onClick={()=>{
                         // props.history.push("/login");
                         // localStorage.removeItem('hi')
                         dispatch(userActions.logOut());
                         history.push("/login") //어디로 보낼지 정해야한다
-                    }}>LOG OUT</button>
-                    <button>MY PAGE</button>
+                    }}><Text>LOG OUT</Text></Minibutton>
+                    <Minibutton><Text>MY PAGE</Text></Minibutton>
                     </HeaderIcons>
                 </HeaderInnerContainer>
             </HeaderContainer>
@@ -53,10 +53,10 @@ const is_login = useSelector((state)=>state.user.is_login)
     <React.Fragment>
         <HeaderContainer>
             <HeaderInnerContainer>
-                <Title>ART SEOUL</Title>
+                <Titlebutton onClick={()=>{history.push("/")}}><Title>ART SEOUL</Title></Titlebutton>
                 <HeaderIcons>
-                <button onClick={()=>{history.push("/login")}}>LOG IN</button>
-                <button onClick={()=>{history.push("/signup")}}>SIGN UP</button>
+                <Minibutton onClick={()=>{history.push("/login")}}><Text>SIGN IN</Text></Minibutton>
+                <Minibutton onClick={()=>{history.push("/signup")}}><Text>SIGN UP</Text></Minibutton>
                 </HeaderIcons>
             </HeaderInnerContainer>
         </HeaderContainer>
@@ -107,5 +107,28 @@ const Title = styled.div`
        color: grey;
    };
 `
+
+const Text = styled.div`
+    color: white;
+    font-size: 12px;
+   
+`
+const Titlebutton = styled.button`
+    background-color: black;
+    border: none;
+    &:hover{
+        color: grey;
+    };
+`
+
+const Minibutton = styled.button`
+   background-color: black;
+   border-color: white;
+   width: 70px;
+   padding: 4px 2px 4px 2px;
+   border: none;
+   margin: 12px;
+`
+
 //opacity 사용 나중에 해보기!
 export default Header;
