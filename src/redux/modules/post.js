@@ -25,18 +25,15 @@ const addPostAX = (post) => {
   return function (dispatch, getState){
 
     const formData = new FormData();
-    formData.append("img", post.image);
+    formData.append("image", post.image);
     formData.append("title", post.title);
     formData.append("contents", post.contents);
     formData.append("markername", post.markername);
-    formData.append("date", moment().format("YYYY-MM-DD HH:mm:ss"));
-    formData.append("markerId", post.markerId);
     
-    
-    axios.post(`${config.api}/board`, formData, config.token)
+    axios.post(`${config.api}/board/${post.markerId}`, formData, config.token)
       .then((res) => {
         window.alert("성공")
-        console.log(res.data.result)
+        console.log(res)
         let _post = res.data.result
         let post_info = {
           id: _post.boardId,
@@ -45,7 +42,7 @@ const addPostAX = (post) => {
           markername: _post.markername,
           contents: _post.contents,
           nickname: _post.nickname,
-          image_url: _post.img[0],
+          image_url: _post.img,
           user_id: _post.userId,
           date: _post.date,
         }
@@ -58,18 +55,20 @@ const addPostAX = (post) => {
 
 const getPostAX = (markerId) => {
   return function (dispatch) {
-    axios.get(`${config.api}/board${markerId}`)
+    axios.get(`${config.api}/board/${markerId}`)
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data.board_list)
         let post_list = [];
-        response.data.forEach((_post) => {
+        response.data.board_list.forEach((_post) => {
           let post = {
             id: _post.boardId,
             title: _post.title,
             markerId: _post.markerId,
+            markername: _post.markername,
             contents: _post.contents,
             nickname: _post.nickname,
-            image_url: _post.img[0],
+            image_url: _post.img,
+            date: _post.date
           }
           post_list.unshift(post)
         })
@@ -147,7 +146,7 @@ export default handleActions(
       draft.list.unshift(action.payload.post)
     }),
     [SET_POST]: (state, action) => produce(state, (draft) => {
-      draft.list.push(...action.payload.post_list);
+      draft.list = [action.payload.post_list];
       draft.list = draft.list.reduce((acc, cur) => {
         if(acc.findIndex(a => a.id === cur.id) === -1 ){
           return [...acc, cur];

@@ -35,8 +35,7 @@ function App() {
           <Route path="/" exact component={Main}/>
           <Route path="/login" exact component={Login}/>
           <Route path="/signup" exact component={Signup}/>
-          <Route path="/mypage" exact component={Mypage}/>
-          
+          <Route path="/mypage" exact component={Mypage}/>          
           <Route exact component={NotFound}/>
         </Switch>
       </ConnectedRouter>

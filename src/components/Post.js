@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components'
 
 import {time} from '../shared/Time'
+import PostUpdateModal from './PostUpdateModal'
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 const Post = (props) => {
+
+  const [ is_modal, setModal ] = useState(false)
+
+  const closeModal = () => {
+    setModal(false)
+  }
   
   return (
     <React.Fragment>
@@ -14,7 +21,9 @@ const Post = (props) => {
           <PostAuthor>
             {props.nickname}
           </PostAuthor>
-          <MoreHorizIcon height="14px" width="14px" cursor="pointer"/>
+          <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={() => {
+            setModal(true)
+          }}  />
         </PostHeader>
         <PostBody>
           <PostImage src={props.image_url} />
@@ -24,15 +33,16 @@ const Post = (props) => {
           </PostContents>
           <PostBottom>
             <InsertTime>
-              {time(props.date)}
+              {props.date}
             </InsertTime>
             <PostPlace>
-              예술의 전당
+              {props.markername}
             </PostPlace>
           </PostBottom>
         </PostBody>
-
       </PostBox>
+      {is_modal? <PostUpdateModal nickname = {props.nickname} close={closeModal} />
+      :null}
     </React.Fragment>
 
   )

@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from 'axios';
+import {config} from '../../shared/config'
 import {useState} from 'react';
 
 
@@ -29,7 +30,6 @@ const getUser = createAction(GET_USER, (user) => ({user}));
 const initialState = {
   user: {
     id: null,
-    password: null,
     nickname: null,
   },
   is_login: false,
@@ -53,10 +53,18 @@ const loginSV = (id,password)=>{
         },
       })
       .then((response)=>{
-        console.log(response)
-        dispatch(setUser({id:id, password:password})); //user정보와 로그인상태가 리덕스에 담긴다
         sessionStorage.setItem("JWT", response.data.result.user.token);
-        history.push("/") 
+        axios.get(`${config.api}/user/`, config.token)
+          .then((res) => {
+            console.log(res.data)
+            let user = {
+              id: res.data[0].id,
+              nickname: res.data[1].nickname
+            }
+            dispatch(setUser(user))
+            history.push('/')
+          })
+
       }).catch(error=>{
         console.log(error);
         window.alert("로그인 오류")
@@ -95,7 +103,16 @@ const signupSV = (id,password,nickname)=>{
 
 const loginCheck= (id,password) => {
   return function (dispatch, getState, {history}){
-     dispatch(setUser({id:id, password:password}))
+    axios.get(`${config.api}/user/`, config.token)
+      .then((res) => {
+        console.log(res.data)
+        let user = {
+          id: res.data[0].id,
+          nickname: res.data[1].nickname
+        }
+        dispatch(setUser(user))
+      })
+
   }
 };
 

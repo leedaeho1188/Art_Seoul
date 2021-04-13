@@ -43,12 +43,12 @@ const PostWrite = (props) => {
     console.log(post)
     dispatch(postActions.addPostAX(post))
     props.close()
+    window.scrollTo(0,0)
   }
 
   return (
     <React.Fragment>
       <WriteBackground onClick={props.close} />
-      <WriteContainer>
       <WriteBox>
         <WriteContent>
           <WriteUpload>
@@ -72,7 +72,6 @@ const PostWrite = (props) => {
           </WriteSubmit>
         </WriteContent>
       </WriteBox>
-      </WriteContainer>
     </React.Fragment>
   )
 
@@ -96,6 +95,11 @@ const WriteContainer = styled.div`
   z-index: 20;
 `
 const WriteBox = styled.div`
+  position: absolute;
+  z-index: 20;
+  top: 55px;
+  left: 50%;
+  transform: translate(-50%);
   width: 614px;
   border: 1px solid #DBDBDB;
   border-radius: 3px;

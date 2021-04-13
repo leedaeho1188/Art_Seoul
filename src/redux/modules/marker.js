@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from 'axios';
 import { history } from "../configureStore"
+import { config } from "../../shared/config"
 
 const ADD_MARKER = "ADD_MARKER";
 const SET_MARKER = "SET_MARKER";
@@ -15,9 +16,9 @@ const initialState = {
 
 const addMarkerAX = (marker) => {
   return function (dispatch){
-    axios.post("https://6068922e0add490017340329.mockapi.io/api/mocked/marker", {
+    axios.post(`${config.api}/marker`, {
       markername: marker.title, location: [marker.latitude.toString(), marker.longitude.toString()], markertype: marker.markertype,
-    }).then((response) => {
+    }, config.token).then((response) => {
       console.log(response.data)
       let marker_info = {...marker, markerId: response.data.id}
       dispatch(addMarker(marker_info))
@@ -27,21 +28,23 @@ const addMarkerAX = (marker) => {
 
 const getMarkerAX = () => {
   return function (dispatch){
-    axios.get("https://6068922e0add490017340329.mockapi.io/api/mocked/marker")
+    axios.get(`${config.api}/marker/display`)
       .then((res) => {
         console.log(res.data)
         let marker_list = [];
         res.data.forEach((_marker) => {
           let marker = {
-            id: _marker.id,
+            id: _marker._id,
             title: _marker.markername,
             latitude: _marker.location[0],
             longitude: _marker.location[1],
             markertype: _marker.markertype,
+            boardcount: _marker.boardcount,
           }
 
           marker_list.unshift(marker)
         })
+        console.log(marker_list)
         dispatch(setMarker(marker_list))
       })
   }
