@@ -3,6 +3,8 @@ import Header from  "../components/Header"
 import Main from  "../pages/Main"
 import Login from  "../pages/Login"
 import Signup from  "../pages/Signup"
+import Mypage from  "../pages/Mypage"
+import PostWrite from "../pages/PostWrite"
 import NotFound from  "../pages/NotFound"
 import {Switch, Route, BrowserRouter} from "react-router-dom"
 import { ConnectedRouter } from "connected-react-router";
@@ -33,6 +35,8 @@ function App() {
           <Route path="/" exact component={Main}/>
           <Route path="/login" exact component={Login}/>
           <Route path="/signup" exact component={Signup}/>
+          <Route path="/mypage" exact component={Mypage}/>
+          <Route path="/write/:id" exact component={PostWrite} />
           <Route exact component={NotFound}/>
         </Switch>
       </ConnectedRouter>

@@ -16,11 +16,16 @@ const Signup=()=> {
   const [passwordc,setPwc] = React.useState(null)
   const [nickname,setName] = React.useState(null)
   
-  //위치 고려해서 넣을 것(영문 숫자 특수문자 1자리 이상이면서 4자에서 16자리 사이 통과)
-  const pwCheck = (password) => {
-    let _reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{4,16}$/;
-    return _reg.test(password);
+  const idCheck = (id) =>{
+    let idReg = /^(?=.*[a-zA-z])(?=.*[0-9]).{3,20}$/g;
+    return idReg.test(id);
   }
+  
+  const pwCheck = (password) => {
+    let pwReg = /^(?=.*[a-zA-z0-9_]).{4,20}$/;
+    return pwReg.test(password);
+  }
+
 
   const signup=()=>{
 
@@ -34,10 +39,20 @@ const Signup=()=> {
       return;
     }
 
-    if(!pwCheck(password)){
-      window.alert('비밀번호는 숫자/영문/특수문자를 포함한 4자이상 16자이하로 구성되어야합니다!');
-      return;
-    }
+    // if(!idCheck(id)){
+    //   window.alert('아이디는 3자리 이상이어야하며, 영문 대/소문자 & 숫자 & _만 가능합니다!');
+    //   return;
+    // }
+
+    // if(!pwCheck(password)){
+    //   window.alert('비밀번호는 4자리 이상이어야하며, ID나 공백을 포함해서는 안됩니다');
+    //   return;
+    // }
+
+    // if(password.search(id)>-1){
+    //   window.alert("비밀번호에 아이디가 포함되었습니다")
+    //   return;
+    // }
 
     dispatch(userActions.signupSV(id,password,nickname))
   }
