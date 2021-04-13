@@ -9,12 +9,16 @@ import moment from "moment";
 
 const ADD_POST = "ADD_POST";
 const SET_POST = "SET_POST";
+const GET_MY_POST = "GET_MY_POST";
 
 const addPost = createAction(ADD_POST, (post) => ({post}))
 const setPost = createAction(SET_POST, (post_list) => ({post_list}))
+const getmyPost = createAction(GET_MY_POST,(my_list)=>({my_list}))
+
 
 const initialState ={
   list : [],
+  mylist:[],
 }
 
 const addPostAX = (post) => {
@@ -77,6 +81,66 @@ const getPostAX = (markerId) => {
   }
 }
 
+const getmyPostAX = () => {
+  return function (dispatch){
+      axios.get(`${config.api}/board/myboard`,config.token)
+      .then((response) => {
+        console.log(response)
+        //my_list로 데이터 정제
+        let my_list = [];
+        response.data.forEach((_item) => {
+          let item = {
+            id: _item.boardId,
+            title: _item.title,
+            contents: _item.contents,
+            nickname: _item.nickname,
+            image_url: _item.img[0],
+          }
+          my_list.unshift(item)
+        })
+        console.log(my_list)
+        
+        //redux에도 값 변경
+        dispatch(getmyPost(my_list))
+      }).catch((err) => {
+        console.log(err)
+      })
+  }
+}
+
+
+// axios(
+//   {
+//     method: 'GET',
+//     headers: {authorization: `Bearer ${sessionStorage.getItem('JWT')}`
+//     },
+//     url: "http://13.125.250.74/board/myboard",  
+//     data:{
+//     },
+//   })
+//   .then((response) => {
+//     console.log(response)
+//     //my_list로 데이터 정제
+//     let my_list = [];
+//     response.data.forEach((_item) => {
+//       let item = {
+//         id: _item.boardId,
+//         title: _item.title,
+//         contents: _item.contents,
+//         nickname: _item.nickname,
+//         image_url: _item.img[0],
+//       }
+//       my_list.unshift(item)
+//     })
+//     console.log(my_list)
+    
+//     //redux에도 값 변경
+//     dispatch(getmyPost(my_list))
+//   }).catch((err) => {
+//     console.log(err)
+//   })
+
+
 export default handleActions(
   {
     [ADD_POST]: (state, action) => produce(state, (draft) => {
@@ -92,6 +156,10 @@ export default handleActions(
           return acc;
         }
       })
+    }),
+    [GET_MY_POST]: (state,action) => produce(state, (draft)=>{
+      draft.mylist.unshift(...action.payload.my_list);
+      // 위에 줄 잠시보류
     })
   },
   initialState
@@ -100,6 +168,7 @@ export default handleActions(
 const actionCreators = {
   addPostAX,
   getPostAX,
+  getmyPostAX,
 }
 
 export {actionCreators}

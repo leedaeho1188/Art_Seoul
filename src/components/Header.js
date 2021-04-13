@@ -33,7 +33,7 @@ const is_login = useSelector((state)=>state.user.is_login)
         <React.Fragment>
             <HeaderContainer>
                 <HeaderInnerContainer>
-                    <Title>ART SEOUL</Title> 
+                    <Title onClick={()=>{history.push("/")}}>ART SEOUL</Title> 
                     <HeaderIcons>
                     <Minibutton onClick={()=>{
                         // props.history.push("/login");
@@ -41,7 +41,11 @@ const is_login = useSelector((state)=>state.user.is_login)
                         dispatch(userActions.logOut());
                         history.push("/login") //어디로 보낼지 정해야한다
                     }}><Text>LOG OUT</Text></Minibutton>
-                    <Minibutton><Text>MY PAGE</Text></Minibutton>
+                    <Minibutton onClick={()=>{
+                        history.push("/mypage")
+                    }}
+                    
+                    ><Text>MY PAGE</Text></Minibutton>
                     </HeaderIcons>
                 </HeaderInnerContainer>
             </HeaderContainer>
