@@ -4,8 +4,11 @@ import styled from 'styled-components'
 
 import CloseIcon from '@material-ui/icons/Close';
 
-const PostUpdateModal = (props) => {
+import {useDispatch} from 'react-redux'
+import {actionCreators as postActions} from '../redux/modules/post'
 
+const PostUpdateModal = (props) => {
+  const dispatch = useDispatch()
   return(
 
     <React.Fragment>
@@ -21,7 +24,9 @@ const PostUpdateModal = (props) => {
           <ModalSubmitBtn>
             수정하기
           </ModalSubmitBtn>
-          <ModalSubmitBtn>
+          <ModalSubmitBtn onClick={() => {
+            dispatch(postActions.removePostAX(props.boardId))
+          }} >
             삭제하기
           </ModalSubmitBtn>
         </ModalButtonContainer>

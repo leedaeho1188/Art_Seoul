@@ -45,7 +45,7 @@ const Post = (props) => {
           </PostBottom>
         </PostBody>
       </PostBox>
-      {is_modal? <PostUpdateModal nickname = {props.nickname} close={closeModal} />
+      {is_modal? <PostUpdateModal boardId={props.id} nickname = {props.nickname} close={closeModal} />
       :null}
     </React.Fragment>
 
