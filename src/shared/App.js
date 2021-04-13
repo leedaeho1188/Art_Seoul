@@ -10,6 +10,7 @@ import {Switch, Route, BrowserRouter} from "react-router-dom"
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
 
+import styled from 'styled-components'
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
@@ -27,7 +28,7 @@ function App() {
   }, []);
 
   return (
-    <React.Fragment>
+    <AppContainer>
       <ConnectedRouter history={history}>
       <Header/>
         <Switch>
@@ -39,8 +40,12 @@ function App() {
           <Route exact component={NotFound}/>
         </Switch>
       </ConnectedRouter>
-    </React.Fragment>
+    </AppContainer>
   )
 }
+
+const AppContainer = styled.div`
+  overflow-x: hidden;
+`
 
 export default App;

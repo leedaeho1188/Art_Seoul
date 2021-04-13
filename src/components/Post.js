@@ -1,28 +1,30 @@
 import React from 'react';
 import styled from 'styled-components'
 
+import {time} from '../shared/Time'
+
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-const Post = () => {
+const Post = (props) => {
   
   return (
     <React.Fragment>
       <PostBox>
         <PostHeader>
           <PostAuthor>
-            Bradlee
+            {props.nickname}
           </PostAuthor>
           <MoreHorizIcon height="14px" width="14px" cursor="pointer"/>
         </PostHeader>
         <PostBody>
-          <PostImage src="https://t1.daumcdn.net/liveboard/cineplay/f97e52678e7b4f78af698b3cd42dbce6.JPG" />
-          <PostTitle> 🐱캣츠 40주년 내한공연 </PostTitle>
+          <PostImage src={props.image_url} />
+          <PostTitle> {props.title} </PostTitle>
           <PostContents>
-            캣츠 40주년 내한공연 너무 재미있네요 이거는 꼭 추천합니다.
+            {props.contents}
           </PostContents>
           <PostBottom>
             <InsertTime>
-              1시간전
+              {time(props.date)}
             </InsertTime>
             <PostPlace>
               예술의 전당

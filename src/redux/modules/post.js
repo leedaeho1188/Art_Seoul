@@ -2,6 +2,8 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from 'axios';
 import { history } from "../configureStore"
+import { config } from "../../shared/config"
+
 
 const ADD_POST = "ADD_POST";
 const SET_POST = "SET_POST";
@@ -16,15 +18,25 @@ const initialState ={
 const addPostAX = (post) => {
   return function (dispatch, getState){
     const image = getState().image.preview;
-    const token = sessionStorage.getItem('JWT');
-    const headers= {
-      authorization: token
-    }
-    axios.post("http://13.125.250.74/api/board", {...post, }, headers)
-      .then((response) => {
-        console.log(response.data)
-        
-        dispatch(addPost())
+
+    // axios.post("http://13.125.250.74/image",  ).then((reponse) => {
+
+    // })
+    axios.post(`${config.api}/board`, {...post}, config.token)
+      .then((res) => {
+        console.log(res.data.result)
+        let _post = res.data.result
+        let post_info = {
+          id: _post.boardId,
+          title: _post.title,
+          markerId: _post.markerId,
+          contents: _post.contents,
+          nickname: _post.nickname,
+          image_url: _post.img[0],
+          user_id: _post.userId,
+          date: _post.date,
+        }
+        dispatch(addPost(post_info))
     }).catch((err) => {
       console.log(err)
     })
@@ -33,10 +45,23 @@ const addPostAX = (post) => {
 
 const getPostAX = (markerId) => {
   return function (dispatch) {
-    axios.get("http://13.125.250.74/api/board", {markerId: markerId})
+    axios.get(`${config.api}/board${markerId}`)
       .then((response) => {
         console.log(response.data)
-        // dispatch(setPost())
+        let post_list = [];
+        response.data.forEach((_post) => {
+          let post = {
+            id: _post.boardId,
+            title: _post.title,
+            markerId: _post.markerId,
+            contents: _post.contents,
+            nickname: _post.nickname,
+            image_url: _post.img[0],
+          }
+          post_list.unshift(post)
+        })
+        console.log(post_list)
+        dispatch(setPost(post_list))
       }).catch((err) => {
         console.log(err)
       })
