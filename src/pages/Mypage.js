@@ -8,22 +8,24 @@ import Card from "../components/Card"
 const Mypage = () => {
 
   const mypost_list=[
-    {id: 0, name:"test1"},{id: 2, name:"test2"},
-    {id: 3, name:"test3"},{id: 4, name:"test4"},
-    {id: 6, name:"test5"}
+    {id: 0, src:"https://images.unsplash.com/photo-1618199784928-4aae3694f03f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"},
+    {id: 2, src:"https://images.unsplash.com/photo-1549439602-43ebca2327af?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"},
+    {id: 3, src:"https://images.unsplash.com/photo-1446822775955-c34f483b410b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"},
+    {id: 4, src:"https://images.unsplash.com/photo-1519868343531-805e97cbda3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&q=80"},
+    {id: 6, src:"https://images.unsplash.com/photo-1476886188504-fd741bfc8e8a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1301&q=80"}, 
   ];
 
   return(
   <React.Fragment>
   <PostContainer>
-  
+ 
   {mypost_list.map((item,idx)=> {
     return(
       
       <Card key={item.id} {...item}></Card>
       
     )}
-  )};
+  )}
   
   </PostContainer> 
   </React.Fragment>
@@ -38,15 +40,16 @@ const PostContainer = styled.div`
   background-color: black;
   border: 1px solid #e9ecef;
   margin-top:70px;     
+  display:flex;
+  
+  
+  // 줄바꿈 자동으로 되도록 + flex-item간의 간격이 줄어들도록!
+  flex-wrap: wrap;
+  align-content:flex-start;
+
+  
 `;
 
 
-const Text = styled.p`
-  font-size: ${(props) => (props.size ? `${props.size}` : "16px")};
-  ${(props) => (props.underline ? "text-decoration: underline;" : "")}
-  ${(props) => (props.color ? `color: ${props.color};` : "")}
-  margin: 4px 0px;
-  text-align: left;
-`;
 
 export default Mypage;

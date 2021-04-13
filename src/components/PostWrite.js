@@ -159,4 +159,4 @@ const WriteSubmit = styled.button`
 
 
 
-export default PostWrite
+export default PostWrite;
