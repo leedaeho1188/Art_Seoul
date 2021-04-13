@@ -30,7 +30,11 @@ const addPostAX = (post) => {
     formData.append("contents", post.contents);
     formData.append("markername", post.markername);
     
-    axios.post(`${config.api}/board/${post.markerId}`, formData, config.token)
+    let token = {
+      headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
+    }
+
+    axios.post(`${config.api}/board/${post.markerId}`, formData, token)
       .then((res) => {
         window.alert("성공")
         console.log(res)

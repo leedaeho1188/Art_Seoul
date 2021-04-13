@@ -67,7 +67,6 @@ const loginSV = (id,password)=>{
               dispatch(setUser(user))
               history.push('/')
             })
-
       }).catch(error=>{
         console.log(error);
         window.alert("로그인 오류")

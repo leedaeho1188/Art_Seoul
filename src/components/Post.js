@@ -4,18 +4,18 @@ import styled from 'styled-components'
 import {time} from '../shared/Time'
 import PostUpdateModal from './PostUpdateModal'
 
-import moment from "moment";
-
+import {useSelector} from 'react-redux'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 
 const Post = (props) => {
-
+  const user_info = useSelector((state) => state.user.user)
   const [ is_modal, setModal ] = useState(false)
+
   const closeModal = () => {
     setModal(false)
   }
-  // console.log(moment().format("YYYY-MM-DD HH:mm:ss"))
+
   return (
     <React.Fragment>
       <PostBox>
@@ -23,9 +23,11 @@ const Post = (props) => {
           <PostAuthor>
             {props.nickname}
           </PostAuthor>
+          {user_info.id === props.userId? 
           <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={() => {
             setModal(true)
           }}  />
+          : null}
         </PostHeader>
         <PostBody>
           <PostImage src={props.image_url} />
