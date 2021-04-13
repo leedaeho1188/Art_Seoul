@@ -5,22 +5,21 @@ const Card =(props)=>{
 
     return(
         <React.Fragment>
-            <Content>{props.name}</Content>
+            <Content {...props}></Content>
         </React.Fragment>
     )
 }
 
+// item들 가운데 정렬 나중에 반응형 잡으면서 넣기
 const Content = styled.div`
   width: 150px;
-  min-width: 150px;
   height: 150px;
-  background-color: red;
   border: 1px solid #e9ecef;  
-  margin: 0px 20px 0px 0px;
-  position: relative;
-  
+  margin: 20px 20px 0px 27px;
+  border-radius: 5px;
+  background-image: url("${(props) => props.src}");
+  background-size: cover;
 
-  
 `;
 
 export default Card; 
