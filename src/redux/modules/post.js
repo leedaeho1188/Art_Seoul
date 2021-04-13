@@ -68,7 +68,8 @@ const getPostAX = (markerId) => {
             contents: _post.contents,
             nickname: _post.nickname,
             image_url: _post.img,
-            date: _post.date
+            date: _post.date,
+            userId: _post.userId
           }
           post_list.unshift(post)
         })
@@ -93,7 +94,11 @@ const getmyPostAX = () => {
             title: _item.title,
             contents: _item.contents,
             nickname: _item.nickname,
-            image_url: _item.img[0],
+            userId: _item.userId,
+            date: _item.date,
+            markerId: _item.markerId,
+            markername: _item.markername,
+            image_url: _item.img,
           }
           my_list.unshift(item)
         })
