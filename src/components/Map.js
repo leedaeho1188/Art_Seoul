@@ -1,28 +1,29 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import MarkerModal from './MarkerModal'
-import {useDispatch ,useSelector} from 'react-redux'
-import {history} from '../redux/configureStore'
+import PostWrite from './PostWrite'
 
+import {useDispatch ,useSelector} from 'react-redux'
 import {actionCreators as markerActions} from "../redux/modules/marker"
 
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import { TrafficRounded } from '@material-ui/icons'
 
 const { kakao } = window;
 
 const Map = (props) => {
   const dispatch = useDispatch()
   const [ is_modal, setModal ] = useState(false);
+  const [ is_writeModal, setWriteModal ] = useState(false);
   const [ is_write, setWrite ] = useState(false);
   const [ markerId, setmarkerId ] = useState();
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const positions = useSelector((state) => state.marker.list)
-
+  const post_list = useSelector((state) => state.post.list)
 
   useEffect(() => {
-
     const container = document.getElementById('myMap'); //지도 표시할 div
       const options = {
         center: new kakao.maps.LatLng(37.545642179638556, 126.98117041998981), //지도 중심 좌표
@@ -81,6 +82,10 @@ const Map = (props) => {
     props.showPost()
   }
 
+  const closeWriteModal = () => {
+    setWriteModal(false)
+  }
+
   const closeModal = () => {
     setModal(false)
   }
@@ -94,13 +99,15 @@ const Map = (props) => {
       {is_write? 
       <AddBtn>
       <Fab color="primary" aria-label="add" variant="extended" onClick={() => {
-        history.push(`/write/${markerId}`)
+        setWriteModal(true)
+        window.scrollTo(0,0)
       }}>
         <AddIcon /><Word>게시글추가</Word>
       </Fab>
       </AddBtn>
       : null}
-      
+      {is_writeModal? <PostWrite markerId = {markerId} close={closeWriteModal} />
+      : null}
     </React.Fragment>
   )
 

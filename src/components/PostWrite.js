@@ -12,7 +12,9 @@ const PostWrite = (props) => {
   const dispatch = useDispatch()
   const [title, setTitle] = useState()
   const [contents, setContents] = useState()
-  const marker_id = props.match.params.id
+  const marker_list = useSelector((state) => state.marker.list)
+  const idx = marker_list.findIndex(m => m.id === props.markerId)
+  const marker = marker_list[idx]
   const preview = useSelector((state) => state.image.preview)
   
   useEffect(() => {
@@ -29,23 +31,20 @@ const PostWrite = (props) => {
 
   const addPost = () => {
     let post = {
-      markerId: marker_id,
+      // markername: marker.markername,
+      markerId: props.markerId,
       title: title,
       contents: contents,
     }
     dispatch(postActions.addPostAX(post))
+    props.close()
   }
 
   return (
     <React.Fragment>
+      <WriteBackground onClick={props.close} />
+      <WriteContainer>
       <WriteBox>
-        {/* <WriteHeader>
-          <WriteHeaderLeft>
-            <PostAuthor>
-              {marker? marker.title :null}
-            </PostAuthor>
-          </WriteHeaderLeft>
-        </WriteHeader> */}
         <WriteContent>
           <WriteUpload>
             <Upload/>
@@ -63,26 +62,41 @@ const PostWrite = (props) => {
                 value={contents}
                 onChange = {changeContents}
               />
-          <WriteSubmit onClick={() => {
-            addPost()
-          }} >
+          <WriteSubmit onClick={addPost}>
             게시글 작성
           </WriteSubmit>
         </WriteContent>
       </WriteBox>
+      </WriteContainer>
     </React.Fragment>
   )
 
 }
 
+const WriteBackground = styled.div`
+  position: fixed;
+  top: 0;
+  opacity: 0.4;
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  z-index: 10;
+`
+const WriteContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  margin-top: 145px;
+`
 const WriteBox = styled.div`
   width: 614px;
   border: 1px solid #DBDBDB;
   border-radius: 3px;
   box-sizing: border-box;
   margin: auto;
-  margin-bottom: 60px; 
-  margin-top: 130px;
+  margin-bottom: 80px; 
   background: white;
   padding-bottom: 20px;
   @media (max-width: 614px){
