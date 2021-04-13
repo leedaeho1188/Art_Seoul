@@ -30,11 +30,12 @@ const MyPost =(props)=>{
 const Content = styled.div`
   width: 150px;
   height: 150px;
-  border: none;
+  border: 1px solid #e9ecef;
   margin: 20px 20px 0px 27px;
   border-radius: 5px;
-  background-image: url("${(props) => props.src}");
+  background-image: url("${(props) => props.image_url}");
   background-size: cover;
+  background-color: white;
 
 `;
 

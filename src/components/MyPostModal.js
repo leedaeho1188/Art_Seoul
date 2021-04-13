@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import {time} from '../shared/Time'
 
 //해당 게시글에 대한 내용을 모달에 띄워야한다 + props로 이미지 내려주기(완) + 영역나눠주기!
 const MyPostModal = (props) => {
@@ -10,9 +11,15 @@ const MyPostModal = (props) => {
       <Component onClick={props.close}/>
       <Modal>
         <ImageInModal {...props}/>
-        <Text>nickname</Text>
-        <Text>title</Text>
-        <Text>content</Text>
+        
+        <TextContainer>
+        <Text>{props.nickname}</Text>
+        <Text><p>{props.title}</p></Text>
+        <Text><p>{props.contents}</p></Text>
+        <Text><p>{props.markername}</p></Text>
+        <Text>{time(props.date)}</Text>
+        </TextContainer>
+
       </Modal>
     </React.Fragment>
   )
@@ -33,7 +40,7 @@ const ImageInModal = styled.div`
   width: 420px;
   height: 425px;
   border: none;
-  background-image: url("${(props) => props.src}");
+  background-image: url("${(props) => props.image_url}");
   background-size: cover;
   //짤리는거 보완
 
@@ -57,5 +64,10 @@ const Text = styled.div`
     color: black;
     font-weight: bold;
     font-size: 20px;
+`
+
+
+const TextContainer = styled.div`
+   displ
 `
   export default MyPostModal;

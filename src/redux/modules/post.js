@@ -30,9 +30,10 @@ const addPostAX = (post) => {
     formData.append("title", post.title);
     formData.append("contents", post.contents);
     formData.append("markername", post.markername);
-    
+
+    const _token= sessionStorage.getItem("JWT")
     let token = {
-      headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
+      headers : { authorization: `Bearer ${_token}`}
     }
 
     axios.post(`${config.api}/board/${post.markerId}`, formData, token)
@@ -88,7 +89,13 @@ const getPostAX = (markerId) => {
 
 const getmyPostAX = () => {
   return function (dispatch){
-      axios.get(`${config.api}/board/myboard`,config.token)
+
+      const _token= sessionStorage.getItem("JWT")
+      let token = {
+        headers : { authorization: `Bearer ${_token}`}
+      }
+
+      axios.get(`${config.api}/board/myboard`,token)
       .then((response) => {
         console.log(response)
         //my_list로 데이터 정제
@@ -149,7 +156,17 @@ export default handleActions(
       })
     }),
     [GET_MY_POST]: (state,action) => produce(state, (draft)=>{
-      draft.mylist.unshift(...action.payload.my_list);
+      draft.mylist = [action.payload.my_list];
+
+      //코드 다시 이해할 것!!
+      draft.mylist = draft.mylist.reduce((acc, cur) => {
+        if(acc.findIndex(a => a.id === cur.id) === -1 ){
+          return [...acc, cur];
+        }else{
+          acc[acc.findIndex((a) => a.id === cur.id)] = cur;
+          return acc;
+        }
+      })
       // 위에 줄 잠시보류
     }),
     [REMOVE_POST]: (state,action) => produce(state, (draft)=>{
