@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Upload from '../shared/Upload'
 
 import { useDispatch, useSelector } from "react-redux";
+import {actionCreators as imageActions} from "../redux/modules/image"
 import {actionCreators as markerActions} from "../redux/modules/marker"
 import {actionCreators as postActions} from "../redux/modules/post"
 import styled from 'styled-components'
@@ -12,13 +13,15 @@ const PostWrite = (props) => {
   const dispatch = useDispatch()
   const [title, setTitle] = useState()
   const [contents, setContents] = useState()
+  const [image, setImage] = useState()
   const marker_list = useSelector((state) => state.marker.list)
   const idx = marker_list.findIndex(m => m.id === props.markerId)
   const marker = marker_list[idx]
   const preview = useSelector((state) => state.image.preview)
   
+
   useEffect(() => {
-    dispatch(markerActions.getMarkerAX())
+    dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
   }, [])
   
   const changeTitle = (e) => {
@@ -31,11 +34,13 @@ const PostWrite = (props) => {
 
   const addPost = () => {
     let post = {
-      // markername: marker.markername,
+      markername: marker.title,
       markerId: props.markerId,
       title: title,
       contents: contents,
+      image: image
     }
+    console.log(post)
     dispatch(postActions.addPostAX(post))
     props.close()
   }
@@ -47,7 +52,7 @@ const PostWrite = (props) => {
       <WriteBox>
         <WriteContent>
           <WriteUpload>
-            <Upload/>
+            <Upload setImage={setImage} />
           </WriteUpload>
           <WriteImg src={preview ? preview : "http://via.placeholder.com/400x300"} />
           <WriteTitle>
@@ -84,11 +89,11 @@ const WriteBackground = styled.div`
 `
 const WriteContainer = styled.div`
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  padding: 55px 0px;
   z-index: 20;
-  margin-top: 145px;
 `
 const WriteBox = styled.div`
   width: 614px;
@@ -96,7 +101,6 @@ const WriteBox = styled.div`
   border-radius: 3px;
   box-sizing: border-box;
   margin: auto;
-  margin-bottom: 80px; 
   background: white;
   padding-bottom: 20px;
   @media (max-width: 614px){

@@ -6,13 +6,14 @@ import TextField from '@material-ui/core/TextField';
 import {useDispatch, useSelector} from "react-redux";
 import {actionCreators as imageActions} from "../redux/modules/image"
 
-const Upload = () => {
+const Upload = (props) => {
   const dispatch = useDispatch();
   const is_uploading = useSelector(state => state.image.uploading)
   const fileInput = React.useRef();
 
   const selectFile = () => {
     console.log(fileInput.current.files[0])
+    props.setImage(fileInput.current.files[0])
     const reader = new FileReader();
     const file = fileInput.current.files[0]
     if (file === undefined){
