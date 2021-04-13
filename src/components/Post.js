@@ -59,7 +59,7 @@ const PostBox = styled.div`
   border: 1px solid #DBDBDB;
   border-radius: 5px;
   box-sizing: border-box;
-  margin-top: 60px; 
+  margin-bottom: 60px; 
   background: white;
   padding-bottom: 20px;
   @media (max-width: 614px){

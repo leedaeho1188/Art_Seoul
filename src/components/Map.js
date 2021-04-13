@@ -118,6 +118,7 @@ const Map = (props) => {
 const MapContainer = styled.div`
   margin: auto;
   margin-top: 150px;
+  margin-bottom: 60px;
   width: 900px;
   height: 500px;
   @media (max-width: 1000px){
