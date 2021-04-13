@@ -53,17 +53,19 @@ const loginSV = (id,password)=>{
         },
       })
       .then((response)=>{
-        sessionStorage.setItem("JWT", response.data.result.user.token);
-        axios.get(`${config.api}/user/`, config.token)
-          .then((res) => {
-            console.log(res.data)
-            let user = {
-              id: res.data[0].id,
-              nickname: res.data[1].nickname
-            }
-            dispatch(setUser(user))
-            history.push('/')
-          })
+        sessionStorage.setItem("JWT", response.data.result.user.token)
+          .then(() => {
+          axios.get(`${config.api}/user/`, config.token)
+            .then((res) => {
+              console.log(res.data)
+              let user = {
+                id: res.data[0].id,
+                nickname: res.data[1].nickname
+              }
+              dispatch(setUser(user))
+              history.push('/')
+            })
+        })
 
       }).catch(error=>{
         console.log(error);

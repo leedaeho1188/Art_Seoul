@@ -4,16 +4,18 @@ import styled from 'styled-components'
 import {time} from '../shared/Time'
 import PostUpdateModal from './PostUpdateModal'
 
+import moment from "moment";
+
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 
 const Post = (props) => {
 
   const [ is_modal, setModal ] = useState(false)
-
   const closeModal = () => {
     setModal(false)
   }
-  
+  // console.log(moment().format("YYYY-MM-DD HH:mm:ss"))
   return (
     <React.Fragment>
       <PostBox>
@@ -33,7 +35,7 @@ const Post = (props) => {
           </PostContents>
           <PostBottom>
             <InsertTime>
-              {props.date}
+              {time(props.date)}
             </InsertTime>
             <PostPlace>
               {props.markername}
@@ -53,9 +55,9 @@ const PostBox = styled.div`
   margin: auto;
   width: 614px;
   border: 1px solid #DBDBDB;
-  border-radius: 3px;
+  border-radius: 5px;
   box-sizing: border-box;
-  margin-bottom: 60px; 
+  margin-top: 60px; 
   background: white;
   padding-bottom: 20px;
   @media (max-width: 614px){
