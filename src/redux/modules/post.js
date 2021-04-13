@@ -10,11 +10,12 @@ import moment from "moment";
 const ADD_POST = "ADD_POST";
 const SET_POST = "SET_POST";
 const GET_MY_POST = "GET_MY_POST";
+const REMOVE_POST = "REMOVE_POST"
 
 const addPost = createAction(ADD_POST, (post) => ({post}))
 const setPost = createAction(SET_POST, (post_list) => ({post_list}))
 const getmyPost = createAction(GET_MY_POST,(my_list)=>({my_list}))
-
+const removePost = createAction(REMOVE_POST, (post_id)=> ({post_id}))
 
 const initialState ={
   list : [],
@@ -29,6 +30,7 @@ const addPostAX = (post) => {
     formData.append("title", post.title);
     formData.append("contents", post.contents);
     formData.append("markername", post.markername);
+
     const _token= sessionStorage.getItem("JWT")
     let token = {
       headers : { authorization: `Bearer ${_token}`}
@@ -122,37 +124,19 @@ const getmyPostAX = () => {
   }
 }
 
-
-// axios(
-//   {
-//     method: 'GET',
-//     headers: {authorization: `Bearer ${sessionStorage.getItem('JWT')}`
-//     },
-//     url: "http://13.125.250.74/board/myboard",  
-//     data:{
-//     },
-//   })
-//   .then((response) => {
-//     console.log(response)
-//     //my_list로 데이터 정제
-//     let my_list = [];
-//     response.data.forEach((_item) => {
-//       let item = {
-//         id: _item.boardId,
-//         title: _item.title,
-//         contents: _item.contents,
-//         nickname: _item.nickname,
-//         image_url: _item.img[0],
-//       }
-//       my_list.unshift(item)
-//     })
-//     console.log(my_list)
-    
-//     //redux에도 값 변경
-//     dispatch(getmyPost(my_list))
-//   }).catch((err) => {
-//     console.log(err)
-//   })
+const removePostAX = (boardId) => {
+  return function (dispatch){
+    let token = {
+      headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
+    }
+    console.log(boardId)
+    axios.delete(`${config.api}/board/:${boardId}`, token)
+      .then((reponse) => {
+        console.log(reponse.data)
+        dispatch(removePost(boardId))
+      })
+  }
+}
 
 
 export default handleActions(
@@ -184,6 +168,13 @@ export default handleActions(
         }
       })
       // 위에 줄 잠시보류
+    }),
+    [REMOVE_POST]: (state,action) => produce(state, (draft)=>{
+      draft.list = draft.list.filter((r, idx) => {
+        if(r.id !== action.payload.post_id){
+          return [...draft.list, r]
+        }
+      })
     })
   },
   initialState
@@ -193,6 +184,7 @@ const actionCreators = {
   addPostAX,
   getPostAX,
   getmyPostAX,
+  removePostAX,
 }
 
 export {actionCreators}
