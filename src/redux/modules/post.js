@@ -3,6 +3,8 @@ import { produce } from "immer";
 import axios from 'axios';
 import { history } from "../configureStore"
 import { config } from "../../shared/config"
+import "moment";
+import moment from "moment";
 
 
 const ADD_POST = "ADD_POST";
@@ -17,19 +19,26 @@ const initialState ={
 
 const addPostAX = (post) => {
   return function (dispatch, getState){
-    const image = getState().image.preview;
 
-    // axios.post("http://13.125.250.74/image",  ).then((reponse) => {
-
-    // })
-    axios.post(`${config.api}/board`, {...post}, config.token)
+    const formData = new FormData();
+    formData.append("img", post.image);
+    formData.append("title", post.title);
+    formData.append("contents", post.contents);
+    formData.append("markername", post.markername);
+    formData.append("date", moment().format("YYYY-MM-DD HH:mm:ss"));
+    formData.append("markerId", post.markerId);
+    
+    
+    axios.post(`${config.api}/board`, formData, config.token)
       .then((res) => {
+        window.alert("성공")
         console.log(res.data.result)
         let _post = res.data.result
         let post_info = {
           id: _post.boardId,
           title: _post.title,
           markerId: _post.markerId,
+          markername: _post.markername,
           contents: _post.contents,
           nickname: _post.nickname,
           image_url: _post.img[0],
