@@ -54,8 +54,10 @@ const loginSV = (id,password)=>{
       })
       .then((response)=>{
         sessionStorage.setItem("JWT", response.data.result.user.token)
-          .then(() => {
-          axios.get(`${config.api}/user/`, config.token)
+        let token = {
+          headers : { authorization: `Bearer ${response.data.result.user.token}`}
+        }
+        axios.get(`${config.api}/user/`, token)
             .then((res) => {
               console.log(res.data)
               let user = {
@@ -65,7 +67,6 @@ const loginSV = (id,password)=>{
               dispatch(setUser(user))
               history.push('/')
             })
-        })
 
       }).catch(error=>{
         console.log(error);
