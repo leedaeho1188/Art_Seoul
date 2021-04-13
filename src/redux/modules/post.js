@@ -21,15 +21,17 @@ const addPostAX = (post) => {
   return function (dispatch, getState){
 
     const formData = new FormData();
-    formData.append("img", post.image);
+    formData.append("image", post.image);
     formData.append("title", post.title);
     formData.append("contents", post.contents);
-    formData.append("markername", post.markername);
-    formData.append("date", moment().format("YYYY-MM-DD HH:mm:ss"));
-    formData.append("markerId", post.markerId);
     
-    
-    axios.post(`${config.api}/board`, formData, config.token)
+    for (var key of formData.keys()){
+      console.log(key)
+    }
+    for (var value of formData.values()){
+      console.log(value)
+    }
+    axios.post(`${config.api}/board/${post.markerId}`, formData, config.token)
       .then((res) => {
         window.alert("성공")
         console.log(res.data.result)
@@ -54,7 +56,7 @@ const addPostAX = (post) => {
 
 const getPostAX = (markerId) => {
   return function (dispatch) {
-    axios.get(`${config.api}/board${markerId}`)
+    axios.get(`${config.api}/board/${markerId}`)
       .then((response) => {
         console.log(response.data)
         let post_list = [];
