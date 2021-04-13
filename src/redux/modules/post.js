@@ -29,7 +29,7 @@ const addPostAX = (post) => {
     axios.post(`${config.api}/board/${post.markerId}`, formData, config.token)
       .then((res) => {
         window.alert("성공")
-        console.log(res.data.result)
+        console.log(res)
         let _post = res.data.result
         let post_info = {
           id: _post.boardId,
@@ -38,7 +38,7 @@ const addPostAX = (post) => {
           markername: _post.markername,
           contents: _post.contents,
           nickname: _post.nickname,
-          image_url: _post.img[0],
+          image_url: _post.img,
           user_id: _post.userId,
           date: _post.date,
         }
@@ -53,9 +53,9 @@ const getPostAX = (markerId) => {
   return function (dispatch) {
     axios.get(`${config.api}/board/${markerId}`)
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data.board_list)
         let post_list = [];
-        response.data.forEach((_post) => {
+        response.data.board_list.forEach((_post) => {
           let post = {
             id: _post.boardId,
             title: _post.title,
@@ -63,7 +63,8 @@ const getPostAX = (markerId) => {
             markername: _post.markername,
             contents: _post.contents,
             nickname: _post.nickname,
-            image_url: _post.img[0],
+            image_url: _post.img,
+            date: _post.date
           }
           post_list.unshift(post)
         })

@@ -11,6 +11,7 @@ const MarkerModal =(props) => {
   const dispatch = useDispatch()
   const [ title, setTitle ] = useState()
 
+
   const selectTitle = (e) => {
     console.log(e.target.value)
     setTitle(e.target.value)

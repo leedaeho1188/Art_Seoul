@@ -43,6 +43,7 @@ const PostWrite = (props) => {
     console.log(post)
     dispatch(postActions.addPostAX(post))
     props.close()
+    window.scrollTo(0,0)
   }
 
   return (

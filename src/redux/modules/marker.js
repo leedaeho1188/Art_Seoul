@@ -39,6 +39,7 @@ const getMarkerAX = () => {
             latitude: _marker.location[0],
             longitude: _marker.location[1],
             markertype: _marker.markertype,
+            boardcount: _marker.boardcount,
           }
 
           marker_list.unshift(marker)
