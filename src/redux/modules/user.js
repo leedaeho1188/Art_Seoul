@@ -29,8 +29,6 @@ const getUser = createAction(GET_USER, (user) => ({user}));
 
 const initialState = {
   user: {
-    // id: null,
-    // nickname: null,
   },
   is_login: false,
 };
@@ -130,7 +128,7 @@ export default handleActions(
     
     [LOG_OUT]: (state, action) => produce(state, (draft) => {
       sessionStorage.removeItem("JWT"); 
-      draft.user =null;
+      draft.user ={};
       draft.is_login = false;
     }),
 
