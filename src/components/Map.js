@@ -9,7 +9,10 @@ import {actionCreators as postActions} from "../redux/modules/post"
 
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 import { TrafficRounded } from '@material-ui/icons'
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Button from '@material-ui/core/Button';
 
 const { kakao } = window;
 
@@ -22,6 +25,8 @@ const Map = (props) => {
   const [ markerId, setmarkerId ] = useState();
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
+  // const [ zoomIn, setZoomIn ] = useState();
+  const [_map, setMap ] = useState();
   const positions = useSelector((state) => state.marker.list)
   const post_list = useSelector((state) => state.post.list)
 
@@ -32,7 +37,7 @@ const Map = (props) => {
         level: 8 //지도의 확대 레벨
       };
     const map = new kakao.maps.Map(container, options);//지도를 생성합니다.
-    
+    setMap(map)
     var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
     // 지도를 클릭한 위치에 표출할 마커입니다.
@@ -77,6 +82,14 @@ const Map = (props) => {
       setModal(true)
     })
   }, [positions])
+
+  const zoomIn = () => {
+    _map.setLevel(_map.getLevel() - 1);
+  }
+
+  const zoomOut = () => {
+    _map.setLevel(_map.getLevel() + 1);
+  }
   
   const markerDetail = (id) => {
     setmarkerId(id)
@@ -92,18 +105,23 @@ const Map = (props) => {
   const closeModal = () => {
     setModal(false)
   }
-  console.log(is_writeModal)
+  console.log(zoomIn)
   return(
     <React.Fragment>
-      <MapContainer id='myMap' />
+        <MapContainer id='myMap'>
+          <MapBtnContainer>
+              <MapControlBtn  onClick={zoomIn} style={{borderRight: "1px solid #919191"}} ><AddIcon/></MapControlBtn>
+              <MapControlBtn  onClick={zoomOut}  ><RemoveIcon/></MapControlBtn>
+          </MapBtnContainer>  
+        </ MapContainer>
       <div id='ClickLatlng'></div>
       {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} />
       : null }
       {is_write && is_login ? 
       <AddBtn>
       <Fab color="primary" aria-label="add" variant="extended" onClick={() => {
+        document.getElementById('root').scrollTo(0,0)
         setWriteModal(true)
-        window.scrollTo(0,0)
       }}>
         <AddIcon /><Word>게시글추가</Word>
       </Fab>
@@ -116,7 +134,10 @@ const Map = (props) => {
 
 }
 
+
+
 const MapContainer = styled.div`
+  position: relative;
   margin: auto;
   margin-top: 150px;
   margin-bottom: 60px;
@@ -129,12 +150,34 @@ const MapContainer = styled.div`
     width: 90%;
     height: 400px;
   }
-
 `
+
+const MapBtnContainer = styled.div`
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  z-index: 5;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  border:1px solid #919191;
+  background-color: #F5F5F5;
+`
+
+const MapControlBtn = styled.div`
+  width:50px;
+  height:40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align:center;
+  cursor:pointer;
+`
+
 
 const AddBtn = styled.div`
   position: fixed;
-  right: 10px;
+  right: 30px;
   bottom: 100px;
   z-index: 10;
 `
