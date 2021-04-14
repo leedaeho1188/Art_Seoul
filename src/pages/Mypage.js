@@ -15,7 +15,7 @@ const Mypage = () => {
   
   React.useEffect(() => {
       dispatch(userActions.getmyPostAX());
-  }, []);
+  },[]);
 
 
   return(

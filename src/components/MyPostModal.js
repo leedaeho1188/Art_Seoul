@@ -1,11 +1,16 @@
-import React from "react";
+import React, {useState} from 'react';
 import styled from "styled-components";
-import {time} from '../shared/Time'
+import {time} from '../shared/Time';
+import PostUpdateModal from './PostUpdateModal';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 //해당 게시글에 대한 내용을 모달에 띄워야한다 + props로 이미지 내려주기(완) + 영역나눠주기!
 const MyPostModal = (props) => {
-  
-    
+  const [ is_modal, setModal ] = useState(false)
+  const closeModal = () => {
+    setModal(false)
+  }
+    console.log(props)
   return(
     <React.Fragment>
       <Component onClick={props.close}/>
@@ -13,6 +18,9 @@ const MyPostModal = (props) => {
         <ImageInModal {...props}/>
         
         <TextContainer>
+        <MoreHorizIcon height="14px" width="14px" cursor="pointer" 
+        onClick={() => {setModal(true)
+        }}/>
         <Text>{props.nickname}</Text>
         <Text><p>{props.title}</p></Text>
         <Text><p>{props.contents}</p></Text>
@@ -21,6 +29,8 @@ const MyPostModal = (props) => {
         </TextContainer>
 
       </Modal>
+      {is_modal? <PostUpdateModal boardId={props.id} nickname = {props.nickname} close={closeModal} />
+      :null}
     </React.Fragment>
   )
 }
@@ -68,6 +78,6 @@ const Text = styled.div`
 
 
 const TextContainer = styled.div`
-   displ
+   
 `
   export default MyPostModal;

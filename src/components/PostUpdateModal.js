@@ -26,6 +26,7 @@ const PostUpdateModal = (props) => {
           </ModalSubmitBtn>
           <ModalSubmitBtn onClick={() => {
             dispatch(postActions.removePostAX(props.boardId))
+            dispatch(postActions.removeMyPostAX(props.boardId))
           }} >
             삭제하기
           </ModalSubmitBtn>

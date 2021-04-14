@@ -20,7 +20,7 @@ const MyPost =(props)=>{
         <React.Fragment>
             
             <Content {...props}  onClick={openModal}></Content>
-            {is_modal ? <MyPostModal {...props} close={()=>{closeModal()}}/> :null}
+            {is_modal ? <MyPostModal {...props} close={closeModal}/> :null}
             
         </React.Fragment>
     )

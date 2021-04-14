@@ -18,6 +18,7 @@ const MarkerModal =(props) => {
   }
 
   const addMarker = () => {
+    console.log(props.latitude)
     let marker = {
       latitude: props.latitude,
       longitude : props.longitude,

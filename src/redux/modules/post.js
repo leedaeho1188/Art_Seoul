@@ -10,12 +10,14 @@ import moment from "moment";
 const ADD_POST = "ADD_POST";
 const SET_POST = "SET_POST";
 const GET_MY_POST = "GET_MY_POST";
-const REMOVE_POST = "REMOVE_POST"
+const REMOVE_POST = "REMOVE_POST";
+const REMOVE_MY_POST = "REMOVE_MY_POST";
 
 const addPost = createAction(ADD_POST, (post) => ({post}))
 const setPost = createAction(SET_POST, (post_list) => ({post_list}))
 const getmyPost = createAction(GET_MY_POST,(my_list)=>({my_list}))
 const removePost = createAction(REMOVE_POST, (post_id)=> ({post_id}))
+const removeMyPost = createAction(REMOVE_MY_POST, (post_id)=> ({post_id}))
 
 const initialState ={
   list : [],
@@ -138,6 +140,11 @@ const removePostAX = (boardId) => {
   }
 }
 
+const removeMyPostAX = (boardId) => {
+  return function (dispatch){
+        dispatch(removeMyPost(boardId))
+      }
+}
 
 export default handleActions(
   {
@@ -167,7 +174,6 @@ export default handleActions(
           return acc;
         }
       })
-      // 위에 줄 잠시보류
     }),
     [REMOVE_POST]: (state,action) => produce(state, (draft)=>{
       draft.list = draft.list.filter((r, idx) => {
@@ -175,7 +181,16 @@ export default handleActions(
           return [...draft.list, r]
         }
       })
+    }),
+    
+    [REMOVE_MY_POST]: (state,action) => produce(state, (draft)=>{
+      draft.mylist = draft.mylist.filter((r, idx) => {
+        if(r.id !== action.payload.post_id){
+          return [...draft.mylist, r]
+        }
+      })
     })
+
   },
   initialState
 )
@@ -185,6 +200,7 @@ const actionCreators = {
   getPostAX,
   getmyPostAX,
   removePostAX,
+  removeMyPostAX,
 }
 
 export {actionCreators}
