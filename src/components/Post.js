@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import {time} from '../shared/Time'
 import PostUpdateModal from './PostUpdateModal'
+import PostWrite from './PostWrite'
 
 import {useSelector} from 'react-redux'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -11,11 +12,17 @@ import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 const Post = (props) => {
   const user_info = useSelector((state) => state.user.user)
   const [ is_modal, setModal ] = useState(false)
+  const [ is_writeModal, setWriteModal ] = useState(false)
 
   const closeModal = () => {
     setModal(false)
   }
-
+  const openWriteModal = () => {
+    setWriteModal(true)
+  }
+  const closeWriteModal = () => {
+    setWriteModal(false)
+  }
   return (
     <React.Fragment>
       <PostBox>
@@ -45,8 +52,11 @@ const Post = (props) => {
           </PostBottom>
         </PostBody>
       </PostBox>
-      {is_modal? <PostUpdateModal boardId={props.id} nickname = {props.nickname} close={closeModal} />
+      {is_modal? <PostUpdateModal boardId={props.id} nickname = {props.nickname} close={closeModal} open={openWriteModal} />
       :null}
+      {is_writeModal? <PostWrite close={closeWriteModal} {...props} />
+      :null}
+      
     </React.Fragment>
 
   )

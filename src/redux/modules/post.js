@@ -12,12 +12,14 @@ const SET_POST = "SET_POST";
 const GET_MY_POST = "GET_MY_POST";
 const REMOVE_POST = "REMOVE_POST";
 const REMOVE_MY_POST = "REMOVE_MY_POST";
+const EDIT_POST = "EDIT_POST";
 
 const addPost = createAction(ADD_POST, (post) => ({post}))
 const setPost = createAction(SET_POST, (post_list) => ({post_list}))
 const getmyPost = createAction(GET_MY_POST,(my_list)=>({my_list}))
 const removePost = createAction(REMOVE_POST, (post_id)=> ({post_id}))
 const removeMyPost = createAction(REMOVE_MY_POST, (post_id)=> ({post_id}))
+const editPost = createAction(EDIT_POST, (post, post_id) => ({post, post_id}))
 
 const initialState ={
   list : [],
@@ -127,7 +129,7 @@ const getmyPostAX = () => {
 }
 
 const removePostAX = (boardId) => {
-  return function (dispatch){
+  return function (dispatch, getState){
     let token = {
       headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
     }
@@ -144,6 +146,58 @@ const removeMyPostAX = (boardId) => {
   return function (dispatch){
         dispatch(removeMyPost(boardId))
       }
+}
+
+const editPostAX = (post, boardId) => {
+  return function (dispatch, getState){
+    const _image = getState().image.preview;
+    const _post_idx = getState().post.list.findIndex((p) => p.id == boardId);
+    const _post = getState().post.list[_post_idx]
+
+    if(_image == _post.image_url){
+      const formData = new FormData();
+      formData.append("title", post.title);
+      formData.append("contents", post.contents);
+      let token = {
+        headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
+      }
+      console.log(post)
+      axios.put(`${config.api}/board/${boardId}`, formData, token )
+        .then((response) => {
+          console.log(response.data)
+          let post_info = {
+            title: post.title,
+            contents: post.contents,
+          }
+          dispatch(editPost(post_info, boardId))
+        }).catch((err) => {
+          console.log(err)
+        })
+      return;
+    } else {
+      const formData = new FormData();
+      formData.append("title", post.title);
+      formData.append("contents", post.contents);
+      formData.append("image", post.image);
+      let token = {
+        headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
+      }
+      console.log(post)
+      axios.put(`${config.api}/board/${boardId}`, formData, token )
+        .then((response) => {
+          console.log(response.data.boardsData[0].img)
+          let post_info = {
+            title: post.title,
+            contents: post.contents,
+            image_url: response.data.boardsData[0].img,
+          }
+          dispatch(editPost(post_info, boardId))
+        }).catch((err) => {
+          console.log(err)
+        })
+    }
+
+  }
 }
 
 export default handleActions(
@@ -175,6 +229,10 @@ export default handleActions(
         }
       })
     }),
+    [EDIT_POST]: (state, action) => produce(state, (draft) => {
+      let idx = draft.list.findIndex((p) => p.id === action.payload.post_id)
+      draft.list[idx] = {...draft.list[idx], ...action.payload.post}
+    }),
     [REMOVE_POST]: (state,action) => produce(state, (draft)=>{
       draft.list = draft.list.filter((r, idx) => {
         if(r.id !== action.payload.post_id){
@@ -201,6 +259,7 @@ const actionCreators = {
   getmyPostAX,
   removePostAX,
   removeMyPostAX,
+  editPostAX,
 }
 
 export {actionCreators}
