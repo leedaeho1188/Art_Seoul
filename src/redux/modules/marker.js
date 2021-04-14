@@ -14,13 +14,21 @@ const initialState = {
   list: [],
 }
 
+
+
 const addMarkerAX = (marker) => {
   return function (dispatch){
+
+    const _token= sessionStorage.getItem("JWT")
+    let token = {
+      headers : { authorization: `Bearer ${_token}`}
+    }
+
     axios.post(`${config.api}/marker`, {
       markername: marker.title, location: [marker.latitude.toString(), marker.longitude.toString()], markertype: marker.markertype,
-    }, config.token).then((response) => {
+    }, token).then((response) => {
       console.log(response.data)
-      let marker_info = {...marker, markerId: response.data.id}
+      let marker_info = {...marker, id: response.data.markerId}
       dispatch(addMarker(marker_info))
     })
   }
