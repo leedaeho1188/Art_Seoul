@@ -110,6 +110,7 @@ const Title = styled.div`
    &:hover{
        color: grey;
    };
+   cursor: pointer;
 `
 
 const Text = styled.div`
@@ -123,6 +124,7 @@ const Titlebutton = styled.button`
     &:hover{
         color: grey;
     };
+    cursor: pointer;
 `
 
 const Minibutton = styled.button`
@@ -132,6 +134,7 @@ const Minibutton = styled.button`
    padding: 4px 2px 4px 2px;
    border: none;
    margin: 12px;
+   cursor: pointer;
 `
 
 //opacity 사용 나중에 해보기!
