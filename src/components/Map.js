@@ -15,6 +15,7 @@ const { kakao } = window;
 
 const Map = (props) => {
   const dispatch = useDispatch()
+  const is_login = useSelector((state) => state.user.is_login)
   const [ is_modal, setModal ] = useState(false);
   const [ is_writeModal, setWriteModal ] = useState(false);
   const [ is_write, setWrite ] = useState(false);
@@ -98,7 +99,7 @@ const Map = (props) => {
       <div id='ClickLatlng'></div>
       {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} />
       : null }
-      {is_write? 
+      {is_write && is_login ? 
       <AddBtn>
       <Fab color="primary" aria-label="add" variant="extended" onClick={() => {
         setWriteModal(true)

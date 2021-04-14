@@ -29,8 +29,8 @@ const getUser = createAction(GET_USER, (user) => ({user}));
 
 const initialState = {
   user: {
-    id: null,
-    nickname: null,
+    // id: null,
+    // nickname: null,
   },
   is_login: false,
 };

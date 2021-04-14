@@ -9,6 +9,10 @@ import {actionCreators as postActions} from '../redux/modules/post'
 
 const PostUpdateModal = (props) => {
   const dispatch = useDispatch()
+  const openAndClose = () => {
+    props.open()
+    props.close()
+  }
   return(
 
     <React.Fragment>
@@ -21,7 +25,7 @@ const PostUpdateModal = (props) => {
           {props.nickname} <ModalHeaderSpan>님의 게시글</ModalHeaderSpan>
         </ModalHeader>
         <ModalButtonContainer>
-          <ModalSubmitBtn>
+          <ModalSubmitBtn onClick={openAndClose}>
             수정하기
           </ModalSubmitBtn>
           <ModalSubmitBtn onClick={() => {

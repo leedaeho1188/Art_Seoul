@@ -11,17 +11,21 @@ import TextField from '@material-ui/core/TextField';
 
 const PostWrite = (props) => {
   const dispatch = useDispatch()
-  const [title, setTitle] = useState()
-  const [contents, setContents] = useState()
+  const post_id = props.id;
+  const is_edit = post_id ? true : false;
+  const [title, setTitle] = useState(is_edit? props.title:"")
+  const [contents, setContents] = useState(is_edit? props.contents:"")
   const [image, setImage] = useState()
   const marker_list = useSelector((state) => state.marker.list)
   const idx = marker_list.findIndex(m => m.id === props.markerId)
   const marker = marker_list[idx]
   const preview = useSelector((state) => state.image.preview)
-  
 
+
+  console.log(props)
   useEffect(() => {
-    dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
+    {is_edit? dispatch(imageActions.setPreview(props.image_url))
+      : dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))}
   }, [])
   
   const changeTitle = (e) => {
@@ -43,7 +47,19 @@ const PostWrite = (props) => {
     console.log(post)
     dispatch(postActions.addPostAX(post))
     props.close()
-    window.scrollTo(0,0)
+    // window.scrollTo(0,0)
+  }
+
+  const editPost = () => {
+    let post ={
+      title: title,
+      contents: contents,
+      image: image,
+    }
+    console.log(post)
+    dispatch(postActions.editPostAX(post, post_id))
+    props.close()
+    // window.scrollTo(0.0)
   }
 
   return (
@@ -56,7 +72,7 @@ const PostWrite = (props) => {
           </WriteUpload>
           <WriteImg src={preview ? preview : "http://via.placeholder.com/400x300"} />
           <WriteTitle>
-            <TextField id="standard-basic" label="📝글 제목" style={{width: "100%"}} onChange={changeTitle} />
+            <TextField id="standard-basic" value={title} label="📝글 제목" style={{width: "100%"}} onChange={changeTitle} />
           </WriteTitle>
           <TextField
                 id="outlined-multiline-static"
@@ -67,9 +83,13 @@ const PostWrite = (props) => {
                 value={contents}
                 onChange = {changeContents}
               />
-          <WriteSubmit onClick={addPost}>
-            게시글 작성
+          {is_edit ? <WriteSubmit onClick={editPost}>
+            게시글 수정
           </WriteSubmit>
+          :<WriteSubmit onClick={addPost}>
+          게시글 작성
+        </WriteSubmit> }
+          
         </WriteContent>
       </WriteBox>
     </React.Fragment>
@@ -85,6 +105,7 @@ const WriteBackground = styled.div`
   width: 100vw;
   background-color: black;
   z-index: 10;
+  
 `
 const WriteContainer = styled.div`
   position: absolute;
