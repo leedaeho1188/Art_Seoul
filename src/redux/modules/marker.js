@@ -14,6 +14,8 @@ const initialState = {
   list: [],
 }
 
+
+
 const addMarkerAX = (marker) => {
   return function (dispatch){
 
@@ -26,7 +28,7 @@ const addMarkerAX = (marker) => {
       markername: marker.title, location: [marker.latitude.toString(), marker.longitude.toString()], markertype: marker.markertype,
     }, token).then((response) => {
       console.log(response.data)
-      let marker_info = {...marker, markerId: response.data.id}
+      let marker_info = {...marker, id: response.data.markerId}
       dispatch(addMarker(marker_info))
     })
   }

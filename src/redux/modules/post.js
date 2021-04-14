@@ -130,7 +130,7 @@ const removePostAX = (boardId) => {
       headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
     }
     console.log(boardId)
-    axios.delete(`${config.api}/board/:${boardId}`, token)
+    axios.delete(`${config.api}/board/${boardId}`, token)
       .then((reponse) => {
         console.log(reponse.data)
         dispatch(removePost(boardId))
