@@ -3,12 +3,22 @@ import styled from "styled-components";
 import {time} from '../shared/Time';
 import PostUpdateModal from './PostUpdateModal';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import PostWrite from './PostWrite'
 
 //해당 게시글에 대한 내용을 모달에 띄워야한다 + props로 이미지 내려주기(완) + 영역나눠주기!
 const MyPostModal = (props) => {
+
   const [ is_modal, setModal ] = useState(false)
+  const [ is_writeModal, setWriteModal ] = useState(false)
+
   const closeModal = () => {
     setModal(false)
+  }
+  const openWriteModal = () => {
+    setWriteModal(true)
+  }
+  const closeWriteModal = () => {
+    setWriteModal(false)
   }
     console.log(props)
   return(
@@ -29,7 +39,9 @@ const MyPostModal = (props) => {
         </TextContainer>
 
       </Modal>
-      {is_modal? <PostUpdateModal boardId={props.id} nickname = {props.nickname} close={closeModal} />
+      {is_modal? <PostUpdateModal boardId={props.id} nickname = {props.nickname} close={closeModal} open={openWriteModal} />
+      :null}
+      {is_writeModal? <PostWrite close={closeWriteModal} {...props} />
       :null}
     </React.Fragment>
   )

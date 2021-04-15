@@ -36,10 +36,11 @@ const Mypage = () => {
 
 const PostContainer = styled.div`
   margin:auto;
-  width: 600px;
+  width:516px;
 
   background-color: black;
   border: 1px solid #e9ecef;
+  border-radius: 10px;
   margin-top:70px;     
   display:flex;
   

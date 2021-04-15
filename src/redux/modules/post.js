@@ -13,6 +13,8 @@ const GET_MY_POST = "GET_MY_POST";
 const REMOVE_POST = "REMOVE_POST";
 const REMOVE_MY_POST = "REMOVE_MY_POST";
 const EDIT_POST = "EDIT_POST";
+const EDIT_MY_POST = "EDIT_MY_POST";
+
 
 const addPost = createAction(ADD_POST, (post) => ({post}))
 const setPost = createAction(SET_POST, (post_list) => ({post_list}))
@@ -20,6 +22,7 @@ const getmyPost = createAction(GET_MY_POST,(my_list)=>({my_list}))
 const removePost = createAction(REMOVE_POST, (post_id)=> ({post_id}))
 const removeMyPost = createAction(REMOVE_MY_POST, (post_id)=> ({post_id}))
 const editPost = createAction(EDIT_POST, (post, post_id) => ({post, post_id}))
+const editMyPost = createAction(EDIT_MY_POST, (post, post_id) => ({post, post_id}))
 
 const initialState ={
   list : [],
@@ -200,6 +203,35 @@ const editPostAX = (post, boardId) => {
   }
 }
 
+
+const editMyPostAX = (post, boardId) => {
+  return function (dispatch, getState){
+    const _image = getState().image.preview;
+    const _post_idx = getState().post.mylist.findIndex((p) => p.id == boardId);
+    const _post = getState().post.mylist[_post_idx]
+
+    if(_image == _post.image_url){
+          let post_info = {
+            title: post.title,
+            contents: post.contents,
+          }
+          dispatch(editMyPost(post_info, boardId))
+      return;
+    } else {
+
+          let post_info = {
+            title: post.title,
+            contents: post.contents,
+            image: post.image,
+          }
+          dispatch(editMyPost(post_info, boardId))
+    }
+
+  }
+}
+
+
+
 export default handleActions(
   {
     [ADD_POST]: (state, action) => produce(state, (draft) => {
@@ -233,6 +265,11 @@ export default handleActions(
       let idx = draft.list.findIndex((p) => p.id === action.payload.post_id)
       draft.list[idx] = {...draft.list[idx], ...action.payload.post}
     }),
+    [EDIT_MY_POST]: (state, action) => produce(state, (draft) => {
+      let idx = draft.mylist.findIndex((p) => p.id === action.payload.post_id)
+      draft.mylist[idx] = {...draft.mylist[idx], ...action.payload.post}
+    }),
+
     [REMOVE_POST]: (state,action) => produce(state, (draft)=>{
       draft.list = draft.list.filter((r, idx) => {
         if(r.id !== action.payload.post_id){
@@ -260,6 +297,7 @@ const actionCreators = {
   removePostAX,
   removeMyPostAX,
   editPostAX,
+  editMyPostAX,
 }
 
 export {actionCreators}

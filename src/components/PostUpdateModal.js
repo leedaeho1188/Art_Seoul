@@ -8,8 +8,10 @@ import {useDispatch} from 'react-redux'
 import {actionCreators as postActions} from '../redux/modules/post'
 
 const PostUpdateModal = (props) => {
+  console.log(props)
   const dispatch = useDispatch()
   const openAndClose = () => {
+    //동기처리 + 콜백함수?
     props.open()
     props.close()
   }
