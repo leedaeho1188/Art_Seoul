@@ -116,7 +116,7 @@ const Post = (props) => {
               if (e.key === 'Enter'){addComment()}
             }} />
           {ok_submit ? (
-            <UploadBtn onClick={addComment} >게시</UploadBtn>
+            <UploadBtn onClick={addComment} style={{cursor: 'pointer'}} >게시</UploadBtn>
           ):(               
             <UploadBtn style={{opacity: "0.3"}} >게시</UploadBtn>                  
           )}
@@ -247,7 +247,6 @@ const CommentInput = styled.input`
 const UploadBtn = styled.div`
   font-size: 14px;
   color: #3897F0;
-  cursor: pointer;
   opacity: 1;
   font-weight: 600;
 `;

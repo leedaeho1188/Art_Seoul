@@ -75,7 +75,7 @@ const ModalDetail = (props) => {
             <ModalCmtInput type="text" placeholder='댓글달기...' onChange={selectComment} value={comments} onKeyPress={(e) => {
               if (e.key === 'Enter'){addComment()}
             }} />
-            {ok_submit ? <ModalUpload onClick={addComment} >게시</ModalUpload>
+            {ok_submit ? <ModalUpload onClick={addComment} style={{cursor: 'pointer'}} >게시</ModalUpload>
             : <ModalUpload style={{opacity: "0.3"}} >게시</ModalUpload>}
           </ModalCmtInputBox>
         </ModalRightContainer>
@@ -183,7 +183,7 @@ const ModalCmtInput = styled.input`
 const ModalUpload = styled.div`
   font-size: 14px;
   color: #3897F0;
-  cursor: pointer;
+  
   font-weight: 600;
 `
 const ModalCmtBox = styled.div`
