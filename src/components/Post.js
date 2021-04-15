@@ -66,6 +66,8 @@ const Post = (props) => {
 
   return (
     <React.Fragment>
+      <PostInner>
+
       <PostBox>
         <PostHeader>
           <PostAuthor>
@@ -122,6 +124,7 @@ const Post = (props) => {
           )}
         </CommentInputBox>
       </PostBox>
+      </PostInner>
       {is_modal? <PostUpdateModal boardId={props.id} nickname = {props.nickname} close={closeModal} open={openWriteModal} />
       :null}
       {is_writeModal? <PostWrite close={closeWriteModal} {...props} />
@@ -135,8 +138,19 @@ const Post = (props) => {
 
 }
 
+const PostInner = styled.div`
+  width: 900px;
+  margin:auto;
+  @media (max-width: 900px){
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`
+
 const PostBox = styled.div`
-  margin: auto;
+  // margin: auto;
   width: 614px;
   border: 1px solid #DBDBDB;
   border-radius: 5px;
