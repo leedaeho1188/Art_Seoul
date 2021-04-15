@@ -56,12 +56,20 @@ const PostWrite = (props) => {
       contents: contents,
       image: image,
     }
-    console.log(post)
     
+    if(window.location.href === "http://localhost:3000/")
+    {
     dispatch(postActions.editPostAX(post, post_id))
-    dispatch(postActions.editMyPostAX(post, post_id))
     props.close()
     window.scrollTo(0.0)
+    }
+    else
+    {
+    dispatch(postActions.editMyPostAX(post, post_id))
+    props.close()
+    }    
+   
+    
   }
 
   return (

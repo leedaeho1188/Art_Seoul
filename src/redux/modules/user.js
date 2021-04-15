@@ -67,7 +67,7 @@ const loginSV = (id,password)=>{
             })
       }).catch(error=>{
         console.log(error);
-        window.alert("로그인 오류")
+        window.alert("이런! 아이디 혹은 패스워드를 체크해주세요😅")
       })
   }
 }
@@ -89,10 +89,11 @@ const signupSV = (id,password,nickname)=>{
       })
       .then((response)=>{
         console.log(response);
+        window.alert("ART SEOUL 회원가입을 축하드립니다🎉")
         history.push("/login");
       }).catch(error=>{
         console.log(error);
-        window.alert("회원가입 오류")
+        window.alert("이런! 해당 아이디가 이미 존재합니다😅")
       })
 
       
