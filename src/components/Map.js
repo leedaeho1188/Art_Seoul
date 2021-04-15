@@ -165,8 +165,8 @@ const MapBtnContainer = styled.div`
 `
 
 const MapControlBtn = styled.div`
-  width:50px;
-  height:40px;
+  width:40px;
+  height:30px;
   display: flex;
   justify-content: center;
   align-items: center;

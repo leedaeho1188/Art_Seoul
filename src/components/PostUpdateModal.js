@@ -49,7 +49,7 @@ const Component = styled.div`
   height: 100vh;
   width: 100vw;
   background-color: black;
-  z-index: 10;
+  z-index: 30;
 `
 
 const UpdateComponent = styled.div`
@@ -60,7 +60,7 @@ const UpdateComponent = styled.div`
   height: 300px;
   transform: translate(-50%, -50%);
   background-color: white;
-  z-index: 20;
+  z-index: 40;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
