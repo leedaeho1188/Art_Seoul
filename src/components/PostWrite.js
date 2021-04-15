@@ -47,7 +47,7 @@ const PostWrite = (props) => {
     console.log(post)
     dispatch(postActions.addPostAX(post))
     props.close()
-    // window.scrollTo(0,0)
+    window.scrollTo(0,0)
   }
 
   const editPost = () => {
@@ -61,7 +61,7 @@ const PostWrite = (props) => {
     dispatch(postActions.editPostAX(post, post_id))
     dispatch(postActions.editMyPostAX(post, post_id))
     props.close()
-    // window.scrollTo(0.0)
+    window.scrollTo(0.0)
   }
 
   return (

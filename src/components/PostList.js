@@ -10,17 +10,16 @@ const PostList = () => {
   console.log(post_list)
 
   return(
-    <PostListContainer>
+    <React.Fragment>
       {post_list.map((p, idx) => {
         return <Post key={p.id} {...p} />
       })}
-    </PostListContainer>
+    </React.Fragment>
   )
 
 }
 
 const PostListContainer = styled.div`
-  margin-top: 20px;
 
 `
 
