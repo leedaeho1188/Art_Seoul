@@ -157,7 +157,7 @@ const editPostAX = (post, boardId) => {
     const _post_idx = getState().post.list.findIndex((p) => p.id == boardId);
     const _post = getState().post.list[_post_idx]
 
-    if(_image === _post.image_url){
+    if(_image == _post.image_url){
       const formData = new FormData();
       formData.append("title", post.title);
       formData.append("contents", post.contents);
@@ -203,7 +203,7 @@ const editPostAX = (post, boardId) => {
   }
 }
 
-//mylist에는 그 값이 없으니까 문제가 img_url자체를 불러올 수 없는것 리덕스랑만 통신하니까 새로고침하면 날아감
+
 const editMyPostAX = (post, boardId) => {
   return function (dispatch, getState){
     const _image = getState().image.preview;
