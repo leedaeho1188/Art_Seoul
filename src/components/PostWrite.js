@@ -22,7 +22,7 @@ const PostWrite = (props) => {
   const preview = useSelector((state) => state.image.preview)
 
 
-  console.log(props)
+  
   useEffect(() => {
     {is_edit? dispatch(imageActions.setPreview(props.image_url))
       : dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))}
@@ -57,7 +57,9 @@ const PostWrite = (props) => {
       image: image,
     }
     console.log(post)
+    
     dispatch(postActions.editPostAX(post, post_id))
+    dispatch(postActions.editMyPostAX(post, post_id))
     props.close()
     // window.scrollTo(0.0)
   }
