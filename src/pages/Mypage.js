@@ -4,7 +4,7 @@ import MyPost from "../components/MyPost";
 import { useSelector, useDispatch } from "react-redux"
 import { actionCreators as userActions } from "../redux/modules/post";
 import { Settings } from "@material-ui/icons";
-import Setting from  "../pages/Setting"
+import Question from  "../pages/Question"
 import ProfileUpdateModal from "../components/ProfileUpdateModal";
 
 
@@ -86,6 +86,8 @@ const ImageCircle = styled.img`
   width: var(--size);
   height: var(--size);
   border-radius: var(--size);
+  // background-color: black;
+  // background-image: url("${(props) => props.src}");
   background-size: cover;
   margin: 4px;
   margin: 20px 0px 0px 30px;

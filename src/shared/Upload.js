@@ -11,7 +11,8 @@ const Upload = (props) => {
   const is_uploading = useSelector(state => state.image.uploading)
   const fileInput = React.useRef();
 
-  const selectFile = () => {
+  const selectFile = (e) => {
+    console.log(e.target.files)
     console.log(fileInput.current.files[0])
     props.setImage(fileInput.current.files[0])
     const reader = new FileReader();
@@ -37,7 +38,7 @@ const Upload = (props) => {
         size = "small"
       >
         
-        <input id={"file-input"} style={{ display: 'none' }} type="file" name="imageFile"
+        <input id={"file-input"} multiple style={{ display: 'none' }} type="file" name="imageFile"
           onChange={selectFile} ref={fileInput} disabled={is_uploading}
         />
         Picture
