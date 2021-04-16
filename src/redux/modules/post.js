@@ -14,19 +14,24 @@ const REMOVE_POST = "REMOVE_POST";
 const REMOVE_MY_POST = "REMOVE_MY_POST";
 const EDIT_POST = "EDIT_POST";
 const EDIT_MY_POST = "EDIT_MY_POST";
+const LOADING = "LOADING";
 
 
 const addPost = createAction(ADD_POST, (post) => ({post}))
-const setPost = createAction(SET_POST, (post_list) => ({post_list}))
+const setPost = createAction(SET_POST, (post_list, next) => ({post_list, next}))
 const getmyPost = createAction(GET_MY_POST,(my_list)=>({my_list}))
 const removePost = createAction(REMOVE_POST, (post_id)=> ({post_id}))
 const removeMyPost = createAction(REMOVE_MY_POST, (post_id)=> ({post_id}))
 const editPost = createAction(EDIT_POST, (post, post_id) => ({post, post_id}))
 const editMyPost = createAction(EDIT_MY_POST, (post, post_id) => ({post, post_id}))
 
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+
 const initialState ={
   list : [],
   mylist:[],
+  is_loading: false,
+  next: false,
 }
 
 const addPostAX = (post) => {
@@ -46,33 +51,43 @@ const addPostAX = (post) => {
     axios.post(`${config.api}/board/${post.markerId}`, formData, token)
       .then((res) => {
         window.alert("성공")
-        console.log(res)
-        let _post = res.data.result
-        let post_info = {
-          id: _post.boardId,
-          title: _post.title,
-          markerId: _post.markerId,
-          markername: _post.markername,
-          contents: _post.contents,
-          nickname: _post.nickname,
-          image_url: _post.img,
-          user_id: _post.userId,
-          date: _post.date,
-        }
-        dispatch(addPost(post_info))
+        // console.log(res)
+        // let _post = res.data.result
+        // let post_info = {
+        //   id: _post.boardId,
+        //   title: _post.title,
+        //   markerId: _post.markerId,
+        //   markername: _post.markername,
+        //   contents: _post.contents,
+        //   nickname: _post.nickname,
+        //   image_url: _post.img,
+        //   user_id: _post.userId,
+        //   date: _post.date,
+        // }
+        dispatch(getPostAX(post.markerId))
     }).catch((err) => {
       console.log(err)
     })
   }
 }
 
-const getPostAX = (markerId) => {
-  return function (dispatch) {
-    axios.get(`${config.api}/board/${markerId}`)
+const getPostAX = (markerId, lastId = null) => {
+  return function (dispatch, getState) {
+    dispatch(loading(true));
+    const _post = getState().post.list
+
+    if (!lastId){
+      axios.get(`${config.api}/board/${markerId}`)
       .then((response) => {
-        console.log(response.data.board_list)
+        console.log(response)
         let post_list = [];
-        response.data.board_list.forEach((_post) => {
+        let next
+        if (response.data.status !== "end"){
+          next = true
+        } else {
+          next = false
+        }
+        response.data.boardsData.forEach((_post) => {
           let post = {
             id: _post.boardId,
             title: _post.title,
@@ -84,10 +99,43 @@ const getPostAX = (markerId) => {
             date: _post.date,
             userId: _post.userId
           }
-          post_list.unshift(post)
+          post_list.push(post)
         })
         console.log(post_list)
-        dispatch(setPost(post_list))
+        dispatch(setPost(post_list, next))
+      }).catch((err) => {
+        console.log(err)
+      })
+      return;
+    }
+
+    axios.get(`${config.api}/board/${markerId}?lastId=${lastId}`)
+      .then((response) => {
+        console.log(response)
+        let post_list = [];
+        let next
+        if (response.data.status !== "end"){
+          next = true
+        } else {
+          next = false
+        }
+        response.data.boardsData.forEach((_post) => {
+          let post = {
+            id: _post.boardId,
+            title: _post.title,
+            markerId: _post.markerId,
+            markername: _post.markername,
+            contents: _post.contents,
+            nickname: _post.nickname,
+            image_url: _post.img,
+            date: _post.date,
+            userId: _post.userId
+          }
+          post_list.push(post)
+        })
+        post_list.unshift(..._post)
+        console.log(post_list)
+        dispatch(setPost(post_list, next))
       }).catch((err) => {
         console.log(err)
       })
@@ -238,7 +286,7 @@ export default handleActions(
       draft.list.unshift(action.payload.post)
     }),
     [SET_POST]: (state, action) => produce(state, (draft) => {
-      draft.list = [action.payload.post_list];
+      draft.list = action.payload.post_list;
       draft.list = draft.list.reduce((acc, cur) => {
         if(acc.findIndex(a => a.id === cur.id) === -1 ){
           return [...acc, cur];
@@ -246,7 +294,9 @@ export default handleActions(
           acc[acc.findIndex((a) => a.id === cur.id)] = cur;
           return acc;
         }
-      })
+      }, []);
+      draft.next = action.payload.next;
+      draft.is_loading = false;
     }),
     [GET_MY_POST]: (state,action) => produce(state, (draft)=>{
       draft.mylist = [action.payload.my_list];
@@ -284,6 +334,10 @@ export default handleActions(
           return [...draft.mylist, r]
         }
       })
+    }),
+
+    [LOADING]: (state, action) => produce(state, (draft) => {
+      draft.is_loading = action.payload.is_loading
     })
 
   },

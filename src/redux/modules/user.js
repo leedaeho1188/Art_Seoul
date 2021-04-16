@@ -38,7 +38,7 @@ const initialState = {
 const loginSV = (id,password)=>{
   
   return function (dispatch, getState, {history}){
-
+    console.log(id, password)
     axios(
       {
         method: 'POST',

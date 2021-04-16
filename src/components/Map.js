@@ -120,7 +120,7 @@ const Map = (props) => {
       {is_write && is_login ? 
       <AddBtn>
       <Fab color="primary" aria-label="add" variant="extended" onClick={() => {
-        document.getElementById('root').scrollTo(0,0)
+        window.scrollTo(0,0)
         setWriteModal(true)
       }}>
         <AddIcon /><Word>게시글추가</Word>
