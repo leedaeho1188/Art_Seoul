@@ -46,10 +46,7 @@ function App() {
 }
 
 const AppContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-  overflow-x: auto;
-  background: #FAFAFA;
+
 `
 
 export default App;

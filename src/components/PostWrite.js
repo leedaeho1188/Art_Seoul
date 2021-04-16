@@ -37,6 +37,7 @@ const PostWrite = (props) => {
   }
 
   const addPost = () => {
+    console.log(marker)
     let post = {
       markername: marker.title,
       markerId: props.markerId,
@@ -47,7 +48,7 @@ const PostWrite = (props) => {
     console.log(post)
     dispatch(postActions.addPostAX(post))
     props.close()
-    // window.scrollTo(0,0)
+    window.scrollTo(0,0)
   }
 
   const editPost = () => {
@@ -67,9 +68,8 @@ const PostWrite = (props) => {
     {
     dispatch(postActions.editMyPostAX(post, post_id))
     props.close()
-    }    
-   
-    
+    window.scrollTo(0.0)
+    }
   }
 
   return (
@@ -114,7 +114,7 @@ const WriteBackground = styled.div`
   height: 100vh;
   width: 100vw;
   background-color: black;
-  z-index: 10;
+  z-index: 30;
   
 `
 const WriteContainer = styled.div`
@@ -127,7 +127,7 @@ const WriteContainer = styled.div`
 `
 const WriteBox = styled.div`
   position: absolute;
-  z-index: 20;
+  z-index: 40;
   top: 55px;
   left: 50%;
   transform: translate(-50%);
