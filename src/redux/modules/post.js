@@ -258,7 +258,7 @@ const editMyPostAX = (post, boardId) => {
     const _post_idx = getState().post.mylist.findIndex((p) => p.id == boardId);
     const _post = getState().post.mylist[_post_idx]
 
-    if(_image == _post.image_url){
+    if(_image == _post.image_url){ //stop
           let post_info = {
             title: post.title,
             contents: post.contents,

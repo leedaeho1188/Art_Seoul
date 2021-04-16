@@ -20,7 +20,7 @@ const MyPostModal = (props) => {
   const closeWriteModal = () => {
     setWriteModal(false)
   }
-    console.log(props)
+    
   return(
     <React.Fragment>
       <Component onClick={props.close}/>
@@ -28,15 +28,18 @@ const MyPostModal = (props) => {
         <ImageInModal {...props}/>
         
         <TextContainer>
-        <MoreHorizIcon height="14px" width="14px" cursor="pointer" 
+        <MoreHorizIcon style={{padding: "10px 0px 0px 180px"}} height="14px" width="14px" cursor="pointer" 
         onClick={() => {setModal(true)
         }}/>
-        <Text>{props.nickname}</Text>
-        <Text><p>{props.title}</p></Text>
-        <Text><p>{props.contents}</p></Text>
-        <Text><p>{props.markername}</p></Text>
-        <Text>{time(props.date)}</Text>
+        <NicknameText>{props.nickname}</NicknameText>
+        <TitleText>{props.title}</TitleText>
+        <ContentsText>{props.contents}</ContentsText>
+        <StyleBox> 
+        <PostPlace>{props.markername}</PostPlace>
+        <InsertTime>{time(props.date)}</InsertTime>
+        </StyleBox> 
         </TextContainer>
+        
 
       </Modal>
       {is_modal? <PostUpdateModal boardId={props.id} nickname = {props.nickname} close={closeModal} open={openWriteModal} />
@@ -59,8 +62,8 @@ const Component = styled.div`
   z-index: 10;
 `
 const ImageInModal = styled.div`
-  width: 420px;
-  height: 425px;
+  width: 65%;
+  height: 100%;
   border: none;
   background-image: url("${(props) => props.image_url}");
   background-size: cover;
@@ -71,7 +74,7 @@ const ImageInModal = styled.div`
 const Modal = styled.div`
   position: fixed;
   width: 700px;
-  height: 50%;
+  height: 400px;
   top:50%;
   left: 50%;
   //메모..
@@ -82,14 +85,42 @@ const Modal = styled.div`
   display: flex;
 `
 
-const Text = styled.div`
+const NicknameText = styled.div`
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    padding-bottom: 20px;
+`
+const TitleText = styled.div`
     color: black;
     font-weight: bold;
     font-size: 20px;
 `
-
-
-const TextContainer = styled.div`
-   
+const ContentsText = styled.div`
+    color: black;
+    font-size: 15px;
 `
+
+const TextContainer= styled.div`
+   width: 200px;
+   height: 120px;
+   margin-left: 20px;
+`
+const InsertTime = styled.div`
+  font-size: 12px;
+  color: #999;
+`
+
+const PostPlace = styled.div`
+  font-size: 12px;
+  color: #999
+`
+
+const StyleBox = styled.div`
+   display: flex;
+   justify-content: space-between;
+   padding-top: 60px;
+`
+
+
   export default MyPostModal;

@@ -30,8 +30,8 @@ const MyPost =(props)=>{
 // item들 가운데 정렬 나중에 반응형 잡으면서 넣기
 const Content = styled.div`
   width: 170px;
-  height: 170px;
-  border: 1px solid #e9ecef;
+  height: 171px;
+  border: none;
   margin: 0px 0px 0px 0px;
   border-radius: 0px;
   background-image: url("${(props) => props.image_url}");

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import LockIcon from '@material-ui/icons/Lock';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { useSelector } from 'react-redux';
 import {useDispatch} from "react-redux"
 import {actionCreators as userActions } from '../redux/modules/user'
@@ -35,17 +36,15 @@ const is_login = useSelector((state)=>state.user.is_login)
                 <HeaderInnerContainer>
                     <Title onClick={()=>{history.push("/")}}>ART SEOUL</Title> 
                     <HeaderIcons>
-                    <Minibutton onClick={()=>{
-                        // props.history.push("/login");
-                        // localStorage.removeItem('hi')
-                        dispatch(userActions.logOut());
-                        history.push("/login") //어디로 보낼지 정해야한다
+                    <Minibutton onClick={()=>{dispatch(userActions.logOut());
+                        history.push("/login")
                     }}><Text>LOG OUT</Text></Minibutton>
-                    <Minibutton onClick={()=>{
-                        history.push("/mypage")
-                    }}
+                    <Minibutton onClick={()=>{history.push("/mypage")}}
                     
                     ><Text>MY PAGE</Text></Minibutton>
+                    <SettingsIcon onClick={()=>{
+                        history.push("/setting")
+                    }} style={{padding:"17px 3px 0px 5px"}}/>
                     </HeaderIcons>
                 </HeaderInnerContainer>
             </HeaderContainer>
@@ -61,6 +60,7 @@ const is_login = useSelector((state)=>state.user.is_login)
                 <HeaderIcons>
                 <Minibutton onClick={()=>{history.push("/login")}}><Text>SIGN IN</Text></Minibutton>
                 <Minibutton onClick={()=>{history.push("/signup")}}><Text>SIGN UP</Text></Minibutton>
+                <SettingsIcon onClick={()=>{history.push("/setting")}} style={{padding:"17px 3px 0px 5px"}}/>
                 </HeaderIcons>
             </HeaderInnerContainer>
         </HeaderContainer>
@@ -74,13 +74,13 @@ const HeaderContainer = styled.div`
     position: fixed;
     width: 100vw;
     height: 55px;
-    background-color: black;
+    background-color: #121212;
     border: none;
     border-bottom: 1px solid #e9ecef
     left:0;
     top:0;
     z-index:10;
-    margine-bottom:0px;
+    margin-bottom:10px;
 `
 
 const HeaderInnerContainer = styled.div`
@@ -101,6 +101,7 @@ const HeaderIcons = styled.div`
     width: 140px;
     display: flex;
     justify-content:space-between;
+    color: white;
 `
 
 const Title = styled.div`
@@ -111,6 +112,7 @@ const Title = styled.div`
        color: grey;
    };
    cursor: pointer;
+  
 `
 
 const Text = styled.div`
@@ -119,22 +121,24 @@ const Text = styled.div`
    
 `
 const Titlebutton = styled.button`
-    background-color: black;
+    background-color: #121212;
     border: none;
     &:hover{
         color: grey;
     };
     cursor: pointer;
+    outline: none;
 `
 
 const Minibutton = styled.button`
-   background-color: black;
+   background-color:#121212;
    border-color: white;
    width: 70px;
    padding: 4px 2px 4px 2px;
    border: none;
    margin: 12px;
    cursor: pointer;
+   outline: white;
 `
 
 //opacity 사용 나중에 해보기!

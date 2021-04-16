@@ -16,13 +16,15 @@ const Signup=()=> {
   const [passwordc,setPwc] = React.useState(null)
   const [nickname,setName] = React.useState(null)
   
+  //왜 특수문자가 가능한가
   const idCheck = (id) =>{
-    let idReg = /^(?=.*[a-zA-z])(?=.*[0-9]).{3,20}$/g;
+    let idReg = /^[a-zA-Z0-9].{3,}$/;
     return idReg.test(id);
   }
+
   
   const pwCheck = (password) => {
-    let pwReg = /^(?=.*[a-zA-z0-9_]).{4,20}$/;
+    let pwReg = /^[a-zA-Z0-9].{4,}$/;
     return pwReg.test(password);
   }
 
@@ -39,39 +41,39 @@ const Signup=()=> {
       return;
     }
 
-    // if(!idCheck(id)){
-    //   window.alert('아이디는 3자리 이상이어야하며, 영문 대/소문자 & 숫자 & _만 가능합니다!');
-    //   return;
-    // }
+    if(!idCheck(id)){
+      window.alert('아이디는 3자리 이상이며, 영문 대/소문자 & 숫자 & _만 가능합니다!');
+      return;
+    }
 
-    // if(!pwCheck(password)){
-    //   window.alert('비밀번호는 4자리 이상이어야하며, ID나 공백을 포함해서는 안됩니다');
-    //   return;
-    // }
+    if(!pwCheck(password)){
+      window.alert('비밀번호는 4자리 이상이며,  영문 대/소문자 & 숫자 & _만 가능합니다!');
+      return;
+    }
 
-    // if(password.search(id)>-1){
-    //   window.alert("비밀번호에 아이디가 포함되었습니다")
-    //   return;
-    // }
+    if(password.search(id)>-1){
+      window.alert("비밀번호에 아이디가 포함되었습니다")
+      return;
+    }
 
     dispatch(userActions.signupSV(id,password,nickname))
   }
 
   return(
     <React.Fragment>
-      <LoginContainer>
+      <SignupContainer>
         <Title>ART SEOUL</Title>
         <IdBox onChange={(e)=>{setName(e.target.value)}} placeholder="닉네임을 입력해주세요"/>
         <IdBox onChange={(e)=>{setId(e.target.value)}} placeholder="아이디를 입력해주세요"/>
         <PwBox onChange={(e)=>{setPw(e.target.value)}} placeholder="비밀번호를 입력해주세요" type="password" />
-        <PwBox onChange={(e)=>{setPwc(e.target.value)}} placeholder="비밀번호를 한번 더 입력해주세요" type="password" />
+        <PwBox onChange={(e)=>{setPwc(e.target.value)}} placeholder="비밀번호를 재입력해주세요" type="password" />
         <SignupButton onClick={()=>{signup()}}>회원가입</SignupButton>
-      </LoginContainer>
+      </SignupContainer>
     </React.Fragment>
   )
 
 }
-const LoginContainer = styled.div`
+const SignupContainer = styled.div`
     margin:auto;
     width: 400px;
     height: 340px;
@@ -79,6 +81,9 @@ const LoginContainer = styled.div`
     border: 1px solid #e9ecef;
     margin-top:70px;    
     text-align: center;
+    @media (max-width: 975px){
+      width: 60%;
+    }
 `
 const Title = styled.div`
    font-weight: bold;
@@ -101,6 +106,9 @@ const IdBox = styled.input`
     outline: none;
     font-size: 5px;
     font-weight: bold;
+    @media (max-width: 975px){
+      width: 60%;
+    }
 `
 
 const PwBox = styled.input`
@@ -117,6 +125,9 @@ const PwBox = styled.input`
     outline: none;
     font-size: 5px;
     font-weight: bold;
+    @media (max-width: 975px){
+      width: 60%;
+    }
 `
 
 const SignupButton = styled.button`
@@ -128,6 +139,9 @@ const SignupButton = styled.button`
     font-weight: bold;
     border-radius: 5px;
     outline: none;
+    @media (max-width: 975px){
+      width: 60%;
+    }
     
 `
 
