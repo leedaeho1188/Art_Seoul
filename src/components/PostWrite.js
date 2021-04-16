@@ -69,6 +69,7 @@ const PostWrite = (props) => {
     dispatch(postActions.editMyPostAX(post, post_id))
     props.close()
     window.scrollTo(0.0)
+    }
   }
 
   return (
