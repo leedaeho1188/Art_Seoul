@@ -4,7 +4,7 @@ import Main from  "../pages/Main"
 import Login from  "../pages/Login"
 import Signup from  "../pages/Signup"
 import Mypage from  "../pages/Mypage"
-import Setting from  "../pages/Setting"
+import Question from  "../pages/Question"
 
 import NotFound from  "../pages/NotFound"
 import {Switch, Route, BrowserRouter} from "react-router-dom"
@@ -37,7 +37,7 @@ function App() {
           <Route path="/login" exact component={Login}/>
           <Route path="/signup" exact component={Signup}/>
           <Route path="/mypage" exact component={Mypage}/>       
-          <Route path="/setting" exact component={Setting}/>       
+          <Route path="/question" exact component={Question}/>       
           <Route exact component={NotFound}/>
         </Switch>
       </ConnectedRouter>

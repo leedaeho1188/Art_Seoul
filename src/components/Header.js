@@ -43,7 +43,7 @@ const is_login = useSelector((state)=>state.user.is_login)
                     
                     ><Text>MY PAGE</Text></Minibutton>
                     <SettingsIcon onClick={()=>{
-                        history.push("/setting")
+                        history.push("/question")
                     }} style={{padding:"17px 3px 0px 5px"}}/>
                     </HeaderIcons>
                 </HeaderInnerContainer>
@@ -60,7 +60,7 @@ const is_login = useSelector((state)=>state.user.is_login)
                 <HeaderIcons>
                 <Minibutton onClick={()=>{history.push("/login")}}><Text>SIGN IN</Text></Minibutton>
                 <Minibutton onClick={()=>{history.push("/signup")}}><Text>SIGN UP</Text></Minibutton>
-                <SettingsIcon onClick={()=>{history.push("/setting")}} style={{padding:"17px 3px 0px 5px"}}/>
+                <SettingsIcon onClick={()=>{history.push("/question")}} style={{padding:"17px 3px 0px 5px"}}/>
                 </HeaderIcons>
             </HeaderInnerContainer>
         </HeaderContainer>

@@ -10,9 +10,6 @@ import {actionCreators as postActions} from "../redux/modules/post"
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import { TrafficRounded } from '@material-ui/icons'
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Button from '@material-ui/core/Button';
 
 const { kakao } = window;
 
@@ -25,7 +22,6 @@ const Map = (props) => {
   const [ markerId, setmarkerId ] = useState();
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
-  // const [ zoomIn, setZoomIn ] = useState();
   const [_map, setMap ] = useState();
   const positions = useSelector((state) => state.marker.list)
   const post_list = useSelector((state) => state.post.list)
@@ -114,7 +110,7 @@ const Map = (props) => {
               <MapControlBtn  onClick={zoomOut}  ><RemoveIcon/></MapControlBtn>
           </MapBtnContainer>  
         </ MapContainer>
-      <div id='ClickLatlng'></div>
+      {/* <div id='ClickLatlng'></div> */}
       {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} />
       : null }
       {is_write && is_login ? 

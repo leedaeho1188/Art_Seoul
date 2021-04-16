@@ -38,7 +38,7 @@ const addPostAX = (post) => {
   return function (dispatch, getState){
 
     const formData = new FormData();
-    formData.append("image", post.image);
+    formData.append("images", post.image);
     formData.append("title", post.title);
     formData.append("contents", post.contents);
     formData.append("markername", post.markername);
@@ -50,7 +50,9 @@ const addPostAX = (post) => {
 
     axios.post(`${config.api}/board/${post.markerId}`, formData, token)
       .then((res) => {
-        window.alert("성공")
+        if(res.data.state ==="success"){
+          window.alert("게시물이 잘 저장되었습니다.😀")
+        }
         // console.log(res)
         // let _post = res.data.result
         // let post_info = {
