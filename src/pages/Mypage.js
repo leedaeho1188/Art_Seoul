@@ -4,7 +4,7 @@ import MyPost from "../components/MyPost";
 import { useSelector, useDispatch } from "react-redux"
 import { actionCreators as userActions } from "../redux/modules/post";
 import { Settings } from "@material-ui/icons";
-import Setting from  "../pages/Setting"
+import Question from  "../pages/Question"
 import ProfileUpdateModal from "../components/ProfileUpdateModal";
 
 
@@ -36,7 +36,7 @@ const Mypage = () => {
     return (<React.Fragment>
 
     <EditProfileContainer>
-      <ImageCircle size={200}/>
+      <ImageCircle src="https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" size={200}/>
       <EditButton onClick={openModal}>EDIT PROFILE </EditButton> 
     </EditProfileContainer>
     <NoPost><Text>작성한 게시물이 없습니다!</Text></NoPost>
@@ -78,12 +78,12 @@ margin-top:100px;
 `
 
 
-const ImageCircle = styled.div`
+const ImageCircle = styled.img`
   --size: ${(props) => props.size}px;
   width: var(--size);
   height: var(--size);
   border-radius: var(--size);
-  background-color: black;
+  // background-color: black;
   // background-image: url("${(props) => props.src}");
   background-size: cover;
   margin: 4px;

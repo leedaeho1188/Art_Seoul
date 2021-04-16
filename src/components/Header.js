@@ -28,6 +28,7 @@ const Header = () => {
 
 
 const is_login = useSelector((state)=>state.user.is_login)
+const user_info = useSelector((state) => state.user.user)
 
   if(is_login){
     return(
@@ -39,12 +40,12 @@ const is_login = useSelector((state)=>state.user.is_login)
                     <Minibutton onClick={()=>{dispatch(userActions.logOut());
                         history.push("/login")
                     }}><Text>LOG OUT</Text></Minibutton>
-                    <Minibutton onClick={()=>{history.push("/mypage")}}
-                    
-                    ><Text>MY PAGE</Text></Minibutton>
-                    <SettingsIcon onClick={()=>{
-                        history.push("/question")
-                    }} style={{padding:"17px 3px 0px 5px"}}/>
+                    <ProCircle onClick={() => {history.push("/mypage")}} src="https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"  />
+                    <Minibutton>
+                        <SettingsIcon onClick={()=>{
+                            history.push("/question")
+                        }}/>
+                    </Minibutton>
                     </HeaderIcons>
                 </HeaderInnerContainer>
             </HeaderContainer>
@@ -58,9 +59,11 @@ const is_login = useSelector((state)=>state.user.is_login)
             <HeaderInnerContainer>
                 <Titlebutton onClick={()=>{history.push("/")}}><Title>ART SEOUL</Title></Titlebutton>
                 <HeaderIcons>
-                <Minibutton onClick={()=>{history.push("/login")}}><Text>SIGN IN</Text></Minibutton>
-                <Minibutton onClick={()=>{history.push("/signup")}}><Text>SIGN UP</Text></Minibutton>
-                <SettingsIcon onClick={()=>{history.push("/question")}} style={{padding:"17px 3px 0px 5px"}}/>
+                    <Minibutton onClick={()=>{history.push("/login")}}><Text>SIGN IN</Text></Minibutton>
+                    <Minibutton onClick={()=>{history.push("/signup")}}><Text>SIGN UP</Text></Minibutton>
+                    <Minibutton>
+                        <SettingsIcon onClick={()=>{history.push("/question")}}/>
+                    </Minibutton>
                 </HeaderIcons>
             </HeaderInnerContainer>
         </HeaderContainer>
@@ -101,6 +104,7 @@ const HeaderIcons = styled.div`
     width: 140px;
     display: flex;
     justify-content:space-between;
+    align-items: center;
     color: white;
 `
 
@@ -130,8 +134,8 @@ const Titlebutton = styled.button`
     outline: none;
 `
 
-const Minibutton = styled.button`
-   background-color:#121212;
+const Minibutton = styled.div`
+//    background-color:#121212;
    border-color: white;
    width: 70px;
    padding: 4px 2px 4px 2px;
@@ -139,7 +143,18 @@ const Minibutton = styled.button`
    margin: 12px;
    cursor: pointer;
    outline: white;
+   align-self: center;
 `
+
+const ProCircle = styled.img`
+  margin: 12px;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  background-size: cover;
+  cursor: pointer;
+`
+
 
 //opacity 사용 나중에 해보기!
 export default Header;

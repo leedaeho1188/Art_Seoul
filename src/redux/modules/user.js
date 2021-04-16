@@ -110,7 +110,8 @@ const loginCheck= (id,password) => {
         console.log(res.data)
         let user = {
           id: res.data[0].id,
-          nickname: res.data[1].nickname
+          nickname: res.data[1].nickname,
+          profile: res.data[2].profile,
         }
         dispatch(setUser(user))
       })

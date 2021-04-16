@@ -14,9 +14,9 @@ const ProfileUpdateModal = (props) => {
     const [image, setImage] = useState()
     const user_info = useSelector((state)=>state.user.user);
 
-    const closeModal = () => {
-        setDetailModal(false);
-      };
+    // const closeModal = () => {
+    //     setDetailModal(false);
+    //   };
       
     const changeProfile = (e)=>{
         setChange(e.target.value)
@@ -31,7 +31,7 @@ const ProfileUpdateModal = (props) => {
     }
 
 
-    console.log(user_info)
+    console.log(user_info.profile)
   return( 
     <React.Fragment>
       <Component onClick={props.close}/>
