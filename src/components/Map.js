@@ -19,11 +19,13 @@ const Map = (props) => {
   const [ is_modal, setModal ] = useState(false);
   const [ is_writeModal, setWriteModal ] = useState(false);
   const [ is_write, setWrite ] = useState(false);
+  const [ hot, setHot ] = useState(false);
   const [ markerId, setmarkerId ] = useState();
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [_map, setMap ] = useState();
-  const positions = useSelector((state) => state.marker.list)
+  const normalMarker = useSelector((state) => state.marker.normal)
+  const hotMarker = useSelector((state) => state.marker.hot)
   const post_list = useSelector((state) => state.post.list)
 
   useEffect(() => {
@@ -34,14 +36,15 @@ const Map = (props) => {
       };
     const map = new kakao.maps.Map(container, options);//지도를 생성합니다.
     setMap(map)
-    var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+    var normalImageSrc = "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png"
+    var hotImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
     // 지도를 클릭한 위치에 표출할 마커입니다.
-    positions.map((p, idx) => {
+    normalMarker.map((p, idx) => {
 
-      var imageSize = new kakao.maps.Size(24, 35);
+      var imageSize = new kakao.maps.Size(35, 35);
 
-      var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+      var markerImage = new kakao.maps.MarkerImage(normalImageSrc, imageSize);
 
       const markers = new kakao.maps.Marker({
         // 지도 중심좌표에 마커를 생성합니다.
@@ -53,6 +56,27 @@ const Map = (props) => {
 
       kakao.maps.event.addListener(markers, 'click', function(){
         markerDetail(p.id)
+        setHot(false)
+      })
+    })
+
+    hotMarker.map((p, idx) => {
+
+      var imageSize = new kakao.maps.Size(30, 45);
+
+      var markerImage = new kakao.maps.MarkerImage(hotImageSrc, imageSize);
+
+      const markers = new kakao.maps.Marker({
+        // 지도 중심좌표에 마커를 생성합니다.
+        map: map,
+        position: new kakao.maps.LatLng(p.latitude, p.longitude) ,
+        title: p.title,
+        image: markerImage,
+      });
+
+      kakao.maps.event.addListener(markers, 'click', function(){
+        markerDetail(p.id)
+        setHot(true)
       })
     })
 
@@ -77,7 +101,7 @@ const Map = (props) => {
     kakao.maps.event.addListener(marker, 'click', function(){
       setModal(true)
     })
-  }, [positions])
+  }, [normalMarker])
 
   const zoomIn = () => {
     _map.setLevel(_map.getLevel() - 1);
@@ -123,7 +147,7 @@ const Map = (props) => {
       </Fab>
       </AddBtn>
       : null}
-      {is_writeModal? <PostWrite markerId = {markerId} close={closeWriteModal} />
+      {is_writeModal? <PostWrite markerId = {markerId} close={closeWriteModal} hot={hot} />
       : null}
     </React.Fragment>
   )

@@ -16,7 +16,7 @@ const PostWrite = (props) => {
   const [title, setTitle] = useState(is_edit? props.title:"")
   const [contents, setContents] = useState(is_edit? props.contents:"")
   const [image, setImage] = useState()
-  const marker_list = useSelector((state) => state.marker.list)
+  const marker_list = useSelector((state) => props.hot? state.marker.hot : state.marker.normal)
   const idx = marker_list.findIndex(m => m.id === props.markerId)
   const marker = marker_list[idx]
   const preview = useSelector((state) => state.image.preview)
@@ -48,7 +48,6 @@ const PostWrite = (props) => {
     console.log(post)
     dispatch(postActions.addPostAX(post))
     props.close()
-    window.scrollTo(0,0)
   }
 
   const editPost = () => {
@@ -62,13 +61,13 @@ const PostWrite = (props) => {
     {
     dispatch(postActions.editPostAX(post, post_id))
     props.close()
-    window.scrollTo(0.0)
+    window.scrollTo(0,0)
     }
     else
     {
     dispatch(postActions.editMyPostAX(post, post_id))
     props.close()
-    window.scrollTo(0.0)
+    window.scrollTo(0,0)
     }
   }
 

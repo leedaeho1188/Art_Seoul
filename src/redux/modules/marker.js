@@ -8,10 +8,11 @@ const ADD_MARKER = "ADD_MARKER";
 const SET_MARKER = "SET_MARKER";
 
 const addMarker = createAction(ADD_MARKER, (marker) => ({marker}))
-const setMarker = createAction(SET_MARKER, (marker_list) => ({marker_list}))
+const setMarker = createAction(SET_MARKER, (hotMarker_list, normalMarker_list) => ({hotMarker_list, normalMarker_list}))
 
 const initialState = {
-  list: [],
+  normal: [],
+  hot: [],
 }
 
 
@@ -36,11 +37,12 @@ const addMarkerAX = (marker) => {
 
 const getMarkerAX = () => {
   return function (dispatch){
-    axios.get(`${config.api}/marker/display`)
+    axios.get(`${config.api}/marker/display/detail`)
       .then((res) => {
         console.log(res.data)
-        let marker_list = [];
-        res.data.forEach((_marker) => {
+        let hotMarker_list = [];
+        let normalMarker_list = [];
+        res.data.hot_marker.forEach((_marker) => {
           let marker = {
             id: _marker._id,
             title: _marker.markername,
@@ -50,10 +52,22 @@ const getMarkerAX = () => {
             boardcount: _marker.boardcount,
           }
 
-          marker_list.unshift(marker)
+          hotMarker_list.unshift(marker)
         })
-        console.log(marker_list)
-        dispatch(setMarker(marker_list))
+        res.data.normal_marker.forEach((_marker) => {
+          let marker = {
+            id: _marker._id,
+            title: _marker.markername,
+            latitude: _marker.location[0],
+            longitude: _marker.location[1],
+            markertype: _marker.markertype,
+            boardcount: _marker.boardcount,
+          }
+
+          normalMarker_list.unshift(marker)
+        })
+        console.log(hotMarker_list, normalMarker_list)
+        dispatch(setMarker(hotMarker_list, normalMarker_list))
       })
   }
 }
@@ -63,18 +77,30 @@ export default handleActions(
   {
     //새로운 marker 정보를 redux store에 저장
     [ADD_MARKER]: (state, action) => produce(state, (draft) => {
-      draft.list.unshift(action.payload.marker)
+      draft.normal.unshift(action.payload.marker)
     }),
     [SET_MARKER]: (state, action) => produce(state, (draft) => {
-      draft.list.push(...action.payload.marker_list);
-      draft.list = draft.list.reduce((acc, cur) => {
+      draft.normal.push(...action.payload.normalMarker_list);
+      draft.hot.push(...action.payload.hotMarker_list);
+
+      draft.normal = draft.normal.reduce((acc, cur) => {
         if(acc.findIndex(a => a.id === cur.id) === -1){
           return [...acc, cur];
         }else{
           acc[acc.findIndex((a) => a.id === cur.id)] = cur;
           return acc;
         }
-      }, [])
+      }, []);
+
+      draft.hot = draft.hot.reduce((acc, cur) => {
+        if(acc.findIndex(a => a.id === cur.id) === -1){
+          return [...acc, cur];
+        }else{
+          acc[acc.findIndex((a) => a.id === cur.id)] = cur;
+          return acc;
+        }
+      }, []);
+
     }),
   },
   initialState
@@ -82,7 +108,7 @@ export default handleActions(
 
 const actionCreators = {
   addMarkerAX,
-  getMarkerAX
+  getMarkerAX,
 }
 
 export {actionCreators}

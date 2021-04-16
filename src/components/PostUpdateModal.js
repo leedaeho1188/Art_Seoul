@@ -14,6 +14,7 @@ const PostUpdateModal = (props) => {
     //동기처리 + 콜백함수?
     props.open()
     props.close()
+    window.scrollTo(0,0)
   }
   return(
 
