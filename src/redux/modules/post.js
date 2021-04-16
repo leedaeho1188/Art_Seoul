@@ -17,6 +17,7 @@ const EDIT_MY_POST = "EDIT_MY_POST";
 const LOADING = "LOADING";
 
 
+
 const addPost = createAction(ADD_POST, (post) => ({post}))
 const setPost = createAction(SET_POST, (post_list, next) => ({post_list, next}))
 const getmyPost = createAction(GET_MY_POST,(my_list)=>({my_list}))
@@ -24,7 +25,6 @@ const removePost = createAction(REMOVE_POST, (post_id)=> ({post_id}))
 const removeMyPost = createAction(REMOVE_MY_POST, (post_id)=> ({post_id}))
 const editPost = createAction(EDIT_POST, (post, post_id) => ({post, post_id}))
 const editMyPost = createAction(EDIT_MY_POST, (post, post_id) => ({post, post_id}))
-
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState ={
@@ -282,6 +282,7 @@ const editMyPostAX = (post, boardId) => {
 
 
 
+
 export default handleActions(
   {
     [ADD_POST]: (state, action) => produce(state, (draft) => {
@@ -322,6 +323,9 @@ export default handleActions(
       draft.mylist[idx] = {...draft.mylist[idx], ...action.payload.post}
     }),
 
+    
+
+
     [REMOVE_POST]: (state,action) => produce(state, (draft)=>{
       draft.list = draft.list.filter((r, idx) => {
         if(r.id !== action.payload.post_id){
@@ -354,6 +358,7 @@ const actionCreators = {
   removeMyPostAX,
   editPostAX,
   editMyPostAX,
+ 
 }
 
 export {actionCreators}

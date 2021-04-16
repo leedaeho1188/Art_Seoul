@@ -7,7 +7,7 @@ import PostWrite from './PostWrite'
 
 //해당 게시글에 대한 내용을 모달에 띄워야한다 + props로 이미지 내려주기(완) + 영역나눠주기!
 const MyPostModal = (props) => {
-
+  console.log(props)
   const [ is_modal, setModal ] = useState(false)
   const [ is_writeModal, setWriteModal ] = useState(false)
 

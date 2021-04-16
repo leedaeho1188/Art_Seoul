@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import MyPostModal from './MyPostModal';
 
@@ -17,6 +17,7 @@ const MyPost =(props)=>{
       };
 
       //Content 클릭하면 MyPostModal이 열리게 되어있다
+      
     return(
         <React.Fragment>
             
@@ -31,13 +32,14 @@ const MyPost =(props)=>{
 const Content = styled.div`
   width: 170px;
   height: 171px;
-  border: none;
+  border: 4px solid black;
   margin: 0px 0px 0px 0px;
-  border-radius: 0px;
+  border-radius: 10px;
   background-image: url("${(props) => props.image_url}");
   background-size: cover;
   background-color: white;
 
-`;
+`
+
 
 export default MyPost; 

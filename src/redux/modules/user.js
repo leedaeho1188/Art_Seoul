@@ -10,12 +10,12 @@ import {useState} from 'react';
 // const LOG_IN ="LOG_IN";
 const SET_USER ="SET_USER";
 const LOG_OUT ="LOG_OUT";
-const GET_USER ="GET_USER";
+const EDIT_PROFILE ="EDIT_PROFILE";
 
 // const logIn = createAction(LOG_IN , (user) => ({user}));
 const setUser = createAction(SET_USER,(user)=>({user}));
 const logOut = createAction(LOG_OUT, (user) => ({user}));
-const getUser = createAction(GET_USER, (user) => ({user}));
+// const editProfile = createAction(EDIT_PROFILE, (post, post_id) => ({post, post_id}))
 
 // user 로그인 정보를 전해주면 reducer에 등록하는 함수 
 // const loginAction =(user)=>{                        
@@ -60,7 +60,8 @@ const loginSV = (id,password)=>{
               console.log(res.data)
               let user = {
                 id: res.data[0].id,
-                nickname: res.data[1].nickname
+                nickname: res.data[1].nickname,
+                profile: res.data[2].profile,
               }
               dispatch(setUser(user))
               history.push('/')
@@ -117,6 +118,58 @@ const loginCheck= (id,password) => {
   }
 };
 
+// const editProfileAX = (post, boardId) => {
+//   return function (dispatch, getState){
+//     const _image = getState().image.preview;
+//     const _post_idx = getState().post.list.findIndex((p) => p.id == boardId);
+//     const _post = getState().post.list[_post_idx]
+
+//     if(_image == _post.image_url){
+//       const formData = new FormData();
+//       formData.append("title", post.title);
+//       formData.append("contents", post.contents);
+//       let token = {
+//         headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
+//       }
+//       console.log(post)
+//       axios.put(`${config.api}/board/${boardId}`, formData, token )
+//         .then((response) => {
+//           console.log(response.data)
+//           let post_info = {
+//             title: post.title,
+//             contents: post.contents,
+//           }
+//           dispatch(editPost(post_info, boardId))
+//         }).catch((err) => {
+//           console.log(err)
+//         })
+//       return;
+//     } else {
+//       const formData = new FormData();
+//       formData.append("title", post.title);
+//       formData.append("contents", post.contents);
+//       formData.append("image", post.image);
+//       let token = {
+//         headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
+//       }
+//       console.log(post)
+//       axios.put(`${config.api}/board/${boardId}`, formData, token )
+//         .then((response) => {
+//           console.log(response.data.boardsData[0].img)
+//           let post_info = {
+//             title: post.title,
+//             contents: post.contents,
+//             image_url: response.data.boardsData[0].img,
+//           }
+//           dispatch(editPost(post_info, boardId))
+//         }).catch((err) => {
+//           console.log(err)
+//         })
+//     }
+
+//   }
+// }
+
 
 export default handleActions(
   {
@@ -133,10 +186,10 @@ export default handleActions(
       draft.is_login = false;
     }),
 
-    [GET_USER]: (state, action) =>produce(state, (draft)=>{
-
-    })
-
+    // [EDIT_PROFILE]: (state, action) => produce(state, (draft) => {
+    //   let idx = draft.mylist.findIndex((p) => p.id === action.payload.post_id)
+    //   draft.mylist[idx] = {...draft.mylist[idx], ...action.payload.post}
+    // }),
 
   },
   initialState
@@ -145,11 +198,10 @@ export default handleActions(
 const actionCreators = {
   setUser,
   logOut,
-  getUser,
   signupSV,
   loginSV,
   loginCheck,
-
+  // editProfileAX,
 };
 
 export {actionCreators};
