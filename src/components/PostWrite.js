@@ -63,14 +63,21 @@ const PostWrite = (props) => {
     {
     dispatch(postActions.editPostAX(post, post_id))
     props.close()
+<<<<<<< HEAD
+=======
     window.scrollTo(0,0)
+>>>>>>> 8bfd2a49bd9c6bb074da4c5545b8a00431bcc3c3
     }
     else
     {
     dispatch(postActions.editMyPostAX(post, post_id))
     props.close()
+<<<<<<< HEAD
+=======
     window.scrollTo(0,0)
+>>>>>>> 8bfd2a49bd9c6bb074da4c5545b8a00431bcc3c3
     }
+    
   }
 
   return (

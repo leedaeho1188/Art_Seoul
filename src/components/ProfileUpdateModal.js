@@ -13,6 +13,7 @@ const ProfileUpdateModal = (props) => {
     const [new_name, setChange] = useState()
     const [image, setImage] = useState()
     const user_info = useSelector((state)=>state.user.user);
+    const preview = useSelector((state) => state.image.preview)
 
     // const closeModal = () => {
     //     setDetailModal(false);
@@ -25,10 +26,13 @@ const ProfileUpdateModal = (props) => {
     const editProfile = () =>{
         let edit={
             nickname : new_name,
-            // images : 
+            images :  image,
         }
-        //dispatch (edit)
+        // dispatch (edit) 서버랑도 통신하면서 리듀서를 통해서 값 변경해주는!!
     }
+    // console.log(user_info)
+    // console.log(image)
+    // console.log(new_name)
 
 
     console.log(user_info.profile)
@@ -37,10 +41,11 @@ const ProfileUpdateModal = (props) => {
       <Component onClick={props.close}/>
       <Modal>
 
-        
-        <ImageInModal src={user_info.profile} size={200}/>
-        {/* <Upload setImage={setImage}/> */}
-    
+        <TextContainer>
+        <UploadBox><Upload setImage={setImage}/></UploadBox>
+        <ImageInModal src={preview ? preview : user_info.profile} size={200}/>
+
+        </TextContainer>
 
         <TextContainer>
         <NicknameText > Current Nickname : {user_info.nickname}</NicknameText>
@@ -75,6 +80,10 @@ const ImageInModal = styled.img`
 
 `;
 
+const UploadBox = styled.div`
+  margin: 50px 0px 10px 30px;
+`
+
 const Modal = styled.div`
   position: fixed;
   width: 700px;
@@ -94,33 +103,33 @@ const Modal = styled.div`
 const TextContainer= styled.div`
    width: 300px;
    height: 402px;
-   margin: 0px 20px 0px 100px;
-   background-color: black;
+   margin: 0px 20px 0px 10px;
+  
    padding: 0px 0px 0px 0px;
    border-radius:20px;
 `
 const NicknameText = styled.div`
-    color: white;
+    color: black;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 22px;
     padding: 90px 0px 0px 10px;
 `
 
 const EditInput = styled.input`
-    width: 240px;
+    width: 300px;
     height: 30px;
-    font-color: white;
-    margin: 20px 0px 0px 10px;
+    margin: 40px 0px 0px 10px;
+    border: 1px solid black;
 `
 
 const EditButton = styled.button`
-  width: 100px;
+  width: 300px;
   height: 50px;
   font-weight: bold;
   border: 2px solid black;
   background-color: white;
   font-size: 20px;
-  margin: 100px 0px 0px 85px; 
+  margin: 80px 0px 0px 15px; 
   border-radius: 10px;
 `
 

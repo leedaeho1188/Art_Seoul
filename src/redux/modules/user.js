@@ -15,7 +15,7 @@ const EDIT_PROFILE ="EDIT_PROFILE";
 // const logIn = createAction(LOG_IN , (user) => ({user}));
 const setUser = createAction(SET_USER,(user)=>({user}));
 const logOut = createAction(LOG_OUT, (user) => ({user}));
-// const editProfile = createAction(EDIT_PROFILE, (post, post_id) => ({post, post_id}))
+const editProfile = createAction(EDIT_PROFILE, (post, post_id) => ({post, post_id}))
 
 // user 로그인 정보를 전해주면 reducer에 등록하는 함수 
 // const loginAction =(user)=>{                        
@@ -86,6 +86,7 @@ const signupSV = (id,password,nickname)=>{
           id : id,
           password : password,
           nickname: nickname,
+          
         },
       })
       .then((response)=>{
@@ -119,6 +120,7 @@ const loginCheck= (id,password) => {
   }
 };
 
+// 전달하고 받아오는!!
 // const editProfileAX = (post, boardId) => {
 //   return function (dispatch, getState){
 //     const _image = getState().image.preview;
