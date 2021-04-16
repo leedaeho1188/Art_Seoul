@@ -34,7 +34,7 @@ const Login =(props)=> {
         <Title>ART SEOUL</Title>
         <IdBox onChange={(e)=>{setId(e.target.value)}} placeholder="아이디를 입력해주세요"/>
         <p><PwBox onChange={(e)=>{setPw(e.target.value)}} placeholder="비밀번호를 입력해주세요" type="password"/></p>
-        <p><SignupText onClick={()=>{history.push("/signup")}}>아직 회원가입을 하지 않으셨나요?</SignupText></p>
+        <p><SignupText onClick={()=>{history.push("/signup")}}><p>아직 회원가입을 하지 않으셨나요?</p> 회원가입 하러가기</SignupText></p>
         <LoginButton onClick={()=>{login()}}>로그인</LoginButton>
       </LoginContainer>
       </LoginBackground>
@@ -59,7 +59,7 @@ const LoginContainer = styled.div`
     height: 70%;
     background-color: #121212;
     border: 15px solid #121212;
-    border-radius: 10px;  
+    border-radius: 20px;  
     text-align: center;
     padding-bottom: 20px;
    
@@ -69,7 +69,7 @@ const Title = styled.div`
    font-weight: bold;
    font-size: 32px;
    text-align: left;
-   margin: 20px 0px 0px 20px;
+   margin: 20px 0px 20px 20px;
    color: white;
   
   
@@ -120,19 +120,19 @@ const PwBox = styled.input`
     }
 `
 const SignupText = styled.button`
-   font-size: 5px;
-   text-align: center;
-   margin-top: 40px;
+  font-size: 5px;
+  text-align: center;
+  margin-top: 40px;
+  color: grey;
+  border: none;
+  outline: none;
+  background-color: #121212;
+  &:hover{
    color: white;
-   border: none;
-   outline: none;
-   background-color: #121212;
-   &:hover{
-    color: black;
-    };
-    @media (max-width: 975px){
+  };
+  @media (max-width: 975px){
       width: 100%;
-    }
+  }
 `
 const LoginButton = styled.button`
     width: 360px;

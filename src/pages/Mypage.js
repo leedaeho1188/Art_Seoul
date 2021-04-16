@@ -36,7 +36,7 @@ const Mypage = () => {
     return (<React.Fragment>
 
     <EditProfileContainer>
-      <ImageCircle size={200}/>
+      <ImageCircle src={user_info.profile} size={200}/>
       <EditButton onClick={openModal}>EDIT PROFILE </EditButton> 
     </EditProfileContainer>
     <NoPost><Text>작성한 게시물이 없습니다!</Text></NoPost>
@@ -46,11 +46,14 @@ const Mypage = () => {
     )
   }else{
   return(
-  <React.Fragment>
-  <EditProfileContainer/>
+    <React.Fragment>
+
+  <EditProfileContainer>
+    <ImageCircle src={user_info.profile} size={200}/>
+    <EditButton onClick={openModal}>EDIT PROFILE </EditButton> 
+  </EditProfileContainer>  
+    {is_modal ? <ProfileUpdateModal {...user_info} close={closeModal}/> :null}
   <PostContainer>
-  
-  
   {my_list.map((item)=> {
     return(
       
@@ -68,7 +71,7 @@ const Mypage = () => {
 
 const EditProfileContainer = styled.div`
 margin:auto;
-width:516px;
+width:550px;
 height: 300px;
 
 background-color: white;
@@ -78,13 +81,11 @@ margin-top:100px;
 `
 
 
-const ImageCircle = styled.div`
+const ImageCircle = styled.img`
   --size: ${(props) => props.size}px;
   width: var(--size);
   height: var(--size);
   border-radius: var(--size);
-  background-color: black;
-  // background-image: url("${(props) => props.src}");
   background-size: cover;
   margin: 4px;
   margin: 20px 0px 0px 30px;
@@ -99,7 +100,7 @@ const PostContainer = styled.div`
   background-color: black;
   border: 3px solid black;
   border-radius: 10px;
-  margin-top:180px;     
+  margin-top:10px;     
   display:flex;
   
   // 줄바꿈 자동으로 되도록 + flex-item간의 간격이 줄어들도록!

@@ -33,7 +33,7 @@ const Upload = (props) => {
         variant="outlined"
         component="label"
         color="default"
-        startIcon={<CloudUploadIcon />}
+        startIcon={<CloudUploadIcon/>}
         size = "small"
       >
         

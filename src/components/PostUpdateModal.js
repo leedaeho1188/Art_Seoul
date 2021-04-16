@@ -47,6 +47,7 @@ const PostUpdateModal = (props) => {
 const Component = styled.div`
   position: fixed;
   top: 0;
+  left: 0;
   opacity: 0.4;
   height: 100vh;
   width: 100vw;
