@@ -1,10 +1,11 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import styled from "styled-components";
 import MyPost from "../components/MyPost";
 import { useSelector, useDispatch } from "react-redux"
 import { actionCreators as userActions } from "../redux/modules/post";
 import { Settings } from "@material-ui/icons";
 import Setting from  "../pages/Setting"
+import ProfileUpdateModal from "../components/ProfileUpdateModal";
 
 
 //해당 user가 작성한 게시글 정보를 전부 내려주면 middleware를 통해서 reducer에 정보저장
@@ -13,6 +14,18 @@ const Mypage = () => {
  //순서 너무 중요하다...
   const dispatch = useDispatch();
   const my_list = useSelector((state) => state.post.mylist);
+  const user_info = useSelector((state)=>state.user.user);
+
+  // console.log(user_info)
+
+  const [ is_modal, setDetailModal ] = useState();
+
+    const openModal = () => {
+        setDetailModal(true);
+      };
+    const closeModal = () => {
+        setDetailModal(false);
+      };
  
   
   React.useEffect(() => {
@@ -24,9 +37,11 @@ const Mypage = () => {
 
     <EditProfileContainer>
       <ImageCircle size={200}/>
-      <button>EDIT PROFILE</button>
+      <EditButton onClick={openModal}>EDIT PROFILE </EditButton> 
     </EditProfileContainer>
     <NoPost><Text>작성한 게시물이 없습니다!</Text></NoPost>
+    
+    {is_modal ? <ProfileUpdateModal {...user_info} close={closeModal}/> :null}
     </React.Fragment>
     )
   }else{
@@ -117,6 +132,13 @@ const Text = styled.div`
   
 `
 
-
+const EditButton = styled.button`
+  margin: 20px 0px 0px 47px;
+  padding: 5px 10px 5px 10px;
+  font-weight: bold;
+  border: 2px solid black;
+  background-color: white;
+  font-size: 20px;
+`
 
 export default Mypage;

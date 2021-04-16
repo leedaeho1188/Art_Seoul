@@ -48,7 +48,7 @@ top:0;
 left:0;
 background-image: url("https://images.unsplash.com/photo-1591723027220-66847f768065?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
 width:100vw;
-height:100%;
+height:600px;;
 background-size: cover;
 padding-top: 150px;
 `
