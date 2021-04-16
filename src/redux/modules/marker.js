@@ -6,9 +6,13 @@ import { config } from "../../shared/config"
 
 const ADD_MARKER = "ADD_MARKER";
 const SET_MARKER = "SET_MARKER";
+const ADD_BOARD = "ADD_BOARD";
+const REMOVE_BOARD = "REMOVE_BOARD";
 
 const addMarker = createAction(ADD_MARKER, (marker) => ({marker}))
 const setMarker = createAction(SET_MARKER, (hotMarker_list, normalMarker_list) => ({hotMarker_list, normalMarker_list}))
+const addBoard = createAction(ADD_BOARD, (markerId, markerClass) => ({markerId, markerClass}))
+const removeBoard = createAction(REMOVE_BOARD, (markerId, markerClass) => ({markerId, markerClass}))
 
 const initialState = {
   normal: [],
@@ -102,6 +106,34 @@ export default handleActions(
       }, []);
 
     }),
+    [ADD_BOARD]: (state, action) => produce(state, (draft) => {
+      if (action.payload.markerClass == "normal"){
+        let idx = draft.normal.findIndex(m => m.id === action.payload.markerId);
+        draft.normal[idx].boardcount += 1;
+        if (draft.normal[idx].boardcount == 10){
+          draft.hot.push(draft.normal[idx])
+          draft.normal.splice(idx, 1)
+        }
+      }
+      else{
+        let idx = draft.hot.findIndex(m => m.id === action.payload.markerId);
+        draft.hot[idx].boardcount += 1;
+      }
+    }),
+    
+    [REMOVE_BOARD]: (state, action) => produce(state, (draft) => {
+      if (draft.normal.findIndex(m => m.id === action.payload.markerId) !== -1){
+        let idx = draft.normal.findIndex(m => m.id === action.payload.markerId);
+        draft.normal[idx].boardcount -= 1;
+      } else{
+        let idx = draft.hot.findIndex(m => m.id === action.payload.markerId);
+        draft.hot[idx].boardcount -= 1;
+        if (draft.hot[idx].boardcount == 9){
+          draft.normal.push(draft.hot[idx])
+          draft.hot.splice(idx, 1)
+        }
+      }
+    })
   },
   initialState
 )
@@ -109,6 +141,8 @@ export default handleActions(
 const actionCreators = {
   addMarkerAX,
   getMarkerAX,
+  addBoard,
+  removeBoard,
 }
 
 export {actionCreators}

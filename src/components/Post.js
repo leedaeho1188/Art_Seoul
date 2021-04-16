@@ -125,7 +125,7 @@ const Post = (props) => {
         </CommentInputBox>
       </PostBox>
       </PostInner>
-      {is_modal? <PostUpdateModal boardId={props.id} nickname = {props.nickname} close={closeModal} open={openWriteModal} />
+      {is_modal? <PostUpdateModal boardId={props.id} markerId={props.markerId} nickname = {props.nickname} close={closeModal} open={openWriteModal} />
       :null}
       {is_writeModal? <PostWrite close={closeWriteModal} {...props} />
       :null}

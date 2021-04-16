@@ -6,6 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import {useDispatch} from 'react-redux'
 import {actionCreators as postActions} from '../redux/modules/post'
+import {actionCreators as markerActions} from '../redux/modules/marker'
 
 const PostUpdateModal = (props) => {
   console.log(props)
@@ -34,7 +35,8 @@ const PostUpdateModal = (props) => {
           <ModalSubmitBtn onClick={() => {
             dispatch(postActions.removePostAX(props.boardId))
             dispatch(postActions.removeMyPostAX(props.boardId))
-          }} >
+            dispatch(markerActions.removeBoard(props.markerId))
+          }}>
             삭제하기
           </ModalSubmitBtn>
         </ModalButtonContainer>
