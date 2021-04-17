@@ -23,6 +23,7 @@ const Map = (props) => {
   const [ is_write, setWrite ] = useState(false);
   const [ is_Top, setTop ] = useState(false)
   const [ hot, setHot ] = useState(false);
+  const [ address, setAddress ] = useState();
   const [ markerId, setmarkerId ] = useState();
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
@@ -57,9 +58,25 @@ const Map = (props) => {
         // 지도 중심좌표에 마커를 생성합니다.
         map: map,
         position: new kakao.maps.LatLng(p.latitude, p.longitude) ,
-        title: p.title,
         image: markerImage,
       });
+
+      var iwContent =   `<div style="padding:8px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">` +
+                        `<div style="font-weight: 600; margin-bottom: 3px;">${p.title}</div>` +
+                        `<div>${p.address}</div>` +
+                        `</div>`
+
+      var infowindow = new kakao.maps.InfoWindow({
+          content : iwContent
+      });
+
+      kakao.maps.event.addListener(markers, 'mouseover', function(){
+          infowindow.open(map, markers)
+      })
+      
+      kakao.maps.event.addListener(markers, 'mouseout', function(){
+        infowindow.close(map, markers)
+      })
 
       kakao.maps.event.addListener(markers, 'click', function(){
         markerDetail(p.id)
@@ -81,10 +98,27 @@ const Map = (props) => {
         title: p.title,
         image: markerImage,
       });
-
+      
       kakao.maps.event.addListener(markers, 'click', function(){
         markerDetail(p.id)
         setHot(true)
+      })
+
+      var iwContent =   `<div style="padding:8px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">` +
+                        `<div style="font-weight: 600; margin-bottom: 3px;">${p.title}</div>` +
+                        `<div>${p.address}</div>` +
+                        `</div>`
+
+      var infowindow = new kakao.maps.InfoWindow({
+          content : iwContent
+      });
+
+      kakao.maps.event.addListener(markers, 'mouseover', function(){
+          infowindow.open(map, markers)
+      })
+      
+      kakao.maps.event.addListener(markers, 'mouseout', function(){
+        infowindow.close(map, markers)
       })
     })
 
@@ -122,7 +156,8 @@ const Map = (props) => {
 
       infowindow.setContent(content);
       infowindow.open(map, marker);
-
+      
+      setAddress(result[0].address.address_name)
       setLatitude(latlng.getLat())
       setLongitude(latlng.getLng())
         }
@@ -157,11 +192,12 @@ const Map = (props) => {
             }
         }    
     }
-
+    
     //마커에 클릭이벤트를 등록하기
     kakao.maps.event.addListener(marker, 'click', function(){
       setModal(true)
     })
+
   }, [normalMarker])
 
   const zoomIn = () => {
@@ -211,7 +247,7 @@ const Map = (props) => {
           </MapInfo>
         </ MapContainer>
       {/* <div id='ClickLatlng'></div> */}
-      {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} />
+      {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} address={address} />
       : null }
       {is_write && is_login ? 
       <AddBtn>
