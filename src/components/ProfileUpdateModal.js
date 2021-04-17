@@ -13,7 +13,7 @@ const ProfileUpdateModal = (props) => {
     const [new_name, setChange] = useState()
     const [image, setImage] = useState()
     const user_info = useSelector((state)=>state.user.user);
-    const preview = useSelector((state) => state.image.preview)
+    const preview = useSelector((state) => state.image.profile_preview)
 
     // const closeModal = () => {
     //     setDetailModal(false);
@@ -48,7 +48,8 @@ const ProfileUpdateModal = (props) => {
         </TextContainer>
 
         <TextContainer>
-        <NicknameText > Current Nickname : {user_info.nickname}</NicknameText>
+        <NicknameText > Current Nickname: {user_info.nickname}</NicknameText>
+        <NewText >New Nickname :</NewText>
         <EditInput onChange={changeProfile} ></EditInput>
         <EditButton onClick={editProfile} >수정하기</EditButton>
         </TextContainer>
@@ -108,17 +109,27 @@ const TextContainer= styled.div`
    padding: 0px 0px 0px 0px;
    border-radius:20px;
 `
+
+const NewText = styled.div`
+  color: black;
+  font-weight: bold;
+  font-size: 22px;
+  padding: 40px 0px 0px 10px;
+
+`
 const NicknameText = styled.div`
     color: black;
     font-weight: bold;
     font-size: 22px;
-    padding: 90px 0px 0px 10px;
+    padding: 70px 0px 0px 10px;
+    letter-spacing: -1px;
+
 `
 
 const EditInput = styled.input`
     width: 300px;
     height: 30px;
-    margin: 40px 0px 0px 10px;
+    margin: 10px 0px 0px 10px;
     border: 1px solid black;
 `
 

@@ -188,7 +188,7 @@ const removePostAX = (boardId) => {
     }
     console.log(boardId)
     axios.delete(`${config.api}/board/${boardId}`, token)
-      .then((reponse) => {
+      .then((reponse) => { //....?!!!! 
         console.log(reponse.data)
         dispatch(removePost(boardId))
       })
@@ -253,28 +253,53 @@ const editPostAX = (post, boardId) => {
   }
 }
 
-
 const editMyPostAX = (post, boardId) => {
   return function (dispatch, getState){
     const _image = getState().image.preview;
     const _post_idx = getState().post.mylist.findIndex((p) => p.id == boardId);
     const _post = getState().post.mylist[_post_idx]
 
-    if(_image == _post.image_url){ //stop
+    if(_image == _post.image_url){
+      const formData = new FormData();
+      formData.append("title", post.title);
+      formData.append("contents", post.contents);
+      let token = {
+        headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
+      }
+      console.log(post)
+      axios.put(`${config.api}/board/${boardId}`, formData, token )
+        .then((response) => {
+          console.log(response.data)
           let post_info = {
             title: post.title,
             contents: post.contents,
           }
           dispatch(editMyPost(post_info, boardId))
+        }).catch((err) => {
+          console.log(err)
+        })
       return;
     } else {
-
+      const formData = new FormData();
+      formData.append("title", post.title);
+      formData.append("contents", post.contents);
+      formData.append("image", post.image);
+      let token = {
+        headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
+      }
+      console.log(post)
+      axios.put(`${config.api}/board/${boardId}`, formData, token )
+        .then((response) => {
+          console.log(response.data.boardsData[0].img)
           let post_info = {
             title: post.title,
             contents: post.contents,
-            image: post.image,
+            image_url: response.data.boardsData[0].img,
           }
           dispatch(editMyPost(post_info, boardId))
+        }).catch((err) => {
+          console.log(err)
+        })
     }
 
   }

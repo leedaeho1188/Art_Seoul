@@ -73,9 +73,9 @@ const Signup=()=> {
       <SignupContainer>
         <Title>ART SEOUL</Title>
         <IdBox onChange={(e)=>{setName(e.target.value)}} placeholder="닉네임을 입력해주세요"/>
-        <IdBox onChange={(e)=>{setId(e.target.value)}} placeholder="아이디를 입력해주세요"/>
-        <PwBox onChange={(e)=>{setPw(e.target.value)}} placeholder="비밀번호를 입력해주세요" type="password" />
-        <PwBox onChange={(e)=>{setPwc(e.target.value)}} placeholder="비밀번호를 재입력해주세요" type="password" />
+        <p><IdBox onChange={(e)=>{setId(e.target.value)}} placeholder="아이디를 입력해주세요"/></p>
+        <p><PwBox onChange={(e)=>{setPw(e.target.value)}} placeholder="비밀번호를 입력해주세요" type="password" /></p>
+        <p><PwBox onChange={(e)=>{setPwc(e.target.value)}} placeholder="비밀번호를 재입력해주세요" type="password" /></p>
         <SignupButton onClick={()=>{signup()}}>회원가입</SignupButton>
       </SignupContainer>
       </SignupBackground>
@@ -120,7 +120,7 @@ const IdBox = styled.input`
   width: 350px;
   height: 20px;
   background-color: #121212;
-  margin-top: 50px;
+  margin-top: 30px;
   border-top: none;
   border-right: none;
   border-left: none;
@@ -143,7 +143,7 @@ const PwBox = styled.input`
   width: 350px;
   height: 20px;
   background-color: #121212;
-  margin-top: 30px;
+  margin-top: 20px;
   border-top: none;
   border-right: none;
   border-left: none;
@@ -165,7 +165,7 @@ const SignupButton = styled.button`
   width: 360px;
   height: 30px;
   background-color: #FFD700;
-  margin-top: 50px;
+  margin-top: 20px;
   border: #FEE500;
   font-weight: bold;
   border-radius: 5px;
@@ -173,6 +173,5 @@ const SignupButton = styled.button`
   @media (max-width: 975px){
     width: 100%;
   }
-    
 `
 export default Signup;
