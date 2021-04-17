@@ -7,9 +7,11 @@ import {useDispatch ,useSelector} from 'react-redux'
 import {actionCreators as markerActions} from "../redux/modules/marker"
 import {actionCreators as postActions} from "../redux/modules/post"
 
+import MapIcon from '@material-ui/icons/Map';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { WorkRounded } from '@material-ui/icons'
 
 const { kakao } = window;
 
@@ -19,6 +21,7 @@ const Map = (props) => {
   const [ is_modal, setModal ] = useState(false);
   const [ is_writeModal, setWriteModal ] = useState(false);
   const [ is_write, setWrite ] = useState(false);
+  const [ is_Top, setTop ] = useState(false)
   const [ hot, setHot ] = useState(false);
   const [ markerId, setmarkerId ] = useState();
   const [latitude, setLatitude] = useState();
@@ -27,7 +30,7 @@ const Map = (props) => {
   const normalMarker = useSelector((state) => state.marker.normal)
   const hotMarker = useSelector((state) => state.marker.hot)
   const post_list = useSelector((state) => state.post.list)
-
+  
   useEffect(() => {
     const container = document.getElementById('myMap'); //지도 표시할 div
       const options = {
@@ -125,7 +128,18 @@ const Map = (props) => {
   const closeModal = () => {
     setModal(false)
   }
-  console.log(zoomIn)
+  
+  window.onscroll = function() {scrollFunction()}
+
+  const scrollFunction = () => {
+    if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500){
+      setTop(true)
+    } else {
+      setTop(false)
+    }
+
+  }
+
   return(
     <React.Fragment>
         <MapContainer id='myMap'>
@@ -146,6 +160,15 @@ const Map = (props) => {
         <AddIcon /><Word>게시글추가</Word>
       </Fab>
       </AddBtn>
+      : null}
+      {is_Top ? 
+        <MapBtn>
+          <Fab style={{backgroundColor:"#FFCC4D"}} aria-label="add" variant="extended" onClick={() => {
+            window.scrollTo(0,0)
+          }}>
+            <MapIcon /><Word>&nbsp;&nbsp;지도보기&nbsp;</Word>
+          </Fab>
+        </MapBtn>
       : null}
       {is_writeModal? <PostWrite markerId = {markerId} close={closeWriteModal} hot={hot} />
       : null}
@@ -201,6 +224,14 @@ const AddBtn = styled.div`
   bottom: 100px;
   z-index: 10;
 `
+
+const MapBtn = styled.div`
+  position: fixed;
+  right: 30px;
+  bottom: 165px;
+  z-index: 10;
+`
+
 const Word = styled.span`
   @media (max-width:425px){
     display: none

@@ -65,7 +65,7 @@ const ProfileUpdateModal = (props) => {
       }
     }
     const editProfile = () =>{
-            images :  image
+            // images :  image
     }
         // dispatch (edit) 서버랑도 통신하면서 리듀서를 통해서 값 변경해주는!!
     
