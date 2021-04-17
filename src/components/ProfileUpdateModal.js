@@ -5,12 +5,14 @@ import {time} from '../shared/Time';
 import PostUpdateModal from './PostUpdateModal';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import PostWrite from './PostWrite'
+import {actionCreators as userActions} from "../redux/modules/user"
 import Upload from '../shared/Upload'
 
 //해당 게시글에 대한 내용을 모달에 띄워야한다 + props로 이미지 내려주기(완) + 영역나눠주기!
 const ProfileUpdateModal = (props) => {
-
-    const [new_name, setChange] = useState()
+    const dispatch = useDispatch()
+    const [new_password, setChange] = useState()
+    const [new_password_check, setChange2] = useState()
     const [image, setImage] = useState()
     const user_info = useSelector((state)=>state.user.user);
     const preview = useSelector((state) => state.image.profile_preview)
@@ -19,17 +21,54 @@ const ProfileUpdateModal = (props) => {
     //     setDetailModal(false);
     //   };
       
-    const changeProfile = (e)=>{
+    const changePassword = (e)=>{
         setChange(e.target.value)
     };
 
-    const editProfile = () =>{
-        let edit={
-            nickname : new_name,
-            images :  image,
-        }
-        // dispatch (edit) 서버랑도 통신하면서 리듀서를 통해서 값 변경해주는!!
+    const changePasswordCheck = (e)=>{
+        setChange2(e.target.value)
+    };
+    
+    //표현식 추가!
+    const pwCheck = (new_password) => {
+      let pwReg = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*\W)[a-zA-Z0-9].{4,}$/;
+      return pwReg.test(new_password);
     }
+    
+    const editPassword =() =>{
+   
+      if(new_password==""||new_password_check==""){
+        window.alert("모든 항목을 입력해주세요!")
+        return;
+      }
+      if (new_password!== new_password_check) {
+        window.alert("비밀번호와 비밀번호 확인이 동일하지 않습니다😅")
+        return;
+      }
+      if(!pwCheck(new_password)){
+        window.alert('비밀번호는 4자리 이상이며,  영문(대/소문자)와 숫자와 특수문자로 구성해야합니다😅');
+        return;
+      }
+      if(new_password.search(user_info.id)>-1){
+        window.alert("비밀번호에 아이디가 포함되었습니다😅")
+        return;
+      }
+      if(new_password.search(/\s/) != -1){
+        window.alert("비밀번호에 공백이 포함되었습니다😅");
+        return;
+      }
+      else if(new_password==new_password_check){
+        let data ={
+        password : new_password
+        }
+        dispatch(userActions.editPasswordAX(user_info, data))
+      }
+    }
+    const editProfile = () =>{
+            images :  image
+    }
+        // dispatch (edit) 서버랑도 통신하면서 리듀서를 통해서 값 변경해주는!!
+    
     // console.log(user_info)
     // console.log(image)
     // console.log(new_name)
@@ -49,15 +88,24 @@ const ProfileUpdateModal = (props) => {
 
         <TextContainer>
         <NicknameText > Current Nickname: {user_info.nickname}</NicknameText>
-        <NewText >New Nickname :</NewText>
-        <EditInput onChange={changeProfile} ></EditInput>
-        <EditButton onClick={editProfile} >수정하기</EditButton>
+        
+        <NewText>New Password: </NewText>
+        <EditInput type="password" onChange={changePassword}></EditInput>
+        <NewText>New Password Check: </NewText>
+        <EditInput type="password" onChange={changePasswordCheck}></EditInput>
+        
+        <ButtonContainer>
+        <EditButton onClick={editPassword} >Change Password</EditButton>
+        <EditButton onClick={editProfile} >Change My Profile Image</EditButton>
+        </ButtonContainer>
         </TextContainer>
       </Modal>
       
     </React.Fragment>
   )
 }
+
+// 설정을 처음에 제대로 잡는게 중요 Container설정과 분할 제대로(재사용성 UP)
 
 const Component = styled.div`
   position: fixed;
@@ -113,34 +161,38 @@ const TextContainer= styled.div`
 const NewText = styled.div`
   color: black;
   font-weight: bold;
-  font-size: 22px;
-  padding: 40px 0px 0px 10px;
+  font-size: 12px;
+  padding: 10px 0px 0px 10px;
 
 `
 const NicknameText = styled.div`
     color: black;
     font-weight: bold;
     font-size: 22px;
-    padding: 70px 0px 0px 10px;
+    padding: 50px 0px 40px 10px;
     letter-spacing: -1px;
 
 `
 
+const ButtonContainer = styled.div`
+  margin-top:40px;
+`
+
 const EditInput = styled.input`
     width: 300px;
-    height: 30px;
-    margin: 10px 0px 0px 10px;
+    height: 20px;
+    margin: 5px 0px 0px 10px;
     border: 1px solid black;
 `
 
 const EditButton = styled.button`
   width: 300px;
-  height: 50px;
+  height: 30px;
   font-weight: bold;
-  border: 2px solid black;
+  border: 1px solid black;
   background-color: white;
-  font-size: 20px;
-  margin: 80px 0px 0px 15px; 
+  font-size: 13px;
+  margin: 10px 0px 0px 15px; 
   border-radius: 10px;
 `
 

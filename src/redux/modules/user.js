@@ -15,7 +15,7 @@ const EDIT_PROFILE ="EDIT_PROFILE";
 // const logIn = createAction(LOG_IN , (user) => ({user}));
 const setUser = createAction(SET_USER,(user)=>({user}));
 const logOut = createAction(LOG_OUT, (user) => ({user}));
-const editProfile = createAction(EDIT_PROFILE, (post, post_id) => ({post, post_id}))
+const editProfile = createAction(EDIT_PROFILE, (post, post_id) => ({post, post_id})) 
 
 // user 로그인 정보를 전해주면 reducer에 등록하는 함수 
 // const loginAction =(user)=>{                        
@@ -120,7 +120,7 @@ const loginCheck= (id,password) => {
   }
 };
 
-// 전달하고 받아오는!!
+// 전달하고 받아오는!! (token images nickname 전달하고 / status images 받아온다)
 // const editProfileAX = (post, boardId) => {
 //   return function (dispatch, getState){
 //     const _image = getState().image.preview;
@@ -174,6 +174,30 @@ const loginCheck= (id,password) => {
 // }
 
 
+const editPasswordAX= (user,data) => {
+  console.log(data)
+  
+  let token = {
+    headers : { authorization: `Bearer ${sessionStorage.getItem("JWT")}`}
+  }
+  return function (dispatch, getState, {history}){
+    axios.post(`${config.api}/user/newpassword`,{newpassword : data.password}, token)
+      .then((res) => {
+        console.log(res.status)
+        if(res.request.status==200){
+          window.alert("비밀번호 변경이 완료되었습니다🎉");
+          //받아온 user정보로!!
+          dispatch(logOut(user));
+          history.push("/login")
+          
+      
+        }
+      }).catch((err)=>{
+        console.log(err)
+      })
+  }
+}
+
 export default handleActions(
   {
     [SET_USER]: (state, action) => produce(state, (draft) => {
@@ -205,6 +229,7 @@ const actionCreators = {
   loginSV,
   loginCheck,
   // editProfileAX,
+  editPasswordAX,
 };
 
 export {actionCreators};
