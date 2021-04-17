@@ -38,11 +38,15 @@ const Map = (props) => {
         level: 8 //지도의 확대 레벨
       };
     const map = new kakao.maps.Map(container, options);//지도를 생성합니다.
+
+    // useEffect밖으로 map정보를 가져오기위해 useState로 함수를 만들었습니다.
     setMap(map)
+
+    // noraml마커와 hot마커 이미지입니다.
     var normalImageSrc = "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-128.png"
     var hotImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
-    // 지도를 클릭한 위치에 표출할 마커입니다.
+    // 게시물 수가 10개 미만인 마커를 표시합니다.
     normalMarker.map((p, idx) => {
 
       var imageSize = new kakao.maps.Size(35, 35);
@@ -63,6 +67,7 @@ const Map = (props) => {
       })
     })
 
+    // 게시물 수가 10개 이상인 마커를 표시합니다.
     hotMarker.map((p, idx) => {
 
       var imageSize = new kakao.maps.Size(30, 45);
@@ -83,10 +88,11 @@ const Map = (props) => {
       })
     })
 
+
     const marker = new kakao.maps.Marker({
       position: map.getCenter()
     })
-    marker.setMap(map);
+    // marker.setMap(map);
 
 
     const infowindow = new kakao.maps.InfoWindow({zindex:1});
@@ -105,6 +111,7 @@ const Map = (props) => {
             var content = `<div style="border:none ; padding:8px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">` +
                             '<span style="font-weight: 600;">주소정보</span>' + 
                             detailAddr + 
+                            '<div style="color:grey; font-size:13px; margin-top:5px; " >새 마커를 만드시고 싶으면 파란색 마커를 클릭해주세요!😀</div>'+
                           `</div>`;
       
       //클릭한 위도, 경도 정보를 가져옵니다.
