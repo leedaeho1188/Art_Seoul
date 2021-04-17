@@ -135,6 +135,7 @@ const Map = (props) => {
 
     searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 
+
     // 지도에 마커를 표시합니다.
     kakao.maps.event.addListener(map, 'click', function(mouseEvent){
       searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
@@ -142,8 +143,12 @@ const Map = (props) => {
             var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
             detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
             
+            
+
             var content = `<div style="border:none ; padding:8px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">` +
-                            '<span style="font-weight: 600;">주소정보</span>' + 
+                            `<div style="display:flex; justify-content: space-between; margin-bottom: 5px;">` +
+                              '<span style="font-weight: 600;">주소정보</span>' + 
+                            `</div>`+
                             detailAddr + 
                             '<div style="color:grey; font-size:13px; margin-top:5px; " >새 마커를 만드시고 싶으면 파란색 마커를 클릭해주세요!😀</div>'+
                           `</div>`;
@@ -155,14 +160,17 @@ const Map = (props) => {
       marker.setMap(map);
 
       infowindow.setContent(content);
-      infowindow.open(map, marker);
-      
+
       setAddress(result[0].address.address_name)
       setLatitude(latlng.getLat())
       setLongitude(latlng.getLng())
+
+      
         }
       });
     })
+    
+    
 
     kakao.maps.event.addListener(map, 'idle', function() {
         searchAddrFromCoords(map.getCenter(), displayCenterInfo);
@@ -198,7 +206,17 @@ const Map = (props) => {
       setModal(true)
     })
 
+    kakao.maps.event.addListener(marker, 'mouseover', function(){
+      infowindow.open(map, marker);
+    })
+
+    kakao.maps.event.addListener(marker, 'mouseout', function(){
+      infowindow.close(map, marker);
+    })
+
   }, [normalMarker])
+
+
 
   const zoomIn = () => {
     _map.setLevel(_map.getLevel() - 1);
