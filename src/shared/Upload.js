@@ -8,6 +8,7 @@ import {actionCreators as imageActions} from "../redux/modules/image"
 
 const Upload = (props) => {
   const dispatch = useDispatch();
+  const preview = useSelector((state) => state.image.profile_preview)
   const is_uploading = useSelector(state => state.image.uploading)
   const fileInput = React.useRef();
 
@@ -17,7 +18,13 @@ const Upload = (props) => {
     props.setImage(fileInput.current.files[0])
     const reader = new FileReader();
     const file = fileInput.current.files[0]
-    if (file === undefined){
+    
+    
+    if(window.location.href === "http://localhost:3000/mypage" && file=== undefined){
+      dispatch(imageActions.profilePreview(preview))
+      return
+    }
+    else if (file === undefined){
       dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
       return
     }
