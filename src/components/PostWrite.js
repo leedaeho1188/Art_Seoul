@@ -16,6 +16,7 @@ const PostWrite = (props) => {
   const [title, setTitle] = useState(is_edit? props.title:"")
   const [contents, setContents] = useState(is_edit? props.contents:"")
   const [image, setImage] = useState()
+  const [markerClass] = useState(props.hot? "hot" : "normal")
   const marker_list = useSelector((state) => props.hot? state.marker.hot : state.marker.normal)
   const idx = marker_list.findIndex(m => m.id === props.markerId)
   const marker = marker_list[idx]
@@ -47,6 +48,7 @@ const PostWrite = (props) => {
     }
     console.log(post)
     dispatch(postActions.addPostAX(post))
+    dispatch(markerActions.addBoard(props.markerId, markerClass ))
     props.close()
   }
 
