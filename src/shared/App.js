@@ -46,7 +46,7 @@ function App() {
 }
 
 const AppContainer = styled.div`
-
+  margin-bottom: 60px;
 `
 
 export default App;
