@@ -37,15 +37,21 @@ const user_info = useSelector((state) => state.user.user)
                 <HeaderInnerContainer>
                     <Title onClick={()=>{history.push("/")}}>ART SEOUL</Title> 
                     <HeaderIcons>
+                    <Minibutton onClick={() => {
+                        history.push("/performance")
+                    }} >
+                        <Text>공연정보</Text>
+                    </Minibutton>
                     <Minibutton onClick={()=>{dispatch(userActions.logOut());
                         history.push("/login")
                     }}><Text>LOG OUT</Text></Minibutton>
                     <ProCircle onClick={() => {history.push("/mypage")}} src={user_info.profile}  />
-                    <Minibutton>
+                    
+                    {/* <Minibutton>
                         <SettingsIcon onClick={()=>{
                             history.push("/question")
                         }}/>
-                    </Minibutton>
+                    </Minibutton> */}
                     </HeaderIcons>
                 </HeaderInnerContainer>
             </HeaderContainer>
@@ -61,9 +67,9 @@ const user_info = useSelector((state) => state.user.user)
                 <HeaderIcons>
                     <Minibutton onClick={()=>{history.push("/login")}}><Text>SIGN IN</Text></Minibutton>
                     <Minibutton onClick={()=>{history.push("/signup")}}><Text>SIGN UP</Text></Minibutton>
-                    <Minibutton>
+                    {/* <Minibutton>
                         <SettingsIcon onClick={()=>{history.push("/question")}}/>
-                    </Minibutton>
+                    </Minibutton> */}
                 </HeaderIcons>
             </HeaderInnerContainer>
         </HeaderContainer>
@@ -101,7 +107,6 @@ const HeaderInnerContainer = styled.div`
 `
 
 const HeaderIcons = styled.div`
-    width: 140px;
     display: flex;
     justify-content:space-between;
     align-items: center;
@@ -122,6 +127,7 @@ const Title = styled.div`
 const Text = styled.div`
     color: white;
     font-size: 12px;
+    font-weight: 600;
    
 `
 const Titlebutton = styled.button`
@@ -135,19 +141,17 @@ const Titlebutton = styled.button`
 `
 
 const Minibutton = styled.div`
-//    background-color:#121212;
    border-color: white;
-   width: 70px;
    padding: 4px 2px 4px 2px;
    border: none;
-   margin: 12px;
+   margin: 8px;
    cursor: pointer;
    outline: white;
    align-self: center;
 `
 
 const ProCircle = styled.img`
-  margin: 12px;
+  margin: 8px;
   height: 32px;
   width: 32px;
   border-radius: 50%;

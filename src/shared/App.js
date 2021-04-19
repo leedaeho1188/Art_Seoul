@@ -5,6 +5,7 @@ import Login from  "../pages/Login"
 import Signup from  "../pages/Signup"
 import Mypage from  "../pages/Mypage"
 import Question from  "../pages/Question"
+import PerformInfo from "../pages/PerformInfo"
 
 import NotFound from  "../pages/NotFound"
 import {Switch, Route, BrowserRouter} from "react-router-dom"
@@ -38,6 +39,7 @@ function App() {
           <Route path="/signup" exact component={Signup}/>
           <Route path="/mypage" exact component={Mypage}/>       
           <Route path="/question" exact component={Question}/>       
+          <Route path="/performance" exact component={PerformInfo}/>
           <Route exact component={NotFound}/>
         </Switch>
       </ConnectedRouter>

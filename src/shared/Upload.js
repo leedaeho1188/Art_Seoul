@@ -15,11 +15,11 @@ const Upload = (props) => {
     console.log(e.target.files)
     console.log(fileInput.current.files[0])
     props.setImage(fileInput.current.files[0])
+    
+
     const reader = new FileReader();
     const file = fileInput.current.files[0]
     
-    
-  
     if (file === undefined){
       dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
       return

@@ -44,7 +44,7 @@ const PostWrite = (props) => {
       markerId: props.markerId,
       title: title,
       contents: contents,
-      image: image
+      image: image,
     }
     console.log(post)
     dispatch(postActions.addPostAX(post))
