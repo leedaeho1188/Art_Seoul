@@ -261,39 +261,58 @@ const editPostAX = (post, boardId) => {
   }
 }
 
-const editMyPostAX = (data, boardId) => {
-  return function (dispatch, getState, {history}){
-    const _image = getState().image.profile_preview;
+const editMyPostAX = (post, boardId) => {
+  return function (dispatch, getState){
+    const _image = getState().image.preview;
     const _post_idx = getState().post.mylist.findIndex((p) => p.id == boardId);
     const _post = getState().post.mylist[_post_idx]
-   
+
+    if(_image == _post.image_url){
       const formData = new FormData();
-      formData.append("images", data.images);
+      formData.append("title", post.title);
+      formData.append("contents", post.contents);
       let token = {
         headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
       }
-      console.log(data)
-      // .data.boardsData[0].img
-      axios.post(`${config.api}/setting/user`, formData, token )
+      console.log(post)
+      axios.put(`${config.api}/board/${boardId}`, formData, token )
         .then((response) => {
-          console.log(response)  
-          if(response.request.status==200){
-            window.alert("프로필 이미지 변경이 완료되었습니다🎉");
-            //받아온 user정보로!!
-            
-            // history.push("/")
-            
+          console.log(response.data)
+          let post_info = {
+            title: post.title,
+            contents: post.contents,
           }
-          // let image = {
-          //   image_url: response.data.boardsData[0].img,
-          // }
-          // dispatch(editMyPost(image, boardId))
+          dispatch(editMyPost(post_info, boardId))
         }).catch((err) => {
           console.log(err)
         })
-        
+      return;
+    } else {
+      
+      const formData = new FormData();
+      formData.append("title", post.title);
+      formData.append("contents", post.contents);
+      formData.append("image", post.image);
+      let token = {
+        headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
+      }
+      console.log(post)
+      axios.put(`${config.api}/board/${boardId}`, formData, token )
+        .then((response) => {
+          console.log(response.data.boardsData[0].img)
+          let post_info = {
+            title: post.title,
+            contents: post.contents,
+            image_url: response.data.boardsData[0].img,
+          }
+          dispatch(editMyPost(post_info, boardId))
+        }).catch((err) => {
+          console.log(err)
+        })
     }
+
   }
+}
 
 
 

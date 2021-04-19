@@ -16,7 +16,7 @@ const ProfileUpdateModal = (props) => {
     const [image, setImage] = useState()
     const user_info = useSelector((state)=>state.user.user);
     const preview = useSelector((state) => state.image.profile_preview)
-    
+    console.log(props)
       
     const changePassword = (e)=>{
         setChange(e.target.value)
@@ -66,7 +66,9 @@ const ProfileUpdateModal = (props) => {
     console.log(image) //하위컴포넌트에서 설정되어 올라온 이미지
     const editProfile = () =>{
         let data ={images :  image}
-        dispatch(postActions.editMyPostAX(data))
+        console.log(data)
+        dispatch(userActions.editMyImageAX(user_info,data))
+        props.close()
     }
   return( 
     <React.Fragment>
