@@ -10,21 +10,15 @@ import {useState} from 'react';
 // const LOG_IN ="LOG_IN";
 const SET_USER ="SET_USER";
 const LOG_OUT ="LOG_OUT";
-const EDIT_PROFILE ="EDIT_PROFILE";
+const EDIT_MY_IMAGE ="EDIT_MY_IMAGE";
+
 
 // const logIn = createAction(LOG_IN , (user) => ({user}));
 const setUser = createAction(SET_USER,(user)=>({user}));
 const logOut = createAction(LOG_OUT, (user) => ({user}));
-const editProfile = createAction(EDIT_PROFILE, (post, post_id) => ({post, post_id})) 
+const editMyImage  = createAction(EDIT_MY_IMAGE, (post, post_id) => ({post, post_id})) 
 
-// user 로그인 정보를 전해주면 reducer에 등록하는 함수 
-// const loginAction =(user)=>{                        
-//   return function (dispatch, getState, {history}){
-//     console.log(history);
-//     dispatch(setUser(user));
-//     history.push("/");      
-//   }
-// }
+
 
 
 const initialState = {
@@ -145,6 +139,42 @@ const editPasswordAX= (user,data) => {
   }
 }
 
+
+
+const editMyImageAX = (user_info,data) => {
+  return function (dispatch, getState, {history}){
+ 
+      console.log(data)
+      const formData = new FormData();
+      formData.append("images", data.images);
+      let token = {
+        headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
+      }
+      
+      // .data.boardsData[0].img
+      axios.post(`${config.api}/setting/user`, formData, token )
+        .then((response) => {
+           
+          if(response.request.status==200){
+            window.alert("프로필 이미지 변경이 완료되었습니다🎉");
+            console.log(response.data.result)
+            let user = {
+              id: user_info.id,
+              nickname : user_info.nickname,
+              profile: response.data.result,
+            }    
+            dispatch(setUser(user))   
+               
+          }
+         
+        }).catch((err) => {
+          console.log(err)
+        })
+        
+    }
+  }
+
+
 export default handleActions(
   {
     [SET_USER]: (state, action) => produce(state, (draft) => {
@@ -158,6 +188,9 @@ export default handleActions(
       draft.is_login = false;
     }),
 
+    // [EDIT_MY_IMAGE]: (state,action)=>produce(state,(draft)=>{
+
+    // }),
   },
   initialState
 )
@@ -169,6 +202,8 @@ const actionCreators = {
   loginSV,
   loginCheck,
   editPasswordAX,
+  // editMyImage,
+  editMyImageAX,
 };
 
 export {actionCreators};
