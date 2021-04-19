@@ -5,6 +5,7 @@ import { history } from "../configureStore"
 import { config } from "../../shared/config"
 import "moment";
 import moment from "moment";
+import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 
 
 const ADD_POST = "ADD_POST";
@@ -36,6 +37,8 @@ const initialState ={
 
 const addPostAX = (post) => {
   return function (dispatch, getState){
+    const profile = getState().user.user.profile
+    console.log(profile)
 
     const formData = new FormData();
     formData.append("images", post.image);
@@ -50,9 +53,10 @@ const addPostAX = (post) => {
 
     axios.post(`${config.api}/board/${post.markerId}`, formData, token)
       .then((res) => {
-        if(res.data.state ==="success"){
+        if(res.status == 200){
           window.alert("게시물이 잘 저장되었습니다.😀")
         }
+        console.log(res)
         // console.log(res)
         // let _post = res.data.result
         // let post_info = {
@@ -99,7 +103,8 @@ const getPostAX = (markerId, lastId = null) => {
             nickname: _post.nickname,
             image_url: _post.img,
             date: _post.date,
-            userId: _post.userId
+            userId: _post.userId,
+            profile: _post.profile,
           }
           post_list.push(post)
         })
@@ -131,7 +136,8 @@ const getPostAX = (markerId, lastId = null) => {
             nickname: _post.nickname,
             image_url: _post.img,
             date: _post.date,
-            userId: _post.userId
+            userId: _post.userId,
+            profile: _post.profile,
           }
           post_list.push(post)
         })
@@ -168,6 +174,7 @@ const getmyPostAX = () => {
             markerId: _item.markerId,
             markername: _item.markername,
             image_url: _item.img,
+            profile: _item.profile,
           }
           my_list.unshift(item)
         })
