@@ -13,7 +13,7 @@ import MapIcon from '@material-ui/icons/Map';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import { WorkRounded } from '@material-ui/icons'
+
 
 const { kakao } = window;
 
@@ -24,6 +24,7 @@ const Map = (props) => {
   const [ is_writeModal, setWriteModal ] = useState(false);
   const [ is_write, setWrite ] = useState(false);
   const [ is_Top, setTop ] = useState(false)
+  const [ is_modalAddress, setModalAddress ] = useState(false)
   const [ hot, setHot ] = useState(false);
   const [ address, setAddress ] = useState();
   const [ markerId, setmarkerId ] = useState();
@@ -278,6 +279,7 @@ const Map = (props) => {
     setModal(false)
   }
   
+
   window.onscroll = function() {scrollFunction()}
 
   const scrollFunction = () => {
@@ -292,19 +294,21 @@ const Map = (props) => {
   return(
     <React.Fragment>
         <MapSearch>
-          <TextField id="road" label="정확한 도로명 주소를 입력해주세요." style={{width: "50%"}} />
+          <TextField id="road" label="마커를 생성하고 싶은 곳 주소를 입력해주세요😀" style={{width: "50%"}} />
           &nbsp;<Button id="address" style={{backgroundColor:"#FFCC4D"}} variant="contained" disableElevation><Word style={{fontWeight:"600"}}>주소입력</Word></Button>
         </MapSearch>
+        <MapLinkContainer>
+          <MapLink href="https://www.juso.go.kr/openIndexPage.do" target="_blank" >정확한 주소를 모른다면 클릭해주세요!</MapLink>
+        </MapLinkContainer>
         <MapContainer id='myMap'>
           <MapBtnContainer>
               <MapControlBtn  onClick={zoomIn} style={{borderRight: "1px solid #919191"}} ><AddIcon/></MapControlBtn>
               <MapControlBtn  onClick={zoomOut}  ><RemoveIcon/></MapControlBtn>
-          </MapBtnContainer>  
+          </MapBtnContainer>
           <MapInfo style={{opacity: '0.8'}}>
               <div style={{fontWeight:'600'}}>지도중심기준 주소정보</div>
               <div id="centerAddr"></div>
           </MapInfo>
-          
         </ MapContainer>
       {/* <div id='ClickLatlng'></div> */}
       {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} address={address} />
@@ -364,6 +368,7 @@ const MapBtnContainer = styled.div`
   background-color: #F5F5F5;
 `
 
+
 const MapInfo = styled.div`
   position: absolute;
   top: 15px;
@@ -376,13 +381,10 @@ const MapInfo = styled.div`
 const MapSearch = styled.div`
   margin: auto;
   margin-top: 150px;
-  margin-bottom: 20px;
   width: 900px;
   display: flex;
   // align-items: center;
 `
-
-
 
 const MapControlBtn = styled.div`
   width:40px;
@@ -394,6 +396,23 @@ const MapControlBtn = styled.div`
   cursor:pointer;
 `
 
+const MapLinkContainer = styled.div`
+  width: 900px;
+  margin: auto;
+  margin-bottom: 15px;
+`
+
+const MapLink = styled.a`
+  font-size: 13px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.7;
+  text-decoration: none;
+  &:hover{
+    opacity: 1;
+    font-weight: 600
+  }
+`
 
 const AddBtn = styled.div`
   position: fixed;
@@ -414,5 +433,6 @@ const Word = styled.span`
     display: none
   }
 `
+
 
 export default Map
