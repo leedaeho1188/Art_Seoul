@@ -30,7 +30,6 @@ const Map = (props) => {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [_map, setMap ] = useState();
-  const markerAddress = useRef();
   const normalMarker = useSelector((state) => state.marker.normal)
   const hotMarker = useSelector((state) => state.marker.hot)
   const post_list = useSelector((state) => state.post.list)
@@ -112,41 +111,21 @@ const Map = (props) => {
                         `<div>${p.address}</div>` +
                         `</div>`
 
-      var infowindow = new kakao.maps.InfoWindow({
+      var _infowindow = new kakao.maps.InfoWindow({
           content : iwContent
       });
 
       kakao.maps.event.addListener(markers, 'mouseover', function(){
-          infowindow.open(map, markers)
+        _infowindow.open(map, markers)
       })
       
       kakao.maps.event.addListener(markers, 'mouseout', function(){
-        infowindow.close(map, markers)
+        _infowindow.close(map, markers)
       })
     })
 
     // 파란색 기본 마커입니다.
-    const marker = new kakao.maps.Marker({
-      position: map.getCenter()
-    })
-
-
-    const address = document.getElementById("address")
-    
-    address.addEventListener('click', function(){
-      const road = document.getElementById("road").value
-      geocoder.addressSearch( road , function(result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-
-          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-          console.log(coords, road)
-          marker.setPosition(coords);
-          marker.setMap(map);
-          map.setCenter(coords)
-        }
-      })
-    })
-
+    const marker = new kakao.maps.Marker()
 
     // 마커위에 뜨는 정보창입니다.
     const infowindow = new kakao.maps.InfoWindow({zindex:1});
@@ -157,6 +136,42 @@ const Map = (props) => {
     searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 
 
+    const address = document.getElementById("address")
+    
+    address.addEventListener('click', function(){
+      const road = document.getElementById("road").value
+      geocoder.addressSearch( road , function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+
+          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          searchDetailAddrFromCoords(coords, function(result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+                detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+                
+                
+    
+                var content = `<div style="border:none ; padding:8px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">` +
+                                `<div style="display:flex; justify-content: space-between; margin-bottom: 5px;">` +
+                                  '<span style="font-weight: 600;">주소정보</span>' + 
+                                `</div>`+
+                                detailAddr + 
+                                '<div style="color:grey; font-size:13px; margin-top:5px; " >새 마커를 만들고 싶으면 파란색 마커를 클릭해주세요!😀</div>'+
+                              `</div>`;
+
+              infowindow.setContent(content);
+              setAddress(result[0].address.address_name)
+            }
+          })
+          console.log(coords, road)
+          marker.setPosition(coords);
+          marker.setMap(map);
+          map.setCenter(coords)
+          setLatitude(coords.Ma)
+          setLongitude(coords.La)
+        }
+      })
+    })
 
     // 지도에 마커를 표시합니다.
     kakao.maps.event.addListener(map, 'click', function(mouseEvent){
