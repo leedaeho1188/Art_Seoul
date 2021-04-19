@@ -43,6 +43,7 @@ const ModalDetail = (props) => {
         <ModalRightContainer>
           <ModalHeader>
             <ModalLeftHeader>
+              <ModalProfile src={props.profile} />
               <ModalAuthor>{props.nickname}</ModalAuthor>
             </ModalLeftHeader>
             <ModalRightHeader>
@@ -54,10 +55,11 @@ const ModalDetail = (props) => {
             props.comment_list.map((c, idx) => {
               return <ModalCmt>
                       <ModalCmtRight>
-                        <div>
+                        <CmtRight>
+                          <ModalProfile src={c.profile} />
                           <ModalAuthor>{c.nickname}</ModalAuthor>
                             {c.comment}
-                        </div>
+                        </CmtRight>
                         {c.userId === props.user_info.id ? 
                           <CmtDeleteBtn>
                             <BackspaceOutlinedIcon onClick={() => {
@@ -129,14 +131,14 @@ const ExitBtn = styled.button`
   font-size: 14px;
 `
 const ModalImg = styled.img`
-  width: 600px;
+  width: 550px;
   height: 600px;
   @media (max-width: 950px){
     display:none;
   }
 `
 const ModalRightContainer = styled.div`
-  width: 350px;
+  width: 400px;
   height: 600px;
   display: flex;
   flex-direction: column;
@@ -163,6 +165,14 @@ const ModalAuthor = styled.span`
   font-weight: 600;
   margin-right: 5px;
 `
+
+const ModalProfile = styled.img`
+  border-radius: 50%;
+  background-size: cover;
+  height: 30px;
+  width: 30px;
+  margin-right: 6px;
+  `
 
 const ModalCmtInputBox = styled.div`
   width: 100%;
@@ -210,6 +220,10 @@ const ModalCmtRight = styled.div`
   display: flex;
   justify-content: space-between;
 `
+const CmtRight = styled.div`
+  display: flex;
+`
+
 const CmtDeleteBtn = styled.button`
   height: 12px;
   width: 12px;

@@ -39,6 +39,7 @@ const addCommentAX = (comment, post_id) => {
           comment : _comment.commentContents,
           nickname : _comment.nickname,
           userId : _comment.userId,
+          profile: res.data.currentprofile,
         }
         dispatch(addComment(comment_info, post_id))
       }).catch((err) => {
@@ -61,6 +62,7 @@ const getCommentAX = (post_id = null) => {
             comment: _comment.commentContents,
             nickname: _comment.nickname,
             userId: _comment.userId,
+            profile: _comment.profile.profile
           }
           comment_list.unshift(comment)
         })

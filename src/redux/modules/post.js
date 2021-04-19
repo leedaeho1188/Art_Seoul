@@ -104,7 +104,7 @@ const getPostAX = (markerId, lastId = null) => {
             image_url: _post.img,
             date: _post.date,
             userId: _post.userId,
-            profile: _post.profile,
+            profile: _post.profile.profile,
           }
           post_list.push(post)
         })
@@ -137,7 +137,7 @@ const getPostAX = (markerId, lastId = null) => {
             image_url: _post.img,
             date: _post.date,
             userId: _post.userId,
-            profile: _post.profile,
+            profile: _post.profile.profile,
           }
           post_list.push(post)
         })

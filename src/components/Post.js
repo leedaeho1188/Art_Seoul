@@ -70,9 +70,12 @@ const Post = (props) => {
 
       <PostBox>
         <PostHeader>
-          <PostAuthor>
-            {props.nickname}
-          </PostAuthor>
+          <HeaderLeft>
+            <ProfileImg src={props.profile} />
+            <PostAuthor>
+              {props.nickname}
+            </PostAuthor>
+          </HeaderLeft>
           {user_info.id === props.userId? 
           <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={() => {
             setModal(true)
@@ -176,8 +179,23 @@ const PostHeader = styled.div`
     heigth: 100%;
   }
 `
+
+const HeaderLeft = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`
+
+const ProfileImg = styled.img`
+  border-radius: 50%;
+  background-size: cover;
+  height: 30px;
+  width: 30px;
+  margin-right: 6px;
+  `
+
 const PostAuthor = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
 `
 
