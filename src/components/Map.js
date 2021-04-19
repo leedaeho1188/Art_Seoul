@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import styled from 'styled-components'
 import MarkerModal from './MarkerModal'
 import PostWrite from './PostWrite'
@@ -7,6 +7,8 @@ import {useDispatch ,useSelector} from 'react-redux'
 import {actionCreators as markerActions} from "../redux/modules/marker"
 import {actionCreators as postActions} from "../redux/modules/post"
 
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import MapIcon from '@material-ui/icons/Map';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -28,6 +30,8 @@ const Map = (props) => {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [_map, setMap ] = useState();
+  const [ roadAddress, setRoadAddress ] = useState()
+  const markerAddress = useRef();
   const normalMarker = useSelector((state) => state.marker.normal)
   const hotMarker = useSelector((state) => state.marker.hot)
   const post_list = useSelector((state) => state.post.list)
@@ -122,19 +126,53 @@ const Map = (props) => {
       })
     })
 
-
+    // 파란색 기본 마커입니다.
     const marker = new kakao.maps.Marker({
       position: map.getCenter()
     })
-    // marker.setMap(map);
 
-
+    // 마커위에 뜨는 정보창입니다.
     const infowindow = new kakao.maps.InfoWindow({zindex:1});
 
+    
     var geocoder = new kakao.maps.services.Geocoder();
 
     searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 
+    // const road = roadAddress;
+
+    // road.addEventListener('change', function(mouseEvent){
+    //   searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+    //     if (status === kakao.maps.services.Status.OK) {
+    //         var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+    //         detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+            
+            
+
+    //         var content = `<div style="border:none ; padding:8px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">` +
+    //                         `<div style="display:flex; justify-content: space-between; margin-bottom: 5px;">` +
+    //                           '<span style="font-weight: 600;">주소정보</span>' + 
+    //                         `</div>`+
+    //                         detailAddr + 
+    //                         '<div style="color:grey; font-size:13px; margin-top:5px; " >새 마커를 만들고 싶으면 파란색 마커를 클릭해주세요!😀</div>'+
+    //                       `</div>`;
+      
+    //   //클릭한 위도, 경도 정보를 가져옵니다.
+    //   const latlng = mouseEvent.latLng;
+    //   //마커 위치를 클릭한 위치로 옮깁니다.
+    //   marker.setPosition(latlng);
+    //   marker.setMap(map);
+
+    //   infowindow.setContent(content);
+
+    //   setAddress(result[0].address.address_name)
+    //   setLatitude(latlng.getLat())
+    //   setLongitude(latlng.getLng())
+
+      
+    //     }
+    //   });
+    // })
 
     // 지도에 마커를 표시합니다.
     kakao.maps.event.addListener(map, 'click', function(mouseEvent){
@@ -150,7 +188,7 @@ const Map = (props) => {
                               '<span style="font-weight: 600;">주소정보</span>' + 
                             `</div>`+
                             detailAddr + 
-                            '<div style="color:grey; font-size:13px; margin-top:5px; " >새 마커를 만드시고 싶으면 파란색 마커를 클릭해주세요!😀</div>'+
+                            '<div style="color:grey; font-size:13px; margin-top:5px; " >새 마커를 만들고 싶으면 파란색 마커를 클릭해주세요!😀</div>'+
                           `</div>`;
       
       //클릭한 위도, 경도 정보를 가져옵니다.
@@ -254,6 +292,12 @@ const Map = (props) => {
 
   return(
     <React.Fragment>
+        <MapSearch>
+          <TextField id="standard-basic" label="정확한 도로명 주소를 입력해주세요." style={{width: "50%"}} ref={markerAddress} />
+          &nbsp;<Button style={{backgroundColor:"#FFCC4D"}} variant="contained" disableElevation><Word style={{fontWeight:"600"}} onClick={()=> {
+            setRoadAddress(markerAddress)
+          }}>주소입력</Word></Button>
+        </MapSearch>
         <MapContainer id='myMap'>
           <MapBtnContainer>
               <MapControlBtn  onClick={zoomIn} style={{borderRight: "1px solid #919191"}} ><AddIcon/></MapControlBtn>
@@ -263,6 +307,7 @@ const Map = (props) => {
               <div style={{fontWeight:'600'}}>지도중심기준 주소정보</div>
               <div id="centerAddr"></div>
           </MapInfo>
+          
         </ MapContainer>
       {/* <div id='ClickLatlng'></div> */}
       {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} address={address} />
@@ -298,7 +343,6 @@ const Map = (props) => {
 const MapContainer = styled.div`
   position: relative;
   margin: auto;
-  margin-top: 150px;
   margin-bottom: 60px;
   width: 900px;
   height: 500px;
@@ -331,6 +375,16 @@ const MapInfo = styled.div`
   background-color: white;
   padding: 8px;
 `
+
+const MapSearch = styled.div`
+  margin: auto;
+  margin-top: 150px;
+  margin-bottom: 20px;
+  width: 900px;
+  display: flex;
+  // align-items: center;
+`
+
 
 
 const MapControlBtn = styled.div`

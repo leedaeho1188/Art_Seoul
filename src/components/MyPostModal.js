@@ -21,7 +21,7 @@ const MyPostModal = (props) => {
   const ok_submit = comments ? true : false
   const comment_list = useSelector((state) => state.comment.list[props.id])
   const is_comment = comment_list ? true : false
-
+  console.log(props, props.markerId)
 
   const closeModal = () => {
     setModal(false)
@@ -112,7 +112,7 @@ const MyPostModal = (props) => {
         
 
       </Modal>
-      {is_modal? <PostUpdateModal boardId={props.id} nickname = {props.nickname} close={closeModal} open={openWriteModal} />
+      {is_modal? <PostUpdateModal boardId={props.id} markerId={props.markerId} nickname = {props.nickname} close={closeModal} open={openWriteModal} />
       :null}
       {is_writeModal? <PostWrite close={closeWriteModal} {...props} />
       :null}
