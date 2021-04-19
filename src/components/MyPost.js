@@ -21,7 +21,7 @@ const MyPost =(props)=>{
     return(
         <React.Fragment>
             
-            <Content {...props}  onClick={openModal}></Content>
+            <Content src={props.image_url}  onClick={openModal}></Content>
             {is_modal ? <MyPostModal {...props} close={closeModal}/> :null}
             
         </React.Fragment>
@@ -29,15 +29,12 @@ const MyPost =(props)=>{
 }
 
 // item들 가운데 정렬 나중에 반응형 잡으면서 넣기
-const Content = styled.div`
+const Content = styled.img`
   width: 293px;
   height: 293px;
   border: none;
   margin: 0px 0px 4px 4px;
-  
-  background-image: url("${(props) => props.image_url}");
   background-size: cover;
-  background-color: white;
 
 `
 

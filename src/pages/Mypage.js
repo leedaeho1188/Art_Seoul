@@ -4,7 +4,6 @@ import MyPost from "../components/MyPost";
 import { useSelector, useDispatch } from "react-redux"
 import { actionCreators as userActions } from "../redux/modules/post";
 import { Settings } from "@material-ui/icons";
-import Question from  "../pages/Question"
 import ProfileUpdateModal from "../components/ProfileUpdateModal";
 
 
@@ -15,8 +14,10 @@ const Mypage = () => {
   const dispatch = useDispatch();
   const my_list = useSelector((state) => state.post.mylist);
   const user_info = useSelector((state)=>state.user.user);
+  const preview = useSelector((state) => state.image.profile_preview)
+  
 
-  // console.log(user_info)
+  console.log(preview)
 
   const [ is_modal, setDetailModal ] = useState();
 
@@ -31,6 +32,9 @@ const Mypage = () => {
   React.useEffect(() => {
       dispatch(userActions.getmyPostAX());
   },[]);
+
+  
+ 
 
   console.log(user_info)
   if(my_list.length===0){
@@ -47,7 +51,7 @@ const Mypage = () => {
   </RightSideContainer1>
 
   
-    <CountPost> 게시물 {my_list.length} </CountPost>
+    <CountPost> POST {my_list.length} </CountPost>
   
   </RightSideContainer>
 
@@ -76,7 +80,7 @@ const Mypage = () => {
   </RightSideContainer1>
 
   
-    <CountPost> 게시물 {my_list.length} </CountPost>
+    <CountPost> POST {my_list.length} </CountPost>
   
   </RightSideContainer>
 
@@ -97,15 +101,7 @@ const Mypage = () => {
  }
 }
 
-const MyPageBackground = styled.div`
-top:0;
-left:0;
-background-image: url("https://images.unsplash.com/photo-1591723027220-66847f768065?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
-width:100vw;
-height:600px;;
-background-size: cover;
-padding-top: 150px;
-`
+
 const EditProfileContainer = styled.div`
 margin:auto;
 width: 903px;
@@ -203,7 +199,9 @@ const Text = styled.div`
    word-spacing: 0px; 
 `
 
+
 const CountPost =styled.div`
+  
    font-size: 15px;
    color: black;
    padding: 50px 0px 0px 0px;

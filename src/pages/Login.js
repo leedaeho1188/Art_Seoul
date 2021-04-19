@@ -1,8 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import {withRouter} from 'react-router-dom';
-import {StylesProvider} from '@material-ui/styles';
-import {useState} from 'react';
 import {useDispatch} from "react-redux";
 import {actionCreators as userActions } from '../redux/modules/user';
 import {history} from "../redux/configureStore";
@@ -130,6 +127,7 @@ const SignupText = styled.button`
   &:hover{
    color: white;
   };
+  cursor: pointer;
   @media (max-width: 975px){
       width: 100%;
   }

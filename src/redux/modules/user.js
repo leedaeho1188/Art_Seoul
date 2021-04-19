@@ -34,7 +34,7 @@ const initialState = {
 };
 
 
-
+//로그인 정보를 보내주면 토큰을 받는다
 const loginSV = (id,password)=>{
   
   return function (dispatch, getState, {history}){
@@ -74,7 +74,7 @@ const loginSV = (id,password)=>{
 }
 
 
-const signupSV = (id,password,nickname)=>{
+const signupSV = (id,password,nickname,email)=>{
   return function (dispatch, getState, {history}){
     axios(
       {
@@ -86,7 +86,7 @@ const signupSV = (id,password,nickname)=>{
           id : id,
           password : password,
           nickname: nickname,
-          
+          email: email,
         },
       })
       .then((response)=>{
@@ -103,7 +103,7 @@ const signupSV = (id,password,nickname)=>{
 }
 
 
-
+//토큰을 보내주면 로그인 정보를 받아온다
 const loginCheck= (id,password) => {
   return function (dispatch, getState, {history}){
     axios.get(`${config.api}/user/`, config.token)
@@ -119,59 +119,6 @@ const loginCheck= (id,password) => {
 
   }
 };
-
-// 전달하고 받아오는!! (token images nickname 전달하고 / status images 받아온다)
-// const editProfileAX = (post, boardId) => {
-//   return function (dispatch, getState){
-//     const _image = getState().image.preview;
-//     const _post_idx = getState().post.list.findIndex((p) => p.id == boardId);
-//     const _post = getState().post.list[_post_idx]
-
-//     if(_image == _post.image_url){
-//       const formData = new FormData();
-//       formData.append("title", post.title);
-//       formData.append("contents", post.contents);
-//       let token = {
-//         headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
-//       }
-//       console.log(post)
-//       axios.put(`${config.api}/board/${boardId}`, formData, token )
-//         .then((response) => {
-//           console.log(response.data)
-//           let post_info = {
-//             title: post.title,
-//             contents: post.contents,
-//           }
-//           dispatch(editPost(post_info, boardId))
-//         }).catch((err) => {
-//           console.log(err)
-//         })
-//       return;
-//     } else {
-//       const formData = new FormData();
-//       formData.append("title", post.title);
-//       formData.append("contents", post.contents);
-//       formData.append("image", post.image);
-//       let token = {
-//         headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
-//       }
-//       console.log(post)
-//       axios.put(`${config.api}/board/${boardId}`, formData, token )
-//         .then((response) => {
-//           console.log(response.data.boardsData[0].img)
-//           let post_info = {
-//             title: post.title,
-//             contents: post.contents,
-//             image_url: response.data.boardsData[0].img,
-//           }
-//           dispatch(editPost(post_info, boardId))
-//         }).catch((err) => {
-//           console.log(err)
-//         })
-//     }
-
-//   }
-// }
 
 
 const editPasswordAX= (user,data) => {
@@ -201,8 +148,6 @@ const editPasswordAX= (user,data) => {
 export default handleActions(
   {
     [SET_USER]: (state, action) => produce(state, (draft) => {
-      //미들웨어를 쓰지 않으면  actionCreator에서는 다른 함수를 부르는 작업 등을 할 수 없으니 리듀서에 쿠키부르는 함수 임시로!
-      // sessionStorage.setItem("is_login","success")
       draft.user = action.payload.user;
       draft.is_login = true;
     }),
@@ -212,11 +157,6 @@ export default handleActions(
       draft.user ={};
       draft.is_login = false;
     }),
-
-    // [EDIT_PROFILE]: (state, action) => produce(state, (draft) => {
-    //   let idx = draft.mylist.findIndex((p) => p.id === action.payload.post_id)
-    //   draft.mylist[idx] = {...draft.mylist[idx], ...action.payload.post}
-    // }),
 
   },
   initialState
@@ -228,7 +168,6 @@ const actionCreators = {
   signupSV,
   loginSV,
   loginCheck,
-  // editProfileAX,
   editPasswordAX,
 };
 

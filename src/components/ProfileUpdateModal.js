@@ -6,7 +6,9 @@ import PostUpdateModal from './PostUpdateModal';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import PostWrite from './PostWrite'
 import {actionCreators as userActions} from "../redux/modules/user"
+import {actionCreators as postActions} from "../redux/modules/post"
 import Upload from '../shared/Upload'
+import ProfileUpload from '../shared/ProfileUpload'
 
 //해당 게시글에 대한 내용을 모달에 띄워야한다 + props로 이미지 내려주기(완) + 영역나눠주기!
 const ProfileUpdateModal = (props) => {
@@ -16,10 +18,7 @@ const ProfileUpdateModal = (props) => {
     const [image, setImage] = useState()
     const user_info = useSelector((state)=>state.user.user);
     const preview = useSelector((state) => state.image.profile_preview)
-
-    // const closeModal = () => {
-    //     setDetailModal(false);
-    //   };
+    
       
     const changePassword = (e)=>{
         setChange(e.target.value)
@@ -64,24 +63,21 @@ const ProfileUpdateModal = (props) => {
         dispatch(userActions.editPasswordAX(user_info, data))
       }
     }
+
+
+    console.log(image) //하위컴포넌트에서 설정되어 올라온 이미지
     const editProfile = () =>{
-            images :  image
+        let data ={images :  image}
+        dispatch(postActions.editMyPostAX(data))
     }
-        // dispatch (edit) 서버랑도 통신하면서 리듀서를 통해서 값 변경해주는!!
-    
-    // console.log(user_info)
-    // console.log(image)
-    // console.log(new_name)
-
-
-    console.log(user_info.profile)
   return( 
     <React.Fragment>
       <Component onClick={props.close}/>
       <Modal>
 
         <TextContainer>
-        <UploadBox><Upload setImage={setImage}/></UploadBox>
+           {/* setImage={setImage} 하고 리덕스에 저장하면 그 데이터를 다시 useSelector로 불러온다 */}
+        <UploadBox><ProfileUpload setImage={setImage}/></UploadBox> 
         <ImageInModal src={preview ? preview : user_info.profile} size={200}/>
 
         </TextContainer>
@@ -106,7 +102,6 @@ const ProfileUpdateModal = (props) => {
 }
 
 // 설정을 처음에 제대로 잡는게 중요 Container설정과 분할 제대로(재사용성 UP)
-
 const Component = styled.div`
   position: fixed;
   // 시작점

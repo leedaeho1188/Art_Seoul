@@ -15,6 +15,7 @@ const Signup=()=> {
   const [password,setPw] = React.useState(null)
   const [passwordc,setPwc] = React.useState(null)
   const [nickname,setName] = React.useState(null)
+  const [email,setMail] = React.useState(null)
   
   //표현식을 체크하는 함수(.과 g에서 차이가 있었다(특수문자 허용))
   const idCheck = (id) =>{
@@ -29,10 +30,14 @@ const Signup=()=> {
     let nicknameReg = /^[a-zA-Z0-9]{4,9}$/g;
     return nicknameReg.test(nickname);
   }
+  const emailCheck = (email) => {
+    let emailReg = /^(?=.*[@])(?=.*[.])[a-zA-Z0-9@.]{14,30}$/g;
+    return emailReg.test(email);
+  }
  
   //표현식 함수사용 및 체크
   const signup=()=>{
-    if(id===""||password===""||nickname===""){
+    if(id===""||password===""||nickname===""||email===""){
       window.alert("모든 항목을 입력해주세요!")
       return;
     }
@@ -52,6 +57,10 @@ const Signup=()=> {
       window.alert('닉네임은 4자리 이상 10자리 미만이며,  영문 혹은 숫자만 사용해야합니다😅');
       return;
     }
+    if(!emailCheck(email)){
+      window.alert('이메일은 14자리 이상 30자리 이하며,  형식을 지켜주세요😅');
+      return;
+    }
     if(password.search(id)>-1){
       window.alert("비밀번호에 아이디가 포함되었습니다😅")
       return;
@@ -64,7 +73,7 @@ const Signup=()=> {
       window.alert("닉네임에 공백이 포함되었습니다😅");
       return;
     }
-    dispatch(userActions.signupSV(id,password,nickname))
+    dispatch(userActions.signupSV(id,password,nickname,email))
   }
 
   return(
@@ -76,6 +85,7 @@ const Signup=()=> {
         <p><IdBox onChange={(e)=>{setId(e.target.value)}} placeholder="아이디를 입력해주세요"/></p>
         <p><PwBox onChange={(e)=>{setPw(e.target.value)}} placeholder="비밀번호를 입력해주세요" type="password" /></p>
         <p><PwBox onChange={(e)=>{setPwc(e.target.value)}} placeholder="비밀번호를 재입력해주세요" type="password" /></p>
+        <p><PwBox onChange={(e)=>{setMail(e.target.value)}} placeholder="이메일을 입력해주세요"/></p>
         <SignupButton onClick={()=>{signup()}}>회원가입</SignupButton>
       </SignupContainer>
       </SignupBackground>
