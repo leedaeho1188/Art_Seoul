@@ -16,7 +16,7 @@ const PostList = () => {
   // console.log(post_list ,lastPost)
 
   return(
-    <React.Fragment>
+    <PostListContainer>
       <InfinityScroll
         callNext={() => {
           // console.log("하이")
@@ -29,13 +29,12 @@ const PostList = () => {
           return <Post key={p.id} {...p} />
         })}
       </InfinityScroll>
-    </React.Fragment>
+    </PostListContainer>
   )
 
 }
 
 const PostListContainer = styled.div`
-
 `
 
 

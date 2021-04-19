@@ -23,17 +23,16 @@ const initialState = {
 
 const addMarkerAX = (marker) => {
   return function (dispatch){
-
     const _token= sessionStorage.getItem("JWT")
     let token = {
       headers : { authorization: `Bearer ${_token}`}
     }
 
     axios.post(`${config.api}/marker`, {
-      markername: marker.title, location: [marker.latitude.toString(), marker.longitude.toString()], markertype: marker.markertype,
+      markername: marker.title, location: [marker.latitude.toString(), marker.longitude.toString()], markertype: marker.markertype, address: marker.address,
     }, token).then((response) => {
       console.log(response.data)
-      let marker_info = {...marker, id: response.data.markerId}
+      let marker_info = {...marker, id: response.data.markerId, boardcount: 0}
       dispatch(addMarker(marker_info))
     })
   }
@@ -54,6 +53,7 @@ const getMarkerAX = () => {
             longitude: _marker.location[1],
             markertype: _marker.markertype,
             boardcount: _marker.boardcount,
+            address: _marker.address,
           }
 
           hotMarker_list.unshift(marker)
@@ -66,6 +66,7 @@ const getMarkerAX = () => {
             longitude: _marker.location[1],
             markertype: _marker.markertype,
             boardcount: _marker.boardcount,
+            address: _marker.address,
           }
 
           normalMarker_list.unshift(marker)

@@ -23,6 +23,7 @@ const MarkerModal =(props) => {
       latitude: props.latitude,
       longitude : props.longitude,
       title: title,
+      address: props.address,
       markertype: "일반마커",
     }
     console.log(marker)

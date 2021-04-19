@@ -7,7 +7,6 @@ const InfinityScroll = (props) => {
     const {children, callNext, is_next, loading} = props;
 
     const _handleScroll = _.throttle(() => {
-        console.log("하이")
         if(loading){
             return;
         }
@@ -31,7 +30,6 @@ const InfinityScroll = (props) => {
         }
 
         if(is_next){
-            console.log("헬로")
             window.addEventListener("scroll", handleScroll);
         }else{
             window.removeEventListener("scroll", handleScroll);

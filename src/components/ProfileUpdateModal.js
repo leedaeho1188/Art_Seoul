@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from "react-redux"
 import styled from "styled-components";
 import {time} from '../shared/Time';
 import PostUpdateModal from './PostUpdateModal';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import PostWrite from './PostWrite'
 import {actionCreators as userActions} from "../redux/modules/user"
 import {actionCreators as postActions} from "../redux/modules/post"
 import Upload from '../shared/Upload'
