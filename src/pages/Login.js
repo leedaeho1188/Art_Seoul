@@ -83,7 +83,7 @@ const IdBox = styled.input`
     border-bottom: 1px solid grey;
     border-radius: 1px;
     outline: none;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: bold;
     &:hover{
       border-bottom: 1.5px solid white;
@@ -106,7 +106,7 @@ const PwBox = styled.input`
     border-bottom: 1px solid grey;
     border-radius: 1px;
     outline: none;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: bold;
     &:hover{
       border-bottom: 1.5px solid white;
@@ -144,6 +144,7 @@ const LoginButton = styled.button`
     @media (max-width: 975px){
       width: 100%;
     }
+    cursor: pointer;
     
     
 `

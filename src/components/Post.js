@@ -12,6 +12,7 @@ import {actionCreators as commentActions} from "../redux/modules/comment"
 import BackspaceOutlinedIcon from '@material-ui/icons/BackspaceOutlined';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
+import {history} from "../redux/configureStore";
 
 
 const Post = (props) => {
@@ -72,9 +73,11 @@ const Post = (props) => {
         <PostHeader>
           <HeaderLeft>
             <ProfileImg src={props.profile} />
+            <NicknameButton onClick={()=>{history.push("/userpage/"+props.userId)}}>
             <PostAuthor>
-              {props.nickname}
+             {props.nickname}
             </PostAuthor>
+            </NicknameButton>
           </HeaderLeft>
           {user_info.id === props.userId? 
           <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={() => {
@@ -183,7 +186,6 @@ const PostHeader = styled.div`
 const HeaderLeft = styled.div`
   display: flex;
   align-items: center;
-  cursor: pointer;
 `
 
 const ProfileImg = styled.img`
@@ -296,5 +298,17 @@ const DeleteBtn = styled.button`
     opacity: 1;
   }
 `
+
+const NicknameButton = styled.button`
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  opacity: 0.7;
+  &:hover {
+    opacity: 0.9;
+  }
+`
+
 
 export default Post

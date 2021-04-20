@@ -1,3 +1,4 @@
+import { connectRouter } from 'connected-react-router';
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import MyPostModal from './MyPostModal';
@@ -20,7 +21,6 @@ const MyPost =(props)=>{
       
     return(
         <React.Fragment>
-            
             <Content src={props.image_url}  onClick={openModal}></Content>
             {is_modal ? <MyPostModal {...props} close={closeModal}/> :null}
             
@@ -30,13 +30,16 @@ const MyPost =(props)=>{
 
 // item들 가운데 정렬 나중에 반응형 잡으면서 넣기
 const Content = styled.img`
-  width: 293px;
-  height: 293px;
+  width: 260px;
+  height: 260px;
   border: none;
-  margin: 0px 0px 4px 4px;
+  margin: 0px 0px 30px 30px;
   background-size: cover;
+  cursor: pointer;
+
 
 `
+
 
 
 export default MyPost; 

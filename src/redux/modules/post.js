@@ -11,6 +11,7 @@ import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 const ADD_POST = "ADD_POST";
 const SET_POST = "SET_POST";
 const GET_MY_POST = "GET_MY_POST";
+const GET_USER_POST = "GET_USER_POST";
 const REMOVE_POST = "REMOVE_POST";
 const REMOVE_MY_POST = "REMOVE_MY_POST";
 const EDIT_POST = "EDIT_POST";
@@ -22,6 +23,7 @@ const LOADING = "LOADING";
 const addPost = createAction(ADD_POST, (post) => ({post}))
 const setPost = createAction(SET_POST, (post_list, next) => ({post_list, next}))
 const getmyPost = createAction(GET_MY_POST,(my_list)=>({my_list}))
+const getuserPost = createAction(GET_USER_POST,(user_list)=>({user_list}))
 const removePost = createAction(REMOVE_POST, (post_id)=> ({post_id}))
 const removeMyPost = createAction(REMOVE_MY_POST, (post_id)=> ({post_id}))
 const editPost = createAction(EDIT_POST, (post, post_id) => ({post, post_id}))
@@ -31,6 +33,9 @@ const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const initialState ={
   list : [],
   mylist:[],
+  userlist:[
+    {nickname:"hi"},
+  ],
   is_loading: false,
   next: false,
 }
@@ -188,6 +193,40 @@ const getmyPostAX = () => {
   }
 }
 
+const getuserPostAX = (_id) => {
+  return function (dispatch){
+
+      axios.get(`${config.api}/board/other/${_id}`)
+      .then((response) => {
+        console.log(response)
+        
+        let user_list = [];
+        response.data.forEach((_item) => {
+          let item = {
+            id: _item.boardId,
+            title: _item.title,
+            contents: _item.contents,
+            nickname: _item.nickname,
+            userId: _item.userId,
+            date: _item.date,
+            markerId: _item.markerId,
+            markername: _item.markername,
+            image_url: _item.img,
+            profile: _item.profile, //주의
+          }
+          user_list.unshift(item)
+        })
+        console.log(user_list)
+        
+        //redux에도 값 변경
+        dispatch(getuserPost(user_list))
+      }).catch((err) => {
+        console.log(err)
+      })
+  }
+}
+
+
 const removePostAX = (boardId) => {
   return function (dispatch, getState){
     let token = {
@@ -207,6 +246,8 @@ const removeMyPostAX = (boardId) => {
         dispatch(removeMyPost(boardId))
       }
 }
+
+
 
 const editPostAX = (post, boardId) => {
   return function (dispatch, getState){
@@ -349,6 +390,19 @@ export default handleActions(
         }
       })
     }),
+    [GET_USER_POST]: (state,action) => produce(state, (draft)=>{
+      draft.userlist = [action.payload.user_list];
+
+      //코드 다시 이해할 것!!
+      draft.userlist = draft.userlist.reduce((acc, cur) => {
+        if(acc.findIndex(a => a.id === cur.id) === -1 ){
+          return [...acc, cur];
+        }else{
+          acc[acc.findIndex((a) => a.id === cur.id)] = cur;
+          return acc;
+        }
+      })
+    }),
     [EDIT_POST]: (state, action) => produce(state, (draft) => {
       let idx = draft.list.findIndex((p) => p.id === action.payload.post_id)
       draft.list[idx] = {...draft.list[idx], ...action.payload.post}
@@ -389,10 +443,12 @@ const actionCreators = {
   addPostAX,
   getPostAX,
   getmyPostAX,
+  getuserPost,
   removePostAX,
   removeMyPostAX,
   editPostAX,
   editMyPostAX,
+  getuserPostAX,
  
 }
 

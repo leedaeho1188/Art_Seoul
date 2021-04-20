@@ -2,22 +2,30 @@ import React,{useState,useEffect} from "react";
 import styled from "styled-components";
 import MyPost from "../components/MyPost";
 import { useSelector, useDispatch } from "react-redux"
-import { actionCreators as userActions } from "../redux/modules/post";
+import { actionCreators as postActions } from "../redux/modules/post";
 import { Settings } from "@material-ui/icons";
 import ProfileUpdateModal from "../components/ProfileUpdateModal";
 
 
+
 //해당 user가 작성한 게시글 정보를 전부 내려주면 middleware를 통해서 reducer에 정보저장
   //해당 정보를 reducer에서 useSelector로 가져오고
-const Mypage = () => {
+const Userpage = (props) => {
  //순서 너무 중요하다...
-  const dispatch = useDispatch();
-  const my_list = useSelector((state) => state.post.mylist);
-  const user_info = useSelector((state)=>state.user.user);
-  const preview = useSelector((state) => state.image.profile_preview)
-  
+ const _id = props.match.params.id
+ const dispatch = useDispatch();
+ const user_list = useSelector((state) => state.post.userlist);
+ const preview = useSelector((state) => state.image.profile_preview)
+ console.log(user_list)
+ 
 
-  console.log(preview)
+
+
+  React.useEffect(() => {
+    dispatch(postActions.getuserPostAX(_id));
+    console.log(user_list)
+    },[]);
+  
 
   const [ is_modal, setDetailModal ] = useState();
 
@@ -27,64 +35,29 @@ const Mypage = () => {
     const closeModal = () => {
         setDetailModal(false);
       };
- 
   
-  React.useEffect(() => {
-      dispatch(userActions.getmyPostAX());
-  },[]);
-
   
-  if(my_list.length===0){
-    return (<React.Fragment>
-    
-    <EditProfileContainer>
-    <LeftSideContainer>
-    <ImageCircle src={user_info.profile} size={150}/>
-    </LeftSideContainer>
-  <RightSideContainer>
-  <RightSideContainer1>
-    <Text>{user_info.nickname}</Text>
-    <EditButton onClick={openModal}>EDIT PROFILE</EditButton> 
-  </RightSideContainer1>
-
-  
-    <CountPost> POST {my_list.length} </CountPost>
-  
-  </RightSideContainer>
-
-  </EditProfileContainer>  
-    
-    <NoPost>
-    <Text2>작성한 게시물이 없습니다!</Text2>
-    
-    {is_modal ? <ProfileUpdateModal {...user_info} close={closeModal}/> :null}
-    </NoPost>
-    
-    </React.Fragment>
-    )
-  }else{
   return(
     <React.Fragment>
 
   <EditProfileContainer>
-    <LeftSideContainer>
+    {/* <LeftSideContainer>
     <ImageCircle src={user_info.profile} size={150}/>
-    </LeftSideContainer>
+    </LeftSideContainer> */}
   <RightSideContainer>
   <RightSideContainer1>
-    <Text>{user_info.nickname}</Text>
-    <EditButton onClick={openModal}>EDIT PROFILE</EditButton> 
+    <Text>{user_list[0].nickname}</Text>
   </RightSideContainer1>
 
   
-    <CountPost> {user_info.nickname}님은 현재 {my_list.length}개의 게시물이 있습니다! </CountPost>
+    <CountPost> {user_list[0].nickname}님은 현재 {user_list.length}개의 게시물이 있습니다! </CountPost>
   
   </RightSideContainer>
 
   </EditProfileContainer>  
-    {is_modal ? <ProfileUpdateModal {...user_info} close={closeModal}/> :null}
+   
   <PostContainer>
-  {my_list.map((item)=> {
+  {user_list.map((item)=> {
     return(
       
       <MyPost key={item.id} {...item}></MyPost>
@@ -95,8 +68,8 @@ const Mypage = () => {
   </PostContainer> 
   </React.Fragment>
   )
- }
 }
+
 
 
 const EditProfileContainer = styled.div`
@@ -111,17 +84,18 @@ margin-top:50px;
 border-bottom: 2px solid grey;
 `
 
+
 const LeftSideContainer = styled.div`
 width:33%;
 height: 100%;
-
+background-color: white;
 `
 
 
 const RightSideContainer = styled.div`
 width:67%;
 height: 100%;
-
+background-color: white;
 top: 100px;
 left: 100px;
 display: column;
@@ -160,8 +134,8 @@ const PostContainer = styled.div`
   border-radius: 10px;
   margin-top:50px;     
   display:flex;
-  
-  
+
+
   // 줄바꿈 자동으로 되도록 + flex-item간의 간격이 줄어들도록!
   flex-wrap: wrap;
   align-content:flex-start;
@@ -194,15 +168,13 @@ const Text = styled.div`
 
 
 const CountPost =styled.div`
-  
-   font-size: 22px;
-   color: black;
-   padding: 50px 0px 0px 0px;
-   word-spacing: 1.5px;
-   font-weight: bold;
-   display: flex;
+font-size: 22px;
+color: black;
+padding: 50px 0px 0px 0px;
+word-spacing: 1.5px;
+font-weight: bold;
+display: flex;
 `
-
 const Text2 = styled.div`
    font-weight: bold;
    font-size: 20px;
@@ -221,7 +193,6 @@ const EditButton = styled.button`
   background-color: white;
   font-size: 14px;
   border-radius:4px;
-  cursor: pointer;
 `
 
-export default Mypage;
+export default Userpage ;

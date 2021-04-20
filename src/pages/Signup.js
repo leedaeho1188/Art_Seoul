@@ -82,10 +82,10 @@ const Signup=()=> {
       <SignupContainer>
         <Title>ART SEOUL</Title>
         <IdBox onChange={(e)=>{setName(e.target.value)}} placeholder="닉네임을 입력해주세요"/>
+        <p><PwBox onChange={(e)=>{setMail(e.target.value)}} placeholder="이메일을 입력해주세요"/></p>
         <p><IdBox onChange={(e)=>{setId(e.target.value)}} placeholder="아이디를 입력해주세요"/></p>
         <p><PwBox onChange={(e)=>{setPw(e.target.value)}} placeholder="비밀번호를 입력해주세요" type="password" /></p>
         <p><PwBox onChange={(e)=>{setPwc(e.target.value)}} placeholder="비밀번호를 재입력해주세요" type="password" /></p>
-        <p><PwBox onChange={(e)=>{setMail(e.target.value)}} placeholder="이메일을 입력해주세요"/></p>
         <SignupButton onClick={()=>{signup()}}>회원가입</SignupButton>
       </SignupContainer>
       </SignupBackground>
@@ -130,14 +130,14 @@ const IdBox = styled.input`
   width: 350px;
   height: 20px;
   background-color: #121212;
-  margin-top: 30px;
+  margin-top: 15px;
   border-top: none;
   border-right: none;
   border-left: none;
   border-bottom: 1px solid grey;
   border-radius: 1px;
   outline: none;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: bold;
   &:hover{
     border-bottom: 1.5px solid white;
@@ -153,14 +153,14 @@ const PwBox = styled.input`
   width: 350px;
   height: 20px;
   background-color: #121212;
-  margin-top: 20px;
+  margin-top: 15px;
   border-top: none;
   border-right: none;
   border-left: none;
   border-bottom: 1px solid grey;
   border-radius: 1px;
   outline: none;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: bold;
   &:hover{
     border-bottom: 1.5px solid white;
@@ -183,5 +183,6 @@ const SignupButton = styled.button`
   @media (max-width: 975px){
     width: 100%;
   }
+  cursor: pointer;
 `
 export default Signup;
