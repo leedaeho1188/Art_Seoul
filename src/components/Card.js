@@ -8,158 +8,15 @@ const Card = (props) => {
     <React.Fragment>
       <CardBox>
         <CardImg>
-          <CardImgTop src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF173727_210419_140830.gif" />
+          <CardImgTop src={props.poster._text} />
         </CardImg>
         <CardBody>
-          <CardTitle>남겨진사람들</CardTitle>
+          <CardTitle>{props.prfnm._text}</CardTitle>
           <Hr/>
-          <CardDate>2021.04.14 ~ 2021.05.02</CardDate>
+          <CardDate>{props.prfpdfrom._text} ~ {props.prfpdto._text}</CardDate>
         </CardBody>
         <CardFooter>
-          <CardLocation>대학로단막극장</CardLocation>
-        </CardFooter>
-      </CardBox>
-      <CardBox>
-        <CardImg>
-          <CardImgTop src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF173727_210419_140830.gif" />
-        </CardImg>
-        <CardBody>
-          <CardTitle>남겨진사람들</CardTitle>
-          <Hr/>
-          <CardDate>2021.04.14 ~ 2021.05.02</CardDate>
-        </CardBody>
-        <CardFooter>
-          <CardLocation>대학로단막극장</CardLocation>
-        </CardFooter>
-      </CardBox>
-      <CardBox>
-        <CardImg>
-          <CardImgTop src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF173727_210419_140830.gif" />
-        </CardImg>
-        <CardBody>
-          <CardTitle>남겨진사람들</CardTitle>
-          <Hr/>
-          <CardDate>2021.04.14 ~ 2021.05.02</CardDate>
-        </CardBody>
-        <CardFooter>
-          <CardLocation>대학로단막극장</CardLocation>
-        </CardFooter>
-      </CardBox>
-      <CardBox>
-        <CardImg>
-          <CardImgTop src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF173727_210419_140830.gif" />
-        </CardImg>
-        <CardBody>
-          <CardTitle>남겨진사람들</CardTitle>
-          <Hr/>
-          <CardDate>2021.04.14 ~ 2021.05.02</CardDate>
-        </CardBody>
-        <CardFooter>
-          <CardLocation>대학로단막극장</CardLocation>
-        </CardFooter>
-      </CardBox>
-      <CardBox>
-        <CardImg>
-          <CardImgTop src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF173727_210419_140830.gif" />
-        </CardImg>
-        <CardBody>
-          <CardTitle>남겨진사람들</CardTitle>
-          <Hr/>
-          <CardDate>2021.04.14 ~ 2021.05.02</CardDate>
-        </CardBody>
-        <CardFooter>
-          <CardLocation>대학로단막극장</CardLocation>
-        </CardFooter>
-      </CardBox>
-      <CardBox>
-        <CardImg>
-          <CardImgTop src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF173727_210419_140830.gif" />
-        </CardImg>
-        <CardBody>
-          <CardTitle>남겨진사람들</CardTitle>
-          <Hr/>
-          <CardDate>2021.04.14 ~ 2021.05.02</CardDate>
-        </CardBody>
-        <CardFooter>
-          <CardLocation>대학로단막극장</CardLocation>
-        </CardFooter>
-      </CardBox>
-      <CardBox>
-        <CardImg>
-          <CardImgTop src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF173727_210419_140830.gif" />
-        </CardImg>
-        <CardBody>
-          <CardTitle>남겨진사람들</CardTitle>
-          <Hr/>
-          <CardDate>2021.04.14 ~ 2021.05.02</CardDate>
-        </CardBody>
-        <CardFooter>
-          <CardLocation>대학로단막극장</CardLocation>
-        </CardFooter>
-      </CardBox>
-      <CardBox>
-        <CardImg>
-          <CardImgTop src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF173727_210419_140830.gif" />
-        </CardImg>
-        <CardBody>
-          <CardTitle>남겨진사람들</CardTitle>
-          <Hr/>
-          <CardDate>2021.04.14 ~ 2021.05.02</CardDate>
-        </CardBody>
-        <CardFooter>
-          <CardLocation>대학로단막극장</CardLocation>
-        </CardFooter>
-      </CardBox>
-      <CardBox>
-        <CardImg>
-          <CardImgTop src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF173727_210419_140830.gif" />
-        </CardImg>
-        <CardBody>
-          <CardTitle>남겨진사람들</CardTitle>
-          <Hr/>
-          <CardDate>2021.04.14 ~ 2021.05.02</CardDate>
-        </CardBody>
-        <CardFooter>
-          <CardLocation>대학로단막극장</CardLocation>
-        </CardFooter>
-      </CardBox>
-      <CardBox>
-        <CardImg>
-          <CardImgTop src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF173727_210419_140830.gif" />
-        </CardImg>
-        <CardBody>
-          <CardTitle>남겨진사람들</CardTitle>
-          <Hr/>
-          <CardDate>2021.04.14 ~ 2021.05.02</CardDate>
-        </CardBody>
-        <CardFooter>
-          <CardLocation>대학로단막극장</CardLocation>
-        </CardFooter>
-      </CardBox>
-      <CardBox>
-        <CardImg>
-          <CardImgTop src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF173727_210419_140830.gif" />
-        </CardImg>
-        <CardBody>
-          <CardTitle>남겨진사람들</CardTitle>
-          <Hr/>
-          <CardDate>2021.04.14 ~ 2021.05.02</CardDate>
-        </CardBody>
-        <CardFooter>
-          <CardLocation>대학로단막극장</CardLocation>
-        </CardFooter>
-      </CardBox>
-      <CardBox>
-        <CardImg>
-          <CardImgTop src="http://www.kopis.or.kr/upload/pfmPoster/PF_PF173727_210419_140830.gif" />
-        </CardImg>
-        <CardBody>
-          <CardTitle>남겨진사람들</CardTitle>
-          <Hr/>
-          <CardDate>2021.04.14 ~ 2021.05.02</CardDate>
-        </CardBody>
-        <CardFooter>
-          <CardLocation>대학로단막극장</CardLocation>
+          <CardLocation>{props.fcltynm._text}</CardLocation>
         </CardFooter>
       </CardBox>
     </React.Fragment>
@@ -211,9 +68,9 @@ const CardFooter = styled.div`
 const CardLocation = styled.div`
   font-size: 14px;
   -webkit-line-clamp: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  // white-space: nowrap;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
 `
 
 const Hr = styled.hr`
