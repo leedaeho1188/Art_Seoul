@@ -101,7 +101,7 @@ const getPostAX = (markerId, lastId = null) => {
             markername: _post.markername,
             contents: _post.contents,
             nickname: _post.nickname,
-            image_url: _post.img,
+            image_url: _post.img ? _post.img : "https://lh3.googleusercontent.com/proxy/R-iDFkInTd8txDakIafVaB8AgiCyTuUdyklcia6fRZGQs0S2N5bimRNZF5Qe0UrAB2b55KxxXVaUzA0w4axe2srWI8QSdPvo-mGrm7Z-U7nx6Evv7Y_zyEdiLeQjfRY9ZA",
             date: _post.date,
             userId: _post.userId,
             profile: _post.profile.profile,
@@ -134,7 +134,7 @@ const getPostAX = (markerId, lastId = null) => {
             markername: _post.markername,
             contents: _post.contents,
             nickname: _post.nickname,
-            image_url: _post.img,
+            image_url: _post.img ? _post.img : "https://lh3.googleusercontent.com/proxy/R-iDFkInTd8txDakIafVaB8AgiCyTuUdyklcia6fRZGQs0S2N5bimRNZF5Qe0UrAB2b55KxxXVaUzA0w4axe2srWI8QSdPvo-mGrm7Z-U7nx6Evv7Y_zyEdiLeQjfRY9ZA" ,
             date: _post.date,
             userId: _post.userId,
             profile: _post.profile.profile,
@@ -173,7 +173,7 @@ const getmyPostAX = () => {
             date: _item.date,
             markerId: _item.markerId,
             markername: _item.markername,
-            image_url: _item.img,
+            image_url: _item.img ? _item.img : "https://lh3.googleusercontent.com/proxy/R-iDFkInTd8txDakIafVaB8AgiCyTuUdyklcia6fRZGQs0S2N5bimRNZF5Qe0UrAB2b55KxxXVaUzA0w4axe2srWI8QSdPvo-mGrm7Z-U7nx6Evv7Y_zyEdiLeQjfRY9ZA",
             profile: _item.profile,
           }
           my_list.unshift(item)

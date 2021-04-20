@@ -21,6 +21,7 @@ const PostWrite = (props) => {
   const idx = marker_list.findIndex(m => m.id === props.markerId)
   const marker = marker_list[idx]
   const preview = useSelector((state) => state.image.preview)
+  const is_write = title && contents ? true : false;
 
 
   
@@ -38,7 +39,11 @@ const PostWrite = (props) => {
   }
 
   const addPost = () => {
-    console.log(marker)
+    // 이미지는 원하면 첨부 안해도된다.
+    if(!title || !contents){
+      window.alert("제목과 내용을 모두 작성해주세요😉")
+    }
+
     let post = {
       markername: marker.title,
       markerId: props.markerId,
@@ -53,6 +58,11 @@ const PostWrite = (props) => {
   }
 
   const editPost = () => {
+    // 이미지는 원하면 첨부 안해도된다.
+    if(!title || !contents){
+      window.alert("제목과 내용을 모두 작성해주세요😉")
+    }
+
     let post ={
       title: title,
       contents: contents,

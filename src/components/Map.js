@@ -20,6 +20,7 @@ const { kakao } = window;
 const Map = (props) => {
   const dispatch = useDispatch()
   const is_login = useSelector((state) => state.user.is_login)
+  const is_session = sessionStorage.getItem('JWT') ? true : false;
   const [ is_modal, setModal ] = useState(false);
   const [ is_writeModal, setWriteModal ] = useState(false);
   const [ is_write, setWrite ] = useState(false);
@@ -200,6 +201,8 @@ const Map = (props) => {
       infowindow.setContent(content);
 
       setAddress(result[0].address.address_name)
+
+      //위도 경도 값을 useState를 이용해서 useEffect 밖으로 빼냅니다.
       setLatitude(latlng.getLat())
       setLongitude(latlng.getLng())
 
@@ -227,7 +230,7 @@ const Map = (props) => {
     // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
     function displayCenterInfo(result, status) {
         if (status === kakao.maps.services.Status.OK) {
-            var infoDiv = document.getElementById('centerAddr');
+            const infoDiv = document.getElementById('centerAddr');
     
             for(var i = 0; i < result.length; i++) {
                 // 행정동의 region_type 값은 'H' 이므로
@@ -241,7 +244,17 @@ const Map = (props) => {
     
     //마커에 클릭이벤트를 등록하기
     kakao.maps.event.addListener(marker, 'click', function(){
-      setModal(true)
+      //로그인 한 사람만 마커를 생성할 수 있게한다.
+      //is_login을 사용했을 때는 리렌더링할 때 is_login false에서 true로 되기 때문에
+      //map이 is_login을 false로 인식할 수도 있습니다.
+      if(is_session){
+
+        //마커 생성 모달창을 띄워준다. 
+        setModal(true)
+
+      }else{
+        window.alert("로그인해야 마커를 생성할 수 있어요!🙂")
+      }
     })
 
     kakao.maps.event.addListener(marker, 'mouseover', function(){
@@ -251,7 +264,7 @@ const Map = (props) => {
     kakao.maps.event.addListener(marker, 'mouseout', function(){
       infowindow.close(map, marker);
     })
-
+    // 마커가 생성될때 바로 화면상에 새로생성된 마커를 보여주기 위해 배열안에 normalMarker를 넣어놨습니다.
   }, [normalMarker])
 
 
@@ -294,7 +307,7 @@ const Map = (props) => {
   return(
     <React.Fragment>
         <MapSearch>
-          <TextField id="road" label="마커를 생성하고 싶은 곳 주소를 입력해주세요😀" style={{width: "50%"}} />
+          <TextField id="road" label="주소를 입력해주세요😀" style={{width: "50%"}} />
           &nbsp;<Button id="address" style={{backgroundColor:"#FFCC4D"}} variant="contained" disableElevation><Word style={{fontWeight:"600"}}>주소입력</Word></Button>
         </MapSearch>
         <MapLinkContainer>
@@ -348,10 +361,10 @@ const MapContainer = styled.div`
   width: 900px;
   height: 500px;
   @media (max-width: 1000px){
-    width: 80%;
+    width: 85%;
   };
   @media (max-width: 450px){
-    width: 90%;
+    width: 95%;
     height: 400px;
   }
 `
@@ -384,6 +397,13 @@ const MapSearch = styled.div`
   width: 900px;
   display: flex;
   // align-items: center;
+  @media (max-width: 1000px){
+    width: 85%;
+  };
+  @media (max-width: 450px){
+    width: 95%;
+    height: 400px;
+  }
 `
 
 const MapControlBtn = styled.div`
@@ -400,6 +420,13 @@ const MapLinkContainer = styled.div`
   width: 900px;
   margin: auto;
   margin-bottom: 15px;
+  @media (max-width: 1000px){
+    width: 85%;
+  };
+  @media (max-width: 450px){
+    width: 95%;
+    height: 400px;
+  }
 `
 
 const MapLink = styled.a`

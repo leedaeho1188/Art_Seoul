@@ -9,6 +9,8 @@ import {actionCreators as markerActions} from '../redux/modules/marker';
 
 const MarkerModal =(props) => {
   const dispatch = useDispatch()
+
+  // 사용자가 지정한 마커 이름을 담아냅니다.
   const [ title, setTitle ] = useState()
 
 
@@ -17,18 +19,21 @@ const MarkerModal =(props) => {
     setTitle(e.target.value)
   }
 
+  // 마커를 생성할 때 사용되는 함수입니다.
   const addMarker = () => {
-    console.log(props.latitude)
     let marker = {
+      // Map.js에서 받아온 값도 있고 여기서 생성한 값도 있습니다.
       latitude: props.latitude,
       longitude : props.longitude,
       title: title,
       address: props.address,
       markertype: "일반마커",
     }
-    console.log(marker)
+
+    // 새 마커 값을 담아서 미들웨어 함수를 실행시킵니다.
     dispatch(markerActions.addMarkerAX(marker))
 
+    // 마커 생성 모달 창을 닫습니다.
     props.close()
   }
 
