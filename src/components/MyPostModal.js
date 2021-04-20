@@ -61,9 +61,11 @@ const MyPostModal = (props) => {
         </ImageContainer>
         
         <TextContainer>
+        {window.location.href === "http://localhost:3000/mypage" ?
         <MoreHorizIcon style={{padding: "10px 0px 0px 240px"}} height="14px" width="14px" cursor="pointer" 
         onClick={() => {setModal(true)
-        }}/>
+        }}/> :null}
+     
        
         <NicknameText>{props.nickname}</NicknameText>
         <TitleText>{props.title}</TitleText>
@@ -126,8 +128,8 @@ const Component = styled.div`
   top: 0;
   left: 0;
   opacity: 0.6;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background-color: black;
   z-index: 10;
 `
@@ -144,7 +146,7 @@ const CommentContainer =styled.div`
 
 
 const ReplyBox = styled.div`
-  padding: 15px 20px 0px 20px;
+  padding: 15px 20px 0px 10px;
   display: flex;
   justify-content: space-between;
   // align-items: center;
@@ -184,7 +186,7 @@ const DeleteBtn = styled.button`
 const CommentInput = styled.input`
   width: 80%;
   height: 20px;
-  padding-right: 5px;
+  padding-left: 0px;
   background: transparent;
   border: none;
   outline: none;
@@ -212,22 +214,12 @@ const ImageContainer = styled.img`
   
   width: 60%;
   height: 100%;
-
 `
-// const ImageInModal = styled.div`
-//   width: 100%;
-//   height: 100%;
-//   border: none;
-//   background-image: url("${(props) => props.image_url}");
-//   object-fit: conver;
-//   //짤리는거 보완
-
-// `;
 
 const Modal = styled.div`
   position: fixed;
-  width: 700px;
-  height: 400px;
+  width: 40%;
+  height: 55%;
   top:50%;
   left: 50%;
   //메모..
