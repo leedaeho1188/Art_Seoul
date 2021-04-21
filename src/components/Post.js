@@ -158,6 +158,7 @@ const PostInner = styled.div`
 const PostBox = styled.div`
   // margin: auto;
   width: 614px;
+  margin: auto;
   border: 1px solid #DBDBDB;
   border-radius: 5px;
   box-sizing: border-box;

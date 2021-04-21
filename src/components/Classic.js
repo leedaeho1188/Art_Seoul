@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react' 
 
 import Card from './Card'
 import {config} from '../shared/config'
@@ -8,15 +8,14 @@ import axios from 'axios'
 
 import Loader from "react-loader-spinner"
 
-const Drama = (props) => {
+const Classic = (props) => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
-
 
   useEffect(() => {
     const get = async() => {
       setLoading(true)
-      const result = await axios.get(`${config.api}/artinfo/act`)
+      const result = await axios.get(`${config.api}/artinfo/classic`)
       console.log(result)
       setData(result.data.dbs.db)
       setLoading(false)
@@ -25,13 +24,14 @@ const Drama = (props) => {
     get();
 
     props.NotDance();
-    props.NotMusical();
-    props.NotClassic();
     props.NotTraditional();
-    props.SelectDrama();
+    props.NotMusical();
+    props.NotDrama();
+    props.SelectClassic();
       
       
-  }, []) 
+  }, [])
+
 
   return(
     <React.Fragment>
@@ -72,8 +72,7 @@ const SpinContainer = styled.div`
   margin-top: 350px;
   display: flex;
   justify-content: center;
-
 `
 
 
-export default Drama
+export default Classic
