@@ -10,92 +10,74 @@ import ProfileUpdateModal from "../components/ProfileUpdateModal";
 //해당 user가 작성한 게시글 정보를 전부 내려주면 middleware를 통해서 reducer에 정보저장
   //해당 정보를 reducer에서 useSelector로 가져오고
 const Mypage = () => {
- //순서 너무 중요하다...
+ 
   const dispatch = useDispatch();
   const my_list = useSelector((state) => state.post.mylist);
   const user_info = useSelector((state)=>state.user.user);
-  const preview = useSelector((state) => state.image.profile_preview)
-  
+  // const preview = useSelector((state) => state.image.profile_preview)
 
-  console.log(preview)
-
-  const [ is_modal, setDetailModal ] = useState();
-
+  const [is_modal, setModal] = useState();
     const openModal = () => {
-        setDetailModal(true);
+        setModal(true);
       };
     const closeModal = () => {
-        setDetailModal(false);
+        setModal(false);
       };
  
-  
   React.useEffect(() => {
       dispatch(userActions.getmyPostAX());
   },[]);
 
-  
-  if(my_list.length===0){
-    return (<React.Fragment>
-    
-    <EditProfileContainer>
-    <LeftSideContainer>
-    <ImageCircle src={user_info.profile} size={150}/>
-    </LeftSideContainer>
-  <RightSideContainer>
-  <RightSideContainer1>
-    <Text>{user_info.nickname}</Text>
-    <EditButton onClick={openModal}>EDIT PROFILE</EditButton> 
-  </RightSideContainer1>
+  // 내 게시물이 없는 경우 & 있는 경우
+  if(my_list.length==0){
+    return (
+    <React.Fragment>
+      <EditProfileContainer>
+        <LeftSideContainer>
+          <ImageCircle src={user_info.profile} size={150}/>
+        </LeftSideContainer>
 
-  
-    <CountPost> POST {my_list.length} </CountPost>
-  
-  </RightSideContainer>
-
-  </EditProfileContainer>  
+        <RightSideContainer>
+          <RightSideContainer1>
+          <Text>{user_info.nickname}</Text>
+          <EditButton onClick={openModal}>EDIT PROFILE</EditButton> 
+          </RightSideContainer1>
+          <CountPost> POST {my_list.length} </CountPost>
+        </RightSideContainer>
+      </EditProfileContainer>  
+        
+      <NoPost>
+        <Text2>작성한 게시물이 없습니다!</Text2>
+        {is_modal ? <ProfileUpdateModal {...user_info} close={closeModal}/> :null}
+      </NoPost>
+    </React.Fragment>)
+  }else{
+    return(
+    <React.Fragment>
+      <EditProfileContainer>
+        <LeftSideContainer>
+          <ImageCircle src={user_info.profile} size={150}/>
+        </LeftSideContainer>
+        <RightSideContainer>
+        <RightSideContainer1>
+          <Text>{user_info.nickname}</Text>
+          <EditButton onClick={openModal}>EDIT PROFILE</EditButton> 
+        </RightSideContainer1>
+          <CountPost> {user_info.nickname}님은 현재 {my_list.length}개의 게시물이 있습니다! </CountPost>
+        </RightSideContainer>
+      </EditProfileContainer>  
+      {is_modal ? <ProfileUpdateModal {...user_info} close={closeModal}/> :null}
     
-    <NoPost>
-    <Text2>작성한 게시물이 없습니다!</Text2>
-    
-    {is_modal ? <ProfileUpdateModal {...user_info} close={closeModal}/> :null}
-    </NoPost>
-    
+      <PostContainer>
+      {my_list.map((item)=> {
+        return(
+          <MyPost key={item.id} {...item}></MyPost>
+        )}
+      )}
+      </PostContainer> 
     </React.Fragment>
     )
-  }else{
-  return(
-    <React.Fragment>
-
-  <EditProfileContainer>
-    <LeftSideContainer>
-    <ImageCircle src={user_info.profile} size={150}/>
-    </LeftSideContainer>
-  <RightSideContainer>
-  <RightSideContainer1>
-    <Text>{user_info.nickname}</Text>
-    <EditButton onClick={openModal}>EDIT PROFILE</EditButton> 
-  </RightSideContainer1>
-
-  
-    <CountPost> {user_info.nickname}님은 현재 {my_list.length}개의 게시물이 있습니다! </CountPost>
-  
-  </RightSideContainer>
-
-  </EditProfileContainer>  
-    {is_modal ? <ProfileUpdateModal {...user_info} close={closeModal}/> :null}
-  <PostContainer>
-  {my_list.map((item)=> {
-    return(
-      
-      <MyPost key={item.id} {...item}></MyPost>
-      
-    )}
-  )}
-  
-  </PostContainer> 
-  </React.Fragment>
-  )
- }
+  }
 }
 
 
@@ -110,18 +92,14 @@ margin-top:50px;
 }
 border-bottom: 2px solid grey;
 `
-
 const LeftSideContainer = styled.div`
 width:33%;
 height: 100%;
 
 `
-
-
 const RightSideContainer = styled.div`
 width:67%;
 height: 100%;
-
 top: 100px;
 left: 100px;
 display: column;
@@ -139,7 +117,6 @@ display: flex;
   width: 100%;
 }
 `
-
 const ImageCircle = styled.img`
   --size: ${(props) => props.size}px;
   width: var(--size);
@@ -151,8 +128,6 @@ const ImageCircle = styled.img`
   margin: 4px;
   margin: 40px 0px 0px 60px;
 `;
-
-
 const PostContainer = styled.div`
   margin:auto;
   width:914px;
@@ -160,8 +135,6 @@ const PostContainer = styled.div`
   border-radius: 10px;
   margin-top:50px;     
   display:flex;
-  
-  
   // 줄바꿈 자동으로 되도록 + flex-item간의 간격이 줄어들도록!
   flex-wrap: wrap;
   align-content:flex-start;
@@ -171,28 +144,29 @@ const PostContainer = styled.div`
 const NoPost = styled.div`
   margin:auto;
   width:903px;
-
   background-color: white;
   border: none;
   border-radius: 10px;
   margin-top:10px;     
   text-align: center;
-  
   // 줄바꿈 자동으로 되도록 + flex-item간의 간격이 줄어들도록!
   flex-wrap: wrap;
   align-content:flex-start;
   padding: 10px 5px 10px 5px;
 `;
-
-
 const Text = styled.div`
    font-size: 35px;
    color: black;
    padding: 50px 0px 0px 0px;
    word-spacing: 0px; 
 `
-
-
+const Text2 = styled.div`
+   font-weight: bold;
+   font-size: 20px;
+   color: black;
+   word-spacing: 0px;
+   padding: 40px 0px 40px 0px;
+`
 const CountPost =styled.div`
   
    font-size: 22px;
@@ -202,15 +176,6 @@ const CountPost =styled.div`
    font-weight: bold;
    display: flex;
 `
-
-const Text2 = styled.div`
-   font-weight: bold;
-   font-size: 20px;
-   color: black;
-   word-spacing: 0px;
-   padding: 40px 0px 40px 0px;
-`
-
 const EditButton = styled.button`
   width: 120px;
   height: 30px;

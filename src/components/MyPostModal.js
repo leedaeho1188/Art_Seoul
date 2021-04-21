@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {time} from '../shared/Time';
 import PostUpdateModal from './PostUpdateModal';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import CloseIcon from '@material-ui/icons/Close';
 import PostWrite from './PostWrite'
 import {useSelector, useDispatch} from 'react-redux'
 import BackspaceOutlinedIcon from '@material-ui/icons/BackspaceOutlined';
@@ -56,19 +57,32 @@ const MyPostModal = (props) => {
   return(
     <React.Fragment>
       <Component onClick={props.close}/>
-      <Modal>
-        <ImageContainer src={props.image_url}>
-        </ImageContainer>
+      <ExitContainer>
+        <ExitBtn onClick={props.close}>
+          <CloseIcon fontSize="large" />
+        </ExitBtn>
+      </ExitContainer>
         
-        <TextContainer>
-        {window.location.href === "http://localhost:3000/mypage" ?
-        <MoreHorizIcon style={{padding: "10px 0px 0px 240px"}} height="14px" width="14px" cursor="pointer" 
-        onClick={() => {setModal(true)
-        }}/> :null}
-
+      <ModalComponent>
+        <ModalImg src={props.image_url} />
+        <ModalRightContainer>
+          <ModalHeader>
+            <ModalLeftHeader>
+              <ModalProfile src={props.profile} />
+              <ModalAuthor>{props.nickname}</ModalAuthor>
+            </ModalLeftHeader>
+            <ModalRightHeader>
+              {window.location.href === "http://localhost:3000/mypage" ?
+              <MoreHorizIcon style={{padding: "10px 0px 0px 200px"}} height="14px" width="14px" cursor="pointer" 
+              onClick={() => {setModal(true)
+              }}/> :null}
+            </ModalRightHeader>
+          </ModalHeader>
+     
+{/*        
         <NicknameText>{props.nickname}</NicknameText>
         <TitleText>{props.title}</TitleText>
-        <ContentsText>{props.contents}</ContentsText>
+        <ContentsText>{props.contents}</ContentsText> */}
 
         <CommentContainer>
         {is_comment ? 
@@ -104,15 +118,13 @@ const MyPostModal = (props) => {
           )}
         </CommentInputBox>
 
-
+{/* 
         <StyleBox> 
         <PostPlace>{props.markername}</PostPlace>
         <InsertTime>{time(props.date)}</InsertTime>
-        </StyleBox> 
-        </TextContainer>
-        
-
-      </Modal>
+        </StyleBox>  */}
+        </ModalRightContainer>
+      </ModalComponent>
       {is_modal? <PostUpdateModal boardId={props.id} markerId={props.markerId} nickname = {props.nickname} close={closeModal} open={openWriteModal} />
       :null}
       {is_writeModal? <PostWrite close={closeWriteModal} {...props} />
@@ -142,7 +154,21 @@ const CommentContainer =styled.div`
     display: none;
     };
 `
-
+const ExitContainer = styled.div`
+  z-index: 20;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 12px;  
+`
+const ExitBtn = styled.button`
+  cursor: pointer;
+  color: white;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+`
 
 const ReplyBox = styled.div`
   padding: 15px 20px 0px 10px;
@@ -209,25 +235,68 @@ const CommentInputBox = styled.div`
   box-sizing: border-box;
 `
 
-const ImageContainer = styled.img`
-  
-  width: 60%;
-  height: 100%;
+const ModalImg = styled.img`
+  width: 550px;
+  height: 600px;
+  @media (max-width: 950px){
+    display:none;
+  }
 `
 
-const Modal = styled.div`
+const ModalComponent = styled.div`
   position: fixed;
-  width: 40%;
-  height: 55%;
+  width: 915px;
+  height: 600px;
   top:50%;
   left: 50%;
-  //메모..
-  transform: translate(-50%, -50%);
+  transform: translate(-49%, -50%);
   background-color: white;
-  //다시..
   z-index: 20;
-  display: flex;
+  display:flex;
+  @media (max-width: 950px){
+    width:350px;
+  }
+  @media (max-width: 350px){
+    width: 100%
+  }
 `
+const ModalRightContainer = styled.div`
+  width: 400px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 1px solid #EFEFEF;
+`
+
+const ModalHeader = styled.div`
+  padding: 16px;
+  border-bottom: 1px solid #EFEFEF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+const ModalLeftHeader = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const ModalRightHeader = styled.div`
+  cursor: pointer;
+`
+const ModalAuthor = styled.span`
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 5px;
+`
+
+const ModalProfile = styled.img`
+  border-radius: 50%;
+  background-size: cover;
+  height: 30px;
+  width: 30px;
+  margin-right: 6px;
+  `
 
 const NicknameText = styled.div`
     color: black;
@@ -248,12 +317,6 @@ const ContentsText = styled.div`
     padding-left: 10px;
 `
 
-const TextContainer= styled.div`
-   width: 40%;
-   display: column;
-   
-
-`
 const InsertTime = styled.div`
   font-size: 12px;
   color: #999;
