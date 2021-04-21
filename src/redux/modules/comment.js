@@ -3,6 +3,7 @@ import { produce } from "immer";
 import axios from 'axios';
 import { config } from "../../shared/config"
 import { CommentOutlined } from "@material-ui/icons";
+import user from "./user";
 
 const SET_COMMENT = "SET_COMMENT";
 const ADD_COMMENT = "ADD_COMMENT";
@@ -24,7 +25,7 @@ const initialState = {
 
 const addCommentAX = (comment, post_id) => {
   return function (dispatch, getState){
-    console.log(comment, post_id)
+    const user_info = getState().user.user
     const _token= sessionStorage.getItem("JWT")
     let token = {
       headers : { authorization: `Bearer ${_token}`}
@@ -35,10 +36,9 @@ const addCommentAX = (comment, post_id) => {
         console.log(res.data)
         let _comment = res.data.result
         let comment_info = {
-          id : _comment.commentId,
           comment : _comment.commentContents,
-          nickname : _comment.nickname,
-          userId : _comment.userId,
+          nickname : user_info.nickname,
+          userId : user_info.id,
           profile: res.data.currentprofile,
         }
         dispatch(addComment(comment_info, post_id))
@@ -50,19 +50,17 @@ const addCommentAX = (comment, post_id) => {
 }
 
 const getCommentAX = (post_id = null) => {
-  console.log(post_id)
   return function (dispatch) {
     axios.get(`${config.api}/comment/${post_id}`)
       .then((response) => {
-        console.log(response.data)
+        console.log(response, post_id)
         let comment_list = []
         response.data.comments.forEach((_comment) => {
           let comment = {
-            id: _comment.commentId,
             comment: _comment.commentContents,
             nickname: _comment.nickname,
             userId: _comment.userId,
-            profile: _comment.profile.profile
+            profile: _comment.profile,
           }
           comment_list.unshift(comment)
         })
