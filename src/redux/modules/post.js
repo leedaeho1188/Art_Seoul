@@ -155,43 +155,43 @@ const getPostAX = (markerId, lastId = null) => {
   }
 }
 
-const getmyPostAX = () => {
-  return function (dispatch){
+// const getmyPostAX = () => {
+//   return function (dispatch){
 
-      const _token= sessionStorage.getItem("JWT")
-      let token = {
-        headers : { authorization: `Bearer ${_token}`}
-      }
+//       const _token= sessionStorage.getItem("JWT")
+//       let token = {
+//         headers : { authorization: `Bearer ${_token}`}
+//       }
 
-      axios.get(`${config.api}/board/myboard`,token)
-      .then((response) => {
-        console.log(response)
-        //my_list로 데이터 정제
-        let my_list = [];
-        response.data.forEach((_item) => {
-          let item = {
-            id: _item.boardId,
-            title: _item.title,
-            contents: _item.contents,
-            nickname: _item.nickname,
-            userId: _item.userId,
-            date: _item.date,
-            markerId: _item.markerId,
-            markername: _item.markername,
-            image_url: _item.img ? _item.img : "https://www.namdokorea.com/site/jeonnam/tour/images/noimage.gif",
-            profile: _item.profile,
-          }
-          my_list.unshift(item)
-        })
-        console.log(my_list)
+//       axios.get(`${config.api}/board/myboard`,token)
+//       .then((response) => {
+//         console.log(response)
+//         //my_list로 데이터 정제
+//         let my_list = [];
+//         response.data.forEach((_item) => {
+//           let item = {
+//             id: _item.boardId,
+//             title: _item.title,
+//             contents: _item.contents,
+//             nickname: _item.nickname,
+//             userId: _item.userId,
+//             date: _item.date,
+//             markerId: _item.markerId,
+//             markername: _item.markername,
+//             image_url: _item.img ? _item.img : "https://www.namdokorea.com/site/jeonnam/tour/images/noimage.gif",
+//             profile: _item.profile,
+//           }
+//           my_list.unshift(item)
+//         })
+//         console.log(my_list)
         
-        //redux에도 값 변경
-        dispatch(getmyPost(my_list))
-      }).catch((err) => {
-        console.log(err)
-      })
-  }
-}
+//         //redux에도 값 변경
+//         dispatch(getmyPost(my_list))
+//       }).catch((err) => {
+//         console.log(err)
+//       })
+//   }
+// }
 
 const getuserPostAX = (_id) => {
   return function (dispatch){
@@ -211,7 +211,7 @@ const getuserPostAX = (_id) => {
             date: _item.date,
             markerId: _item.markerId,
             markername: _item.markername,
-            image_url: _item.img ? _item.img : "https://lh3.googleusercontent.com/proxy/R-iDFkInTd8txDakIafVaB8AgiCyTuUdyklcia6fRZGQs0S2N5bimRNZF5Qe0UrAB2b55KxxXVaUzA0w4axe2srWI8QSdPvo-mGrm7Z-U7nx6Evv7Y_zyEdiLeQjfRY9ZA",
+            image_url: _item.img ? _item.img : "https://www.namdokorea.com/site/jeonnam/tour/images/noimage.gif",
             profile: _item.profile, //주의
           }
           user_list.unshift(item)
@@ -408,8 +408,8 @@ export default handleActions(
       draft.list[idx] = {...draft.list[idx], ...action.payload.post}
     }),
     [EDIT_MY_POST]: (state, action) => produce(state, (draft) => {
-      let idx = draft.mylist.findIndex((p) => p.id === action.payload.post_id)
-      draft.mylist[idx] = {...draft.mylist[idx], ...action.payload.post}
+      let idx = draft.userlist.findIndex((p) => p.id === action.payload.post_id)
+      draft.userlist[idx] = {...draft.userlist[idx], ...action.payload.post}
     }),
 
     
@@ -424,9 +424,9 @@ export default handleActions(
     }),
     
     [REMOVE_MY_POST]: (state,action) => produce(state, (draft)=>{
-      draft.mylist = draft.mylist.filter((r, idx) => {
+      draft.mylist = draft.userlist.filter((r, idx) => {
         if(r.id !== action.payload.post_id){
-          return [...draft.mylist, r]
+          return [...draft.userlist, r]
         }
       })
     }),
@@ -442,7 +442,6 @@ export default handleActions(
 const actionCreators = {
   addPostAX,
   getPostAX,
-  getmyPostAX,
   getuserPost,
   removePostAX,
   removeMyPostAX,

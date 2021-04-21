@@ -65,6 +65,11 @@ const user_info = useSelector((state) => state.user.user)
             <HeaderInnerContainer>
                 <Titlebutton onClick={()=>{history.push("/")}}><Title>ART SEOUL</Title></Titlebutton>
                 <HeaderIcons>
+                    <Minibutton onClick={() => {
+                        history.push("/performance")
+                    }} >
+                        <Text>공연정보</Text>
+                    </Minibutton>
                     <Minibutton onClick={()=>{history.push("/login")}}><Text>SIGN IN</Text></Minibutton>
                     <Minibutton onClick={()=>{history.push("/signup")}}><Text>SIGN UP</Text></Minibutton>
                     {/* <Minibutton>
@@ -126,7 +131,7 @@ const Title = styled.div`
 
 const Text = styled.div`
     color: white;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
    
 `
@@ -144,7 +149,7 @@ const Minibutton = styled.div`
    border-color: white;
    padding: 4px 2px 4px 2px;
    border: none;
-   margin: 8px;
+   margin: 6px;
    cursor: pointer;
    outline: white;
    align-self: center;

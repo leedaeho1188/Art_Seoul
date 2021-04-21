@@ -65,8 +65,7 @@ const MyPostModal = (props) => {
         <MoreHorizIcon style={{padding: "10px 0px 0px 240px"}} height="14px" width="14px" cursor="pointer" 
         onClick={() => {setModal(true)
         }}/> :null}
-     
-       
+
         <NicknameText>{props.nickname}</NicknameText>
         <TitleText>{props.title}</TitleText>
         <ContentsText>{props.contents}</ContentsText>
