@@ -29,7 +29,7 @@ const initialState = {
 
 
 //로그인 정보를 보내주면 토큰을 받는다
-const loginSV = (id,password)=>{
+const loginSV = (id,password)=>{                        
   
   return function (dispatch, getState, {history}){
     console.log(id, password)
@@ -44,6 +44,13 @@ const loginSV = (id,password)=>{
           password : password,
         },
       })
+
+
+
+
+
+
+      
       .then((response)=>{
         sessionStorage.setItem("JWT", response.data.result.user.token)
         let token = {

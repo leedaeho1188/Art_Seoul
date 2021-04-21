@@ -24,22 +24,27 @@ const Userpage = (props) => {
   React.useEffect(() => {
     dispatch(postActions.getuserPostAX(_id));
     console.log(user_list)
+    window.scrollTo(0,0)
     },[]);
   
 
-  const [ is_modal, setDetailModal ] = useState();
+  // const [ is_modal, setDetailModal ] = useState();
 
-    const openModal = () => {
-        setDetailModal(true);
-      };
-    const closeModal = () => {
-        setDetailModal(false);
-      };
-  
+  //   const openModal = () => {
+  //       setDetailModal(true);
+  //     };
+  //   const closeModal = () => {
+  //       setDetailModal(false);
+  //     };
+
+  // if(_id==user_info.id){
+  //   return
+
+  // }
   
   return(
-    <React.Fragment>
-
+  <React.Fragment>
+  
   <EditProfileContainer>
     {/* <LeftSideContainer>
     <ImageCircle src={user_info.profile} size={150}/>
@@ -48,12 +53,8 @@ const Userpage = (props) => {
   <RightSideContainer1>
     <Text>{user_list[0].nickname}</Text>
   </RightSideContainer1>
-
-  
-    <CountPost> {user_list[0].nickname}님은 현재 {user_list.length}개의 게시물이 있습니다! </CountPost>
-  
+  <CountPost> {user_list[0].nickname}님은 현재 {user_list.length}개의 게시물이 있습니다! </CountPost>
   </RightSideContainer>
-
   </EditProfileContainer>  
    
   <PostContainer>
