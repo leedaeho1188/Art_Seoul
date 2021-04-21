@@ -7,9 +7,10 @@ import BackspaceOutlinedIcon from '@material-ui/icons/BackspaceOutlined';
 
 import {actionCreators as commentActions} from "../redux/modules/comment"
 
-import { useDispatch } from "react-redux"; 
+import { useDispatch, useSelector } from "react-redux"; 
 
 const ModalDetail = (props) => {
+  const user_info = useSelector((state) => state.user.user)
   const dispatch = useDispatch()
   const [comments, setComments ] = useState();
   const ok_submit = comments ? true : false
@@ -47,7 +48,9 @@ const ModalDetail = (props) => {
               <ModalAuthor>{props.nickname}</ModalAuthor>
             </ModalLeftHeader>
             <ModalRightHeader>
+              {props.userId === user_info.id? 
               <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={props.open} />
+              :null}
             </ModalRightHeader>
           </ModalHeader>
           <ModalCmtBox>
