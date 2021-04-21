@@ -19,9 +19,6 @@ const MyPost =(props)=>{
         setDetailModal(false);
       };
 
-    const mouseover = () => {
-        setOver(true);
-      };
     const mouseout = () => {
         setOver(false);
     };
@@ -29,6 +26,7 @@ const MyPost =(props)=>{
     console.log(props.image_url)
     return(
         <React.Fragment>
+<<<<<<< HEAD
             {is_mouseover?
             <>
             {/* <BoxContainer> */}
@@ -43,8 +41,10 @@ const MyPost =(props)=>{
             
             </>
             : <Content  onMouseOver={mouseover}  src={props.image_url} ></Content>}
+=======
+            <Content onClick={openModal}  onMouseOver={()=> {setOver(true)}}  src={props.image_url} ></Content>
+>>>>>>> 5af66aad465dbef8143759b35cef900a938bc4f3
             {is_modal ? <MyPostModal {...props} close={closeModal}/> :null}
-            
         </React.Fragment>
     )
 }
@@ -57,6 +57,7 @@ const Content = styled.img`
   background-size: cover;
   cursor: pointer;
 `
+<<<<<<< HEAD
 const Box = styled.div`
   width: 260px;
   height: 260px;
@@ -95,5 +96,7 @@ const Text = styled.div`
 
 
 
+=======
+>>>>>>> 5af66aad465dbef8143759b35cef900a938bc4f3
 
 export default MyPost; 

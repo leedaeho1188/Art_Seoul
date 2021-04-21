@@ -68,14 +68,13 @@ const Post = (props) => {
   return (
     <React.Fragment>
       <PostInner>
-
       <PostBox>
         <PostHeader>
           <HeaderLeft>
             <ProfileImg src={props.profile} />
             <NicknameButton onClick={()=>{history.push("/userpage/"+props.userId)}}>
             <PostAuthor>
-             {props.nickname}
+              {props.nickname}
             </PostAuthor>
             </NicknameButton>
           </HeaderLeft>
