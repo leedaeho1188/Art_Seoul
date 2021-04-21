@@ -31,14 +31,16 @@ const MyPost =(props)=>{
         <React.Fragment>
             {is_mouseover?
             <>
-            <div> 
+            {/* <BoxContainer> */}
             <Box src={props.image_url} onMouseOut={mouseout} onClick={openModal}>
             </Box>
 
             <TextBox>
             <Text> Place: {props.markername}</Text>
             </TextBox>
-            </div>
+            {/* </BoxContainer> */}
+
+            
             </>
             : <Content  onMouseOver={mouseover}  src={props.image_url} ></Content>}
             {is_modal ? <MyPostModal {...props} close={closeModal}/> :null}
@@ -63,27 +65,32 @@ const Box = styled.div`
   background-size: cover;
   margin: 0px 0px 30px 30px;
   cursor: pointer;
-  text-align: center;
-  // position: relative;
-  z-index: 30;
+  z-index:3;
+  position: relative;
 
 `
+// const BoxContainer = styled.div`
+// position: relative;
+// `
 
 const TextBox = styled.div`
- 
+  width: 260px;
+  height: 260px;
+  border: none;
+  cursor: pointer;
+  background-color: black;
+  position: relative;
  
 `
 
 const Text = styled.div`
- 
-  color: black;
+  color: white;
   font-weight: bold;
   font-size: 20px;
   position: absolute;
-  z-index:20;
-  
-  
-  
+  margin: 50px 0px 0px 70px;
+  z-index:2;
+
 `
 
 

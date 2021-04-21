@@ -40,7 +40,7 @@ const Userpage = (props) => {
   //   return
 
   // }
-  
+  console.log(user_list)
   return(
   <React.Fragment>
   

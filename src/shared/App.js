@@ -3,7 +3,6 @@ import Header from  "../components/Header"
 import Main from  "../pages/Main"
 import Login from  "../pages/Login"
 import Signup from  "../pages/Signup"
-import Mypage from  "../pages/Mypage"
 import Userpage from  "../pages/Userpage"
 import Question from  "../pages/Question"
 import PerformInfo from "../pages/PerformInfo"
@@ -37,8 +36,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Main}/>
           <Route path="/login" exact component={Login}/>
-          <Route path="/signup" exact component={Signup}/>
-          <Route path="/mypage" exact component={Mypage}/>   
+          <Route path="/signup" exact component={Signup}/> 
           <Route path="/userpage/:id" exact component={Userpage}/> 
           <Route path="/question" exact component={Question}/>       
           <Route path="/performance" exact component={PerformInfo}/>
