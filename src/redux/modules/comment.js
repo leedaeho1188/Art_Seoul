@@ -30,7 +30,6 @@ const addCommentAX = (comment, post_id) => {
     let token = {
       headers : { authorization: `Bearer ${_token}`}
     }
-  
     axios.post(`${config.api}/comment/${post_id}`, {commentContents : comment} ,token)
       .then((res) => {
         console.log(res.data)

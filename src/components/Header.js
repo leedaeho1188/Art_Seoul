@@ -45,7 +45,7 @@ const user_info = useSelector((state) => state.user.user)
                     <Minibutton onClick={()=>{dispatch(userActions.logOut());
                         history.push("/login")
                     }}><Text>LOG OUT</Text></Minibutton>
-                    <ProCircle onClick={() => {history.push("/mypage")}} src={user_info.profile}  />
+                    <ProCircle onClick={() => {history.push(`/userpage/${user_info.id}`)}} src={user_info.profile}  />
                     
                     {/* <Minibutton>
                         <SettingsIcon onClick={()=>{
