@@ -23,7 +23,6 @@ const Userpage = (props) => {
 
   React.useEffect(() => {
     dispatch(postActions.getuserPostAX(_id));
-    console.log(user_list)
     window.scrollTo(0,0)
     },[]);
   

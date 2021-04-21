@@ -13,6 +13,7 @@ const ProfileUpdateModal = (props) => {
     const dispatch = useDispatch()
     const [new_password, setChange] = useState()
     const [new_password_check, setChange2] = useState()
+    
     const [image, setImage] = useState()
     const user_info = useSelector((state)=>state.user.user);
     const preview = useSelector((state) => state.image.profile_preview)
