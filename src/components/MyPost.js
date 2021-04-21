@@ -26,24 +26,7 @@ const MyPost =(props)=>{
     console.log(props.image_url)
     return(
         <React.Fragment>
-<<<<<<< HEAD
-            {is_mouseover?
-            <>
-            {/* <BoxContainer> */}
-            <Box src={props.image_url} onMouseOut={mouseout} onClick={openModal}>
-            </Box>
-
-            <TextBox>
-            <Text> Place: {props.markername}</Text>
-            </TextBox>
-            {/* </BoxContainer> */}
-
-            
-            </>
-            : <Content  onMouseOver={mouseover}  src={props.image_url} ></Content>}
-=======
             <Content onClick={openModal}  onMouseOver={()=> {setOver(true)}}  src={props.image_url} ></Content>
->>>>>>> 5af66aad465dbef8143759b35cef900a938bc4f3
             {is_modal ? <MyPostModal {...props} close={closeModal}/> :null}
         </React.Fragment>
     )
@@ -57,46 +40,5 @@ const Content = styled.img`
   background-size: cover;
   cursor: pointer;
 `
-<<<<<<< HEAD
-const Box = styled.div`
-  width: 260px;
-  height: 260px;
-  border: none;
-  background-image: url("${(props) => props.src}");
-  background-size: cover;
-  margin: 0px 0px 30px 30px;
-  cursor: pointer;
-  z-index:3;
-  position: relative;
-
-`
-// const BoxContainer = styled.div`
-// position: relative;
-// `
-
-const TextBox = styled.div`
-  width: 260px;
-  height: 260px;
-  border: none;
-  cursor: pointer;
-  background-color: black;
-  position: relative;
- 
-`
-
-const Text = styled.div`
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
-  position: absolute;
-  margin: 50px 0px 0px 70px;
-  z-index:2;
-
-`
-
-
-
-=======
->>>>>>> 5af66aad465dbef8143759b35cef900a938bc4f3
 
 export default MyPost; 
