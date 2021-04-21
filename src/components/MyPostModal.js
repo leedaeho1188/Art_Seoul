@@ -14,6 +14,8 @@ const MyPostModal = (props) => {
   console.log(props)
   const [ is_modal, setModal ] = useState(false)
   const [ is_writeModal, setWriteModal ] = useState(false)
+  // const _id = props.match.params.id;
+  
 
   //댓글
   const dispatch =useDispatch();
@@ -72,10 +74,11 @@ const MyPostModal = (props) => {
               <ModalAuthor>{props.nickname}</ModalAuthor>
             </ModalLeftHeader>
             <ModalRightHeader>
-              {window.location.href === "http://localhost:3000/mypage" ?
+              {/* {user_info.id==_id ? */}
               <MoreHorizIcon style={{padding: "10px 0px 0px 200px"}} height="14px" width="14px" cursor="pointer" 
               onClick={() => {setModal(true)
-              }}/> :null}
+              }}/> 
+              {/* :null} */}
             </ModalRightHeader>
           </ModalHeader>
      

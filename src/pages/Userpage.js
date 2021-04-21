@@ -45,7 +45,7 @@ const Userpage = (props) => {
     <React.Fragment>
       <EditProfileContainer>
         <LeftSideContainer>
-          {/* <ImageCircle src={user_list[0].profile} size={150}/> */}
+          <ImageCircle src={user_info.profile} size={150}/>
         </LeftSideContainer>
 
         <RightSideContainer>
@@ -67,9 +67,9 @@ const Userpage = (props) => {
     <React.Fragment>
     
     <EditProfileContainer>
-      {/* <LeftSideContainer>
+      <LeftSideContainer>
       <ImageCircle src={user_info.profile} size={150}/>
-      </LeftSideContainer> */}
+      </LeftSideContainer>
     <RightSideContainer>
     <RightSideContainer1>
       <Text>{user_info.nickname}</Text>
@@ -89,6 +89,7 @@ const Userpage = (props) => {
     )}
     
     </PostContainer> 
+    {is_modal ? <ProfileUpdateModal {...user_info} close={closeModal}/> :null}
     </React.Fragment>
     )  
   }else{
@@ -96,13 +97,13 @@ const Userpage = (props) => {
     <React.Fragment>
     
     <EditProfileContainer>
-      {/* <LeftSideContainer>
-      <ImageCircle src={user_info.profile} size={150}/>
-      </LeftSideContainer> */}
+      <LeftSideContainer>
+      <ImageCircle src={user_list[0].profile} size={150}/>
+      </LeftSideContainer>
     <RightSideContainer>
     <RightSideContainer1>
       <Text>{user_list[0].nickname}</Text>
-    <EditButton onClick={openModal}>EDIT PROFILE</EditButton>
+   
     </RightSideContainer1>
     <CountPost> {user_list[0].nickname}님은 현재 {user_list.length}개의 게시물이 있습니다! </CountPost>
     </RightSideContainer>
@@ -142,7 +143,7 @@ border-bottom: 2px solid grey;
 const LeftSideContainer = styled.div`
 width:33%;
 height: 100%;
-background-color: white;
+
 `
 
 
@@ -151,7 +152,7 @@ background-color: white;
 const RightSideContainer = styled.div`
 width:67%;
 height: 100%;
-background-color: white;
+
 top: 100px;
 left: 100px;
 display: column;
@@ -202,7 +203,7 @@ const NoPost = styled.div`
   margin:auto;
   width:903px;
 
-  background-color: white;
+
   border: none;
   border-radius: 10px;
   margin-top:10px;     
@@ -246,7 +247,7 @@ const EditButton = styled.button`
   padding: 0px 0px 0px 0px;
   font-weight: bold;
   border: 1px solid grey;
-  background-color: white;
+ 
   font-size: 14px;
   border-radius:4px;
 `
