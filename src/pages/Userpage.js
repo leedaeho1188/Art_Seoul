@@ -18,6 +18,7 @@ const Userpage = (props) => {
  const idx = user_list.findIndex((l) => l.userId === _id)
 
  const preview = useSelector((state) => state.image.profile_preview)
+ const user_info = useSelector((state) => state.user.user);
  console.log(user_list)
 
 
@@ -28,47 +29,100 @@ const Userpage = (props) => {
     },[]);
   
 
-  // const [ is_modal, setDetailModal ] = useState();
+  const [ is_modal, setDetailModal ] = useState();
 
-  //   const openModal = () => {
-  //       setDetailModal(true);
-  //     };
-  //   const closeModal = () => {
-  //       setDetailModal(false);
-  //     };
+    const openModal = () => {
+        setDetailModal(true);
+      };
+    const closeModal = () => {
+        setDetailModal(false);
+      };
 
-  // if(_id==user_info.id){
-  //   return
 
-  // }
+  console.log(user_list)
   
-  return(
-  <React.Fragment>
-  
-  <EditProfileContainer>
-    {/* <LeftSideContainer>
-    <ImageCircle src={user_info.profile} size={150}/>
-    </LeftSideContainer> */}
-  <RightSideContainer>
-  <RightSideContainer1>
-    <Text>{user_list[0].nickname}</Text>
-  </RightSideContainer1>
-  <CountPost> {user_list[0].nickname}님은 현재 {user_list.length}개의 게시물이 있습니다! </CountPost>
-  </RightSideContainer>
-  </EditProfileContainer>  
-   
-  <PostContainer>
-  {user_list.map((item)=> {
+  if(user_list.length==0 && _id === user_info.id){
+    return (
+    <React.Fragment>
+      <EditProfileContainer>
+        <LeftSideContainer>
+          {/* <ImageCircle src={user_list[0].profile} size={150}/> */}
+        </LeftSideContainer>
+
+        <RightSideContainer>
+          <RightSideContainer1>
+          <Text>{user_info.nickname}</Text>
+          <EditButton onClick={openModal}>EDIT PROFILE</EditButton> 
+          </RightSideContainer1>
+          <CountPost> POST {user_list.length} </CountPost>
+        </RightSideContainer>
+      </EditProfileContainer>  
+        
+      <NoPost>
+        <Text2>작성한 게시물이 없습니다!</Text2>
+        {is_modal ? <ProfileUpdateModal {...user_info} close={closeModal}/> :null}
+      </NoPost>
+    </React.Fragment>)
+  }else if(_id === user_info.id){
     return(
-      
-      <MyPost key={item.id} {...item}></MyPost>
-      
+    <React.Fragment>
+    
+    <EditProfileContainer>
+      {/* <LeftSideContainer>
+      <ImageCircle src={user_info.profile} size={150}/>
+      </LeftSideContainer> */}
+    <RightSideContainer>
+    <RightSideContainer1>
+      <Text>{user_info.nickname}</Text>
+    <EditButton onClick={openModal}>EDIT PROFILE</EditButton>
+    </RightSideContainer1>
+    <CountPost> {user_info.nickname}님은 현재 {user_list.length}개의 게시물이 있습니다! </CountPost>
+    </RightSideContainer>
+    </EditProfileContainer>  
+    
+    <PostContainer>
+    {user_list.map((item)=> {
+      return(
+        
+        <MyPost key={item.id} {...item}></MyPost>
+        
+      )}
     )}
-  )}
-  
-  </PostContainer> 
-  </React.Fragment>
-  )
+    
+    </PostContainer> 
+    </React.Fragment>
+    )  
+  }else{
+    return(
+    <React.Fragment>
+    
+    <EditProfileContainer>
+      {/* <LeftSideContainer>
+      <ImageCircle src={user_info.profile} size={150}/>
+      </LeftSideContainer> */}
+    <RightSideContainer>
+    <RightSideContainer1>
+      <Text>{user_list[0].nickname}</Text>
+    <EditButton onClick={openModal}>EDIT PROFILE</EditButton>
+    </RightSideContainer1>
+    <CountPost> {user_list[0].nickname}님은 현재 {user_list.length}개의 게시물이 있습니다! </CountPost>
+    </RightSideContainer>
+    </EditProfileContainer>  
+    
+    <PostContainer>
+    {user_list.map((item)=> {
+      return(
+        
+        <MyPost key={item.id} {...item}></MyPost>
+        
+      )}
+    )}
+    
+    </PostContainer> 
+    </React.Fragment>
+    )
+
+  }
 }
 
 
@@ -91,6 +145,8 @@ width:33%;
 height: 100%;
 background-color: white;
 `
+
+
 
 
 const RightSideContainer = styled.div`
