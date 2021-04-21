@@ -25,7 +25,6 @@ const Map = (props) => {
   const [ is_writeModal, setWriteModal ] = useState(false);
   const [ is_write, setWrite ] = useState(false);
   const [ is_Top, setTop ] = useState(false)
-  const [ is_modalAddress, setModalAddress ] = useState(false)
   const [ hot, setHot ] = useState(false);
   const [ address, setAddress ] = useState();
   const [ markerId, setmarkerId ] = useState();
@@ -34,7 +33,6 @@ const Map = (props) => {
   const [_map, setMap ] = useState();
   const normalMarker = useSelector((state) => state.marker.normal)
   const hotMarker = useSelector((state) => state.marker.hot)
-  const post_list = useSelector((state) => state.post.list)
   
   useEffect(() => {
     const container = document.getElementById('myMap'); //지도 표시할 div
@@ -127,7 +125,9 @@ const Map = (props) => {
     })
 
     // 파란색 기본 마커입니다.
-    const marker = new kakao.maps.Marker()
+    const marker = new kakao.maps.Marker({
+      position: map.getCenter()
+    })
 
     // 마커위에 뜨는 정보창입니다.
     const infowindow = new kakao.maps.InfoWindow({zindex:1});
@@ -135,7 +135,6 @@ const Map = (props) => {
     // 해당 위치 값이 어딘지 알게해주는 역할
     var geocoder = new kakao.maps.services.Geocoder();
     
-    // searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 
 
     const address = document.getElementById("address")
@@ -212,35 +211,10 @@ const Map = (props) => {
     })
     
     
-
-    // kakao.maps.event.addListener(map, 'idle', function() {
-    //     searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-    // });
-
-    // function searchAddrFromCoords(coords, callback) {
-    //   // 좌표로 행정동 주소 정보를 요청합니다
-    //   geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
-    // }
-    
     function searchDetailAddrFromCoords(coords, callback) {
         // 좌표로 법정동 상세 주소 정보를 요청합니다
         geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
     }
-    
-    // // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
-    // function displayCenterInfo(result, status) {
-    //     if (status === kakao.maps.services.Status.OK) {
-    //         const infoDiv = document.getElementById('centerAddr');
-    
-    //         for(var i = 0; i < result.length; i++) {
-    //             // 행정동의 region_type 값은 'H' 이므로
-    //             if (result[i].region_type === 'H') {
-    //                 infoDiv.innerHTML = result[i].address_name;
-    //                 break;
-    //             }
-    //         }
-    //     }    
-    // }
     
     //마커에 클릭이벤트를 등록하기
     kakao.maps.event.addListener(marker, 'click', function(){
@@ -318,10 +292,6 @@ const Map = (props) => {
               <MapControlBtn  onClick={zoomIn} style={{borderRight: "1px solid #919191"}} ><AddIcon/></MapControlBtn>
               <MapControlBtn  onClick={zoomOut}  ><RemoveIcon/></MapControlBtn>
           </MapBtnContainer>
-          {/* <MapInfo style={{opacity: '0.8'}}>
-              <div style={{fontWeight:'600'}}>지도중심기준 주소정보</div>
-              <div id="centerAddr"></div>
-          </MapInfo> */}
         </ MapContainer>
 
       {is_modal? <MarkerModal close={closeModal} latitude={latitude} longitude={longitude} address={address} />
