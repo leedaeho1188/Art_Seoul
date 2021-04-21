@@ -34,7 +34,7 @@ const initialState ={
   list : [],
   mylist:[],
   userlist:[
-    {nickname:"hi"},
+    {nickname:"hi",profile:"hello"}
   ],
   is_loading: false,
   next: false,
@@ -305,8 +305,8 @@ const editPostAX = (post, boardId) => {
 const editMyPostAX = (post, boardId) => {
   return function (dispatch, getState){
     const _image = getState().image.preview;
-    const _post_idx = getState().post.mylist.findIndex((p) => p.id == boardId);
-    const _post = getState().post.mylist[_post_idx]
+    const _post_idx = getState().post.userlist.findIndex((p) => p.id == boardId);
+    const _post = getState().post.userlist[_post_idx]
 
     if(_image == _post.image_url){
       const formData = new FormData();
@@ -424,7 +424,7 @@ export default handleActions(
     }),
     
     [REMOVE_MY_POST]: (state,action) => produce(state, (draft)=>{
-      draft.mylist = draft.userlist.filter((r, idx) => {
+      draft.userlist = draft.userlist.filter((r, idx) => {
         if(r.id !== action.payload.post_id){
           return [...draft.userlist, r]
         }
