@@ -201,7 +201,7 @@ const getuserPostAX = (_id) => {
         console.log(response)
         
         let user_list = [];
-        response.data.forEach((_item) => {
+        response.data.contents.forEach((_item) => {
           let item = {
             id: _item.boardId,
             title: _item.title,
@@ -212,7 +212,7 @@ const getuserPostAX = (_id) => {
             markerId: _item.markerId,
             markername: _item.markername,
             image_url: _item.img ? _item.img : "https://www.namdokorea.com/site/jeonnam/tour/images/noimage.gif",
-            profile: _item.profile, //주의
+            profile: response.data.profile, //주의
           }
           user_list.unshift(item)
         })
@@ -391,17 +391,17 @@ export default handleActions(
       })
     }),
     [GET_USER_POST]: (state,action) => produce(state, (draft)=>{
-      draft.userlist = [action.payload.user_list];
+      draft.userlist = action.payload.user_list;
 
       //코드 다시 이해할 것!!
-      draft.userlist = draft.userlist.reduce((acc, cur) => {
-        if(acc.findIndex(a => a.id === cur.id) === -1 ){
-          return [...acc, cur];
-        }else{
-          acc[acc.findIndex((a) => a.id === cur.id)] = cur;
-          return acc;
-        }
-      })
+      // draft.userlist = draft.userlist.reduce((acc, cur) => {
+      //   if(acc.findIndex(a => a.id === cur.id) === -1 ){
+      //     return [...acc, cur];
+      //   }else{
+      //     acc[acc.findIndex((a) => a.id === cur.id)] = cur;
+      //     return acc;
+      //   }
+      // })
     }),
     [EDIT_POST]: (state, action) => produce(state, (draft) => {
       let idx = draft.list.findIndex((p) => p.id === action.payload.post_id)

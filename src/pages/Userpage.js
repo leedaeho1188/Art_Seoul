@@ -15,17 +15,15 @@ const Userpage = (props) => {
  const _id = props.match.params.id
  const dispatch = useDispatch();
  const user_list = useSelector((state) => state.post.userlist);
- const preview = useSelector((state) => state.image.profile_preview)
  const user_info = useSelector((state) => state.user.user);
  console.log(user_list)
- 
 
 
 
   React.useEffect(() => {
     dispatch(postActions.getuserPostAX(_id));
     window.scrollTo(0,0)
-    },[]);
+    },[_id]);
   
 
   const [ is_modal, setDetailModal ] = useState();
