@@ -97,6 +97,7 @@ const ProfileUpdateModal = (props) => {
         </ButtonContainer>
         </TextContainer>
       </Modal>
+    
       
     </React.Fragment>
   )
@@ -106,13 +107,17 @@ const ProfileUpdateModal = (props) => {
 const Component = styled.div`
   position: fixed;
   // 시작점
-  top: 0;
-  left: 0;
+  top:0;
   opacity: 0.6;
-  height: 100vh;
-  width: 100vw;
+  height: 1000vh;
+  width: 1000vw;
   background-color: black;
   z-index: 10;
+  @media (max-width: 376px){
+   width: 100%;
+   
+   
+  };
 `
 const ImageInModal = styled.img`
     --size: ${(props) => props.size}px;
@@ -142,6 +147,11 @@ const Modal = styled.div`
   z-index: 20;
   display: flex;
   border-radius: 20px;
+  @media (max-width: 376px){
+    width:90%;
+    height:90%;
+    flex-wrap: wrap;
+  };
 `
 
 
@@ -152,6 +162,10 @@ const TextContainer= styled.div`
   
    padding: 0px 0px 0px 0px;
    border-radius:20px;
+   @media (max-width: 376px){
+    width:100%;
+   
+  };
 `
 
 const NewText = styled.div`
@@ -159,6 +173,10 @@ const NewText = styled.div`
   font-weight: bold;
   font-size: 12px;
   padding: 10px 0px 0px 10px;
+  @media (max-width: 376px){
+    width:100%;
+   
+  };
 
 `
 const NicknameText = styled.div`
@@ -167,11 +185,19 @@ const NicknameText = styled.div`
     font-size: 22px;
     padding: 50px 0px 40px 10px;
     letter-spacing: -1px;
+    @media (max-width: 376px){
+      width:100%;
+      padding:0px;
+    };
 
 `
 
 const ButtonContainer = styled.div`
   margin-top:40px;
+  @media (max-width: 376px){
+    width:100%;
+   
+  };
 `
 
 const EditInput = styled.input`
@@ -179,6 +205,10 @@ const EditInput = styled.input`
     height: 20px;
     margin: 5px 0px 0px 10px;
     border: 1px solid black;
+    @media (max-width: 376px){
+      margin:0px;
+     
+    };
 `
 
 const EditButton = styled.button`
@@ -191,6 +221,11 @@ const EditButton = styled.button`
   margin: 10px 0px 0px 15px; 
   border-radius: 10px;
   cursor: pointer;
+  @media (max-width: 376px){
+    width:100%;
+    margin: 2px auto;
+   
+  };
 `
 
   export default ProfileUpdateModal;

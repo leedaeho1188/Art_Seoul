@@ -133,23 +133,22 @@ const MyPostModal = (props) => {
         <InsertTime>{time(props.date)}</InsertTime>
         </StyleBox>  */}
         </ModalRightContainer>
-      </ModalComponent>
-      {is_modal? <PostUpdateModal boardId={props.id} markerId={props.markerId} nickname = {props.nickname} close={closeModal} open={openWriteModal} />
+        {is_modal? <PostUpdateModal boardId={props.id} markerId={props.markerId} nickname = {props.nickname} close={closeModal} open={openWriteModal} />
       :null}
       {is_writeModal? <PostWrite close={closeWriteModal} {...props} />
       :null}
+      </ModalComponent>
     </React.Fragment>
   )
 }
 
 const Component = styled.div`
   position: fixed;
-  // 시작점
   top: 0;
-  left: 0;
+  left:0;
   opacity: 0.6;
-  height: 100vh;
-  width: 100vw;
+  height: 1000vh;
+  width: 1000vw;
   background-color: black;
   z-index: 10;
 `

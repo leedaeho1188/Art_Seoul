@@ -134,19 +134,22 @@ width: 914px;
 height: 230px;
 display: flex;
 margin-top:50px;
-@media (max-width: 375px){
+@media (max-width: 376px){
   width: 100%;
+  
 }
 border-bottom: 2px solid grey;
 `
 
 
+
 const LeftSideContainer = styled.div`
 width:33%;
 height: 100%;
-@media (max-width: 375px){
+@media (max-width: 376px){
   width: 100%;
 }
+
 `
 
 
@@ -159,9 +162,13 @@ margin-left: 30px;
 top: 100px;
 left: 100px;
 display: column;
-@media (max-width: 375px){
+@media (max-width: 376px){
   width: 100%;
-}
+  
+ 
+  
+};
+
 `
 const RightSideContainer1 = styled.div`
 width:67%;
@@ -169,9 +176,13 @@ height: 30%;
 top: 100px;
 left: 100px;
 display: flex;
-@media (max-width: 375px){
+@media (max-width: 376px){
   width: 100%;
+  flex-wrap: wrap;
+  
 }
+
+  
 `
 
 const ImageCircle = styled.img`
@@ -184,6 +195,13 @@ const ImageCircle = styled.img`
   background-size: cover;
   margin: 4px;
   margin: 40px 0px 0px 60px;
+  @media (max-width: 376px){
+    position: absolute;
+    margin: 40px 0px 0px 20px;
+  }
+  
+ 
+
 `;
 
 
@@ -200,8 +218,8 @@ const PostContainer = styled.div`
   flex-wrap: wrap;
   align-content:flex-start;
   padding: 10px 5px 10px 5px;
-  @media (max-width: 375px){
-    width: 100%;
+  @media (max-width: 376px){
+    width: 80%;
   }
 `;
 
@@ -227,6 +245,11 @@ const Text = styled.div`
    color: black;
    padding: 50px 0px 0px 0px;
    word-spacing: 0px; 
+   @media (max-width: 376px){
+
+    position: absolute;
+  
+  }
 `
 
 
@@ -237,6 +260,9 @@ padding: 50px 0px 0px 0px;
 word-spacing: 1.5px;
 font-weight: bold;
 display: flex;
+@media (max-width: 376px){
+  display: none;
+}
 `
 const Text2 = styled.div`
    font-weight: bold;
@@ -256,6 +282,11 @@ const EditButton = styled.button`
   cursor: pointer;
   font-size: 14px;
   border-radius:4px;
+  @media (max-width: 376px){
+
+    position: absolute;
+    margin: 120px 0px 0px 0px;
+  };
 `
 
 export default Userpage ;
