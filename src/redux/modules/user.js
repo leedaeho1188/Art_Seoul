@@ -85,14 +85,22 @@ const signupSV = (id,password,nickname,email)=>{
       })
       .then((response)=>{
         console.log(response);
-        window.alert("ART SEOUL 회원가입을 축하드립니다🎉")
-        history.push("/login");
+        if(response.data.err=="이미 가입된 아이디가 있습니다."){
+          window.alert("이런! 해당 아이디가 이미 존재합니다😅")
+          
+        }else if(response.data.err=="이미 가입된 이메일이 있습니다."){
+          window.alert("이런! 해당 이메일이 이미 존재합니다😅")
+          
+        }else if(response.data.err=="이미 가입된 닉네임이 있습니다."){
+          window.alert("이런! 해당 닉네임이 이미 존재합니다😅")
+          
+        }else{
+          window.alert("ART SEOUL 회원가입을 축하드립니다🎉")
+          history.push("/login");
+        }
       }).catch((error)=>{
         console.log(error);
-        window.alert("이런! 해당 아이디가 이미 존재합니다😅")
       })
-
-      
   }
 }
 
