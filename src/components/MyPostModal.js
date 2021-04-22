@@ -91,6 +91,7 @@ const MyPostModal = (props) => {
         <CommentContainer>
         <TitleText>{props.title}</TitleText>
         <ContentsText>{props.contents}</ContentsText>
+        <Markername>{props.markername}</Markername>
         {is_comment ? 
           comment_list.map((c, idx) => {
             
@@ -156,8 +157,7 @@ const CommentContainer =styled.div`
  width: 100%;
  height: 70%;
 //  background-color: black;
- margin-top: 5px;
- margin-left: 10px;
+ margin: 5px 10px;
  overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
@@ -321,37 +321,31 @@ const NicknameText = styled.div`
     color: black;
     font-weight: bold;
     font-size: 20px;
-    padding: 0px 0px 10px 10px;
+    padding: 0px 10px 10px 10px;
 `
 const TitleText = styled.div`
     color: black;
     font-weight: bold;
     font-size: 22px;
-    margin: 0px 0px 10px 10px;
+    margin: 0px 10px 10px 10px;
     
 `
 const ContentsText = styled.div`
     color: black;
     font-size: 18px;
-    padding-left: 10px;
-    margin-bottom: 30px;
+    margin-left: 10px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+`
+const Markername = styled.div`
+  margin-bottom: 30px;  
+  text-align: right;
+  margin-right: 30px;
+  color: gray;
+  font-size: 14px;
 `
 
-const InsertTime = styled.div`
-  font-size: 12px;
-  color: #999;
-`
-
-const PostPlace = styled.div`
-  font-size: 12px;
-  color: #999
-`
-
-const StyleBox = styled.div`
-   display: flex;
-   justify-content: space-between;
-   margin: 10px 10px 0px 10px;
-`
 
 
   export default MyPostModal;

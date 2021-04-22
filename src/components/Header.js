@@ -63,6 +63,9 @@ const Header = () => {
 
   return(
     <React.Fragment>
+        {is_about? 
+            <About close={closeAbout} />
+            :null}
         <HeaderContainer>
             <HeaderInnerContainer>
                 <Titlebutton onClick={()=>{history.push("/")}}><Title>ART SEOUL</Title></Titlebutton>

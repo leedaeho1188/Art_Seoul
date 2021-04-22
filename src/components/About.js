@@ -31,7 +31,9 @@ const About = (props) => {
 
           <Bold>Back-end Developer</Bold><br/>
           이총명 : dlchdaud1327@gmail.com<br/>
-          원가연 : henzel1013@gmail.com<br/>
+          원가연 : henzel1013@gmail.com<br/><br/>
+
+          Thanks to 상균🧡
 
 
         </ContentsContainer>

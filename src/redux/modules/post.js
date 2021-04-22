@@ -109,7 +109,7 @@ const getPostAX = (markerId, lastId = null) => {
             image_url: _post.img ? _post.img : "https://www.namdokorea.com/site/jeonnam/tour/images/noimage.gif",
             date: _post.date,
             userId: _post.userId,
-            profile: _post.profile.profile,
+            profile: _post.profile,
           }
           post_list.push(post)
         })
@@ -142,7 +142,7 @@ const getPostAX = (markerId, lastId = null) => {
             image_url: _post.img ? _post.img : "https://www.namdokorea.com/site/jeonnam/tour/images/noimage.gif" ,
             date: _post.date,
             userId: _post.userId,
-            profile: _post.profile.profile,
+            profile: _post.profile,
           }
           post_list.push(post)
         })
