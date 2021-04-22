@@ -1,42 +1,43 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
+
 import LockIcon from '@material-ui/icons/Lock';
 import SettingsIcon from '@material-ui/icons/Settings';
+
 import { useSelector } from 'react-redux';
 import {useDispatch} from "react-redux"
 import {actionCreators as userActions } from '../redux/modules/user'
 import {history} from "../redux/configureStore";
 
+import About from './About'
 
 
 const Header = () => {
-    
     const dispatch = useDispatch();
-    
-//const [is_login, setIsLogin] = React.useState(false);
-  
-//해당 아이디가 있으면 로그인 상태가 변하면서 헤더가 변한다
-//   React.useEffect(()=>{
-//       let data = localStorage.getItem("hi")
-//       console.log(data)
-//       if(data){
-//           setIsLogin(true)
-//       }else{
-//           setIsLogin(false)
-//       }
-//   })
+    const is_login = useSelector((state)=>state.user.is_login)
+    const user_info = useSelector((state) => state.user.user)
+    const [is_about, setAbout] = useState(false)
+
+    const closeAbout = () => {
+        setAbout(false)
+    }
 
 
-const is_login = useSelector((state)=>state.user.is_login)
-const user_info = useSelector((state) => state.user.user)
-
-  if(is_login){
+    if(is_login){
     return(
         <React.Fragment>
+            {is_about? 
+            <About close={closeAbout} />
+            :null}
             <HeaderContainer>
                 <HeaderInnerContainer>
                     <Title onClick={()=>{history.push("/")}}>ART SEOUL</Title> 
                     <HeaderIcons>
+                    <Minibutton onClick={() => {
+                        setAbout(true)
+                    }} >
+                        <Text>About</Text>
+                    </Minibutton>
                     <Minibutton onClick={() => {
                         history.push("/performance")
                     }} >
@@ -46,12 +47,6 @@ const user_info = useSelector((state) => state.user.user)
                         history.push("/login")
                     }}><Text>LOG OUT</Text></Minibutton>
                     <ProCircle onClick={() => {history.push(`/userpage/${user_info.id}`)}} src={user_info.profile}  />
-                    
-                    {/* <Minibutton>
-                        <SettingsIcon onClick={()=>{
-                            history.push("/question")
-                        }}/>
-                    </Minibutton> */}
                     </HeaderIcons>
                 </HeaderInnerContainer>
             </HeaderContainer>
@@ -72,9 +67,6 @@ const user_info = useSelector((state) => state.user.user)
                     </Minibutton>
                     <Minibutton onClick={()=>{history.push("/login")}}><Text>SIGN IN</Text></Minibutton>
                     <Minibutton onClick={()=>{history.push("/signup")}}><Text>SIGN UP</Text></Minibutton>
-                    {/* <Minibutton>
-                        <SettingsIcon onClick={()=>{history.push("/question")}}/>
-                    </Minibutton> */}
                 </HeaderIcons>
             </HeaderInnerContainer>
         </HeaderContainer>
