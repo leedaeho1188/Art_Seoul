@@ -101,7 +101,6 @@ const Userpage = (props) => {
     <RightSideContainer>
     <RightSideContainer1>
       <Text>{user_list[0].nickname}</Text>
-   
     </RightSideContainer1>
     <CountPost> {user_list[0].nickname}님은 현재 {user_list.length}개의 게시물이 있습니다! </CountPost>
     </RightSideContainer>
@@ -126,39 +125,30 @@ const Userpage = (props) => {
 
 
 const EditProfileContainer = styled.div`
-margin:auto;
-width: 914px;
-height: 230px;
-display: flex;
-margin-top:50px;
-border-bottom: 2px solid grey;
+  margin:auto;
+  width: 914px;
+  padding-bottom: 30px;
+  display: flex;
+  margin-top:50px;
+  border-bottom: 2px solid grey;
+  @media (max-width: 914px){
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  };
 `
-
-
 
 const LeftSideContainer = styled.div`
-width:33%;
-height: 100%;
+  margin-right: 30px;
 `
-
-
 
 
 const RightSideContainer = styled.div`
-width:67%;
-height: 100%;
-margin-left: 30px;
-top: 100px;
-left: 100px;
-display: column;
+  margin-left: 30px;
 `
 const RightSideContainer1 = styled.div`
-width:67%;
-height: 30%;
-top: 100px;
-left: 100px;
-display: flex;
-  
+  display: flex;
 `
 
 const ImageCircle = styled.img`
@@ -166,13 +156,8 @@ const ImageCircle = styled.img`
   width: var(--size);
   height: var(--size);
   border-radius: var(--size);
-  // background-color: black;
-  // background-image: url("${(props) => props.src}");
   background-size: cover;
-  margin: 4px;
   margin: 40px 0px 0px 60px;
-  
- 
 `;
 
 
@@ -195,7 +180,6 @@ const PostContainer = styled.div`
 
 const NoPost = styled.div`
   margin:auto;
-  width:903px;
   border: none;
   border-radius: 10px;
   margin-top:10px;     
@@ -219,10 +203,9 @@ const Text = styled.div`
 const CountPost =styled.div`
 font-size: 22px;
 color: black;
-padding: 50px 0px 0px 0px;
+margin-top: 30px;
 word-spacing: 1.5px;
 font-weight: bold;
-display: flex;
 `
 const Text2 = styled.div`
    font-weight: bold;
