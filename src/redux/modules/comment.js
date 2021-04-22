@@ -43,7 +43,7 @@ const addCommentAX = (comment, post_id) => {
         dispatch(addComment(comment_info, post_id))
       }).catch((err) => {
         console.log(err.response)
-        window.alert("댓글 작성에 문제가 있어요!")
+        window.alert("로그인해야 댓글을 작성할 수 있습니다.")
       })
   }
 }
