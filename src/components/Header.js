@@ -87,6 +87,9 @@ const HeaderContainer = styled.div`
     top:0;
     z-index:10;
     margin-bottom:10px;
+    @media (max-width: 975px){
+        width: 100%;
+      }
 `
 
 const HeaderInnerContainer = styled.div`
@@ -101,6 +104,7 @@ const HeaderInnerContainer = styled.div`
     @media (max-width: 975px){
         width: 100%;
       }
+   
 `
 
 const HeaderIcons = styled.div`
