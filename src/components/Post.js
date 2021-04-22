@@ -146,6 +146,7 @@ const Post = (props) => {
 const PostInner = styled.div`
   width: 900px;
   margin:auto;
+  box-sizing: border-box;
   @media (max-width: 900px){
     width: 100%;
     display: flex;

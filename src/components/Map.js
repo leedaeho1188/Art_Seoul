@@ -27,6 +27,7 @@ const Map = (props) => {
   const [ is_Top, setTop ] = useState(false)
   const [ hot, setHot ] = useState(false);
   const [ address, setAddress ] = useState();
+  const [ roadAddress, setRoad ] = useState("");
   const [ markerId, setmarkerId ] = useState();
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
@@ -170,6 +171,7 @@ const Map = (props) => {
           map.setCenter(coords)
           setLatitude(coords.Ma)
           setLongitude(coords.La)
+          setRoad("")
         }
       })
     })
@@ -267,6 +269,10 @@ const Map = (props) => {
   }
   
 
+  const changeRoadAddress = (e) => {
+    setRoad(e.target.value)
+  }
+
   window.onscroll = function() {scrollFunction()}
 
   const scrollFunction = () => {
@@ -281,8 +287,8 @@ const Map = (props) => {
   return(
     <React.Fragment>
         <MapSearch>
-          <TextField id="road" label="주소를 입력해주세요😀" style={{width: "50%"}} />
-          &nbsp;<Button id="address" style={{backgroundColor:"#FFCC4D"}} variant="contained" disableElevation><Word style={{fontWeight:"600"}}>주소입력</Word></Button>
+          <TextField id="road" label="주소를 입력해주세요😀" style={{width: "60%"}} value={roadAddress} onChange={changeRoadAddress} />
+          &nbsp;<Button id="address" style={{backgroundColor:"#FFCC4D"}} variant="contained" disableElevation><span style={{fontWeight:"600"}}>주소입력</span></Button>
         </MapSearch>
         <MapLinkContainer>
           <MapLink href="https://www.juso.go.kr/openIndexPage.do" target="_blank" >정확한 주소를 모른다면 클릭해주세요!</MapLink>
@@ -372,7 +378,6 @@ const MapSearch = styled.div`
   };
   @media (max-width: 450px){
     width: 95%;
-    height: 400px;
   }
 `
 
@@ -395,7 +400,6 @@ const MapLinkContainer = styled.div`
   };
   @media (max-width: 450px){
     width: 95%;
-    height: 400px;
   }
 `
 
@@ -426,7 +430,7 @@ const MapBtn = styled.div`
 `
 
 const Word = styled.span`
-  @media (max-width:425px){
+  @media (max-width:614px){
     display: none
   }
 `

@@ -35,6 +35,7 @@ const PostList = () => {
 }
 
 const PostListContainer = styled.div`
+  box-sizing: border-box;
 `
 
 

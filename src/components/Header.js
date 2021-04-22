@@ -3,6 +3,9 @@ import styled from 'styled-components'
 
 import LockIcon from '@material-ui/icons/Lock';
 import SettingsIcon from '@material-ui/icons/Settings';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import InfoIcon from '@material-ui/icons/Info';
+import DescriptionIcon from '@material-ui/icons/Description';
 
 import { useSelector } from 'react-redux';
 import {useDispatch} from "react-redux"
@@ -36,16 +39,20 @@ const Header = () => {
                     <Minibutton onClick={() => {
                         setAbout(true)
                     }} >
+                        <Icon><InfoIcon/></Icon>
                         <Text>About</Text>
                     </Minibutton>
                     <Minibutton onClick={() => {
                         history.push("/performance")
                     }} >
+                        <Icon><DescriptionIcon/></Icon>
                         <Text>공연정보</Text>
                     </Minibutton>
                     <Minibutton onClick={()=>{dispatch(userActions.logOut());
                         history.push("/login")
-                    }}><Text>LOG OUT</Text></Minibutton>
+                    }}> <Icon><ExitToAppIcon/></Icon> 
+                    <Text>LOG OUT</Text>
+                    </Minibutton>
                     <ProCircle onClick={() => {history.push(`/userpage/${user_info.id}`)}} src={user_info.profile}  />
                     </HeaderIcons>
                 </HeaderInnerContainer>
@@ -63,10 +70,11 @@ const Header = () => {
                     <Minibutton onClick={() => {
                         history.push("/performance")
                     }} >
-                        <Text>공연정보</Text>
+                        {/* <Icon><DescriptionIcon/></Icon> */}
+                        <Text style={{display:"block"}} >공연정보</Text>
                     </Minibutton>
-                    <Minibutton onClick={()=>{history.push("/login")}}><Text>SIGN IN</Text></Minibutton>
-                    <Minibutton onClick={()=>{history.push("/signup")}}><Text>SIGN UP</Text></Minibutton>
+                    <Minibutton onClick={()=>{history.push("/login")}}><Text style={{display:"block"}}>SIGN IN</Text></Minibutton>
+                    <Minibutton onClick={()=>{history.push("/signup")}}><Text style={{display:"block"}} >SIGN UP</Text></Minibutton>
                 </HeaderIcons>
             </HeaderInnerContainer>
         </HeaderContainer>
@@ -122,6 +130,9 @@ const Title = styled.div`
        color: grey;
    };
    cursor: pointer;
+   @media (max-width: 450px){
+    font-size: 16px
+};
   
 `
 
@@ -129,6 +140,9 @@ const Text = styled.div`
     color: white;
     font-size: 13px;
     font-weight: 600;
+    @media (max-width: 450px){
+        display: none;
+    };
    
 `
 const Titlebutton = styled.button`
@@ -150,6 +164,15 @@ const Minibutton = styled.div`
    outline: white;
    align-self: center;
 `
+
+const Icon = styled.div`
+    display: none;
+    @media (max-width: 450px){
+        display: block;
+    };
+`
+
+
 
 const ProCircle = styled.img`
   margin: 8px;
