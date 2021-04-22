@@ -123,7 +123,10 @@ const Userpage = (props) => {
   }
 }
 
+const Container = styled.div`
+  width: 100wv;
 
+`
 
 const EditProfileContainer = styled.div`
 margin:auto;

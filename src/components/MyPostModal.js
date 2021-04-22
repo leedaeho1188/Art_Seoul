@@ -148,8 +148,8 @@ const Component = styled.div`
   top: 0;
   left: 0;
   opacity: 0.6;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   background-color: black;
   z-index: 10;
 `
