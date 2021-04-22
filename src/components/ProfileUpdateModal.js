@@ -75,7 +75,7 @@ const ProfileUpdateModal = (props) => {
     <React.Fragment>
       <Component onClick={props.close}/>
       <Modal>
-
+       
         <TextContainer>
            {/* setImage={setImage} 하고 리덕스에 저장하면 그 데이터를 다시 useSelector로 불러온다 */}
         <UploadBox><ProfileUpload setImage={setImage}/></UploadBox> 
@@ -96,6 +96,7 @@ const ProfileUpdateModal = (props) => {
         <EditButton onClick={editProfile} >Change My Profile Image</EditButton>
         </ButtonContainer>
         </TextContainer>
+        
       </Modal>
     
       
@@ -114,11 +115,11 @@ const Component = styled.div`
   background-color: black;
   z-index: 10;
   @media (max-width: 376px){
-   width: 100%;
-   
-   
-  };
+   width: 100%;};
+  
 `
+
+
 const ImageInModal = styled.img`
     --size: ${(props) => props.size}px;
     width: var(--size);
@@ -148,8 +149,15 @@ const Modal = styled.div`
   display: flex;
   border-radius: 20px;
   @media (max-width: 376px){
-    width:90%;
-    height:90%;
+    width:70%;
+    height:70%;
+    flex-wrap: wrap;
+  };
+  @media (max-width: 600px){
+    align-items: center;
+    text-align: center;
+    width:37%;
+    height:60%;
     flex-wrap: wrap;
   };
 `

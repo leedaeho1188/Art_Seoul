@@ -125,7 +125,6 @@ const Userpage = (props) => {
 
 const Container = styled.div`
   width: 100wv;
-
 `
 
 const EditProfileContainer = styled.div`
@@ -135,7 +134,7 @@ height: 230px;
 display: flex;
 margin-top:50px;
 @media (max-width: 376px){
-  width: 100%;
+  width: 120%;
   
 }
 border-bottom: 2px solid grey;
@@ -149,7 +148,6 @@ height: 100%;
 @media (max-width: 376px){
   width: 100%;
 }
-
 `
 
 
@@ -168,7 +166,6 @@ display: column;
  
   
 };
-
 `
 const RightSideContainer1 = styled.div`
 width:67%;
@@ -181,7 +178,6 @@ display: flex;
   flex-wrap: wrap;
   
 }
-
   
 `
 
@@ -201,7 +197,6 @@ const ImageCircle = styled.img`
   }
   
  
-
 `;
 
 
@@ -212,22 +207,18 @@ const PostContainer = styled.div`
   border-radius: 10px;
   margin-top:50px;     
   display:flex;
-
-
   // 줄바꿈 자동으로 되도록 + flex-item간의 간격이 줄어들도록!
   flex-wrap: wrap;
   align-content:flex-start;
   padding: 10px 5px 10px 5px;
   @media (max-width: 376px){
-    width: 80%;
+    width: 100%;
   }
 `;
 
 const NoPost = styled.div`
   margin:auto;
   width:903px;
-
-
   border: none;
   border-radius: 10px;
   margin-top:10px;     
@@ -246,7 +237,6 @@ const Text = styled.div`
    padding: 50px 0px 0px 0px;
    word-spacing: 0px; 
    @media (max-width: 376px){
-
     position: absolute;
   
   }
@@ -283,7 +273,6 @@ const EditButton = styled.button`
   font-size: 14px;
   border-radius:4px;
   @media (max-width: 376px){
-
     position: absolute;
     margin: 120px 0px 0px 0px;
   };
