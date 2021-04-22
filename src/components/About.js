@@ -23,7 +23,16 @@ const About = (props) => {
 
           <Bold>공연정보</Bold> 페이지에 들어가면 현재 서울에서 관람할 수 있는 공연 정보들을 카테고리별로 나눠서 제공하고있습니다.😀<br/> <br/>
 
-          좋은시간 되시길 바랍니다.
+          좋은시간 되시길 바랍니다. <br/><br/><br/>
+
+          <Bold>Front-end Developer</Bold><br/>
+          권규현 : kyuhyun2920@naver.com <br/>
+          이대호 : leedaeho1188@gmail.com <br/><br/>
+
+          <Bold>Back-end Developer</Bold><br/>
+          이총명 : dlchdaud1327@gmail.com<br/>
+          원가연 : henzel1013@gmail.com<br/>
+
 
         </ContentsContainer>
         <ExitBtn onClick={props.close} >나가기</ExitBtn>
