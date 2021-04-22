@@ -126,7 +126,9 @@ const WriteBackground = styled.div`
   width: 100vw;
   background-color: black;
   z-index: 30;
-  
+  @media (max-width: 375px){
+    width: 100%;
+  };
 `
 const WriteContainer = styled.div`
   position: absolute;
