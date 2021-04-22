@@ -44,13 +44,6 @@ const loginSV = (id,password)=>{
           password : password,
         },
       })
-
-
-
-
-
-
-      
       .then((response)=>{
         sessionStorage.setItem("JWT", response.data.result.user.token)
         let token = {
@@ -94,7 +87,7 @@ const signupSV = (id,password,nickname,email)=>{
         console.log(response);
         window.alert("ART SEOUL 회원가입을 축하드립니다🎉")
         history.push("/login");
-      }).catch(error=>{
+      }).catch((error)=>{
         console.log(error);
         window.alert("이런! 해당 아이디가 이미 존재합니다😅")
       })

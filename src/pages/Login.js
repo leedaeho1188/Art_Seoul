@@ -52,7 +52,7 @@ padding-top: 150px;
 //border로 조정한거라 나중에 수정..!
 const LoginContainer = styled.div`
     margin: auto;
-    width: 50%;
+    width: 60%;
     height: 70%;
     background-color: #121212;
     border: 15px solid #121212;
@@ -90,7 +90,7 @@ const IdBox = styled.input`
     };
     color: white;
     @media (max-width: 975px){
-      width: 100%;
+      width: 90%;
     }
 `
 
@@ -113,11 +113,11 @@ const PwBox = styled.input`
     };
     color: white;
     @media (max-width: 975px){
-      width: 100%;
+      width: 90%;
     }
 `
 const SignupText = styled.button`
-  font-size: 5px;
+  font-size: 12px;
   text-align: center;
   margin-top: 40px;
   color: grey;
@@ -129,7 +129,7 @@ const SignupText = styled.button`
   };
   cursor: pointer;
   @media (max-width: 975px){
-      width: 100%;
+      width: 90%;
   }
 `
 const LoginButton = styled.button`

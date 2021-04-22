@@ -27,7 +27,7 @@ const Signup=()=> {
     return pwReg.test(password);
   }
   const nicknameCheck = (nickname) => {
-    let nicknameReg = /^[a-zA-Z0-9]{4,9}$/g;
+    let nicknameReg = /^[a-zA-Z0-9ㄱ-ㅎ가-힣]{1,9}$/g;
     return nicknameReg.test(nickname);
   }
   const emailCheck = (email) => {
@@ -54,7 +54,7 @@ const Signup=()=> {
       return;
     }
     if(!nicknameCheck(nickname)){
-      window.alert('닉네임은 4자리 이상 10자리 미만이며,  영문 혹은 숫자만 사용해야합니다😅');
+      window.alert('닉네임은 1자리 이상 10자리 미만입니다😅');
       return;
     }
     if(!emailCheck(email)){
@@ -100,7 +100,7 @@ top:0;
 left:0;
 background-image: url("https://images.unsplash.com/photo-1591723027220-66847f768065?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
 width:100vw;
-height:600px;;
+height:600px;
 background-size: cover;
 padding-top: 150px;
 `
@@ -108,7 +108,7 @@ padding-top: 150px;
 
 const SignupContainer = styled.div`
   margin: auto;
-  width: 50%;
+  width: 60%;
   height: 70%;
   background-color: #121212;
   border: 15px solid #121212;
@@ -137,14 +137,14 @@ const IdBox = styled.input`
   border-bottom: 1px solid grey;
   border-radius: 1px;
   outline: none;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: bold;
   &:hover{
     border-bottom: 1.5px solid white;
   };
   color: white;
   @media (max-width: 975px){
-    width: 100%;
+    width: 80%;
   }
 `
 
@@ -160,14 +160,14 @@ const PwBox = styled.input`
   border-bottom: 1px solid grey;
   border-radius: 1px;
   outline: none;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: bold;
   &:hover{
     border-bottom: 1.5px solid white;
   };
   color: white;
   @media (max-width: 975px){
-    width: 100%;
+    width: 80%;
   }
 `
 
