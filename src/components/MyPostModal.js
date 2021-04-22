@@ -98,6 +98,7 @@ const MyPostModal = (props) => {
                         
                        
                         <Replys>
+                          <ReplyProfile src={c.profile} />
                           <ReplyWriter>{c.nickname}</ReplyWriter>
                           <Reply>{c.comment}</Reply>
                         </Replys>
@@ -185,6 +186,14 @@ const ReplyBox = styled.div`
   justify-content: space-between;
   // align-items: center;
 `
+const ReplyProfile = styled.img`
+  border-radius: 50%;
+  background-size: cover;
+  height: 30px;
+  width: 30px;
+  margin-right: 6px;
+  `
+
 const Replys = styled.div`
   display: flex;
   justify-content: space-between;
