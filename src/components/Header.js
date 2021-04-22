@@ -68,10 +68,16 @@ const Header = () => {
                 <Titlebutton onClick={()=>{history.push("/")}}><Title>ART SEOUL</Title></Titlebutton>
                 <HeaderIcons>
                     <Minibutton onClick={() => {
+                            setAbout(true)
+                        }} >
+                        <Icon><InfoIcon/></Icon>
+                        <Text>About</Text>
+                    </Minibutton>
+                    <Minibutton onClick={() => {
                         history.push("/performance")
                     }} >
-                        {/* <Icon><DescriptionIcon/></Icon> */}
-                        <Text style={{display:"block"}} >공연정보</Text>
+                        <Icon><DescriptionIcon/></Icon>
+                        <Text>공연정보</Text>
                     </Minibutton>
                     <Minibutton onClick={()=>{history.push("/login")}}><Text style={{display:"block"}}>SIGN IN</Text></Minibutton>
                     <Minibutton onClick={()=>{history.push("/signup")}}><Text style={{display:"block"}} >SIGN UP</Text></Minibutton>
