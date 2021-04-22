@@ -37,8 +37,7 @@ function App() {
           <Route path="/" exact component={Main}/>
           <Route path="/login" exact component={Login}/>
           <Route path="/signup" exact component={Signup}/> 
-          <Route path="/userpage/:id" exact component={Userpage}/> 
-          <Route path="/question" exact component={Question}/>       
+          <Route path="/userpage/:id" exact component={Userpage}/>  
           <Route path="/performance" exact component={PerformInfo}/>
           <Route exact component={NotFound}/>
         </Switch>

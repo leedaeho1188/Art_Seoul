@@ -39,14 +39,6 @@ const Content = styled.img`
   margin: 0px 0px 30px 30px;
   background-size: cover;
   cursor: pointer;
-  @media (max-width: 600px){
-    width: 45%;
-    height: 10%;
-  };
-  @media (max-width: 376px){
-    width: 100%;
-    height: 5%;
-  };
 `
 
 export default MyPost; 

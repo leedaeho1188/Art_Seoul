@@ -109,14 +109,12 @@ const Component = styled.div`
   position: fixed;
   // 시작점
   top:0;
+  left: 0;
   opacity: 0.6;
   height: 1000vh;
   width: 1000vw;
   background-color: black;
   z-index: 10;
-  @media (max-width: 376px){
-   width: 100%;};
-  
 `
 
 
@@ -136,43 +134,35 @@ const UploadBox = styled.div`
 `
 
 const Modal = styled.div`
-  position: fixed;
+  position: absolute;
   width: 700px;
-  height: 400px;
-  top:50%;
+  top:55px;
   left: 50%;
   //메모..
-  transform: translate(-50%, -50%);
+  transform: translate(-50%);
   background-color: white;
   //다시..
   z-index: 20;
   display: flex;
   border-radius: 20px;
-  @media (max-width: 376px){
-    width:70%;
-    height:70%;
-    flex-wrap: wrap;
-  };
-  @media (max-width: 600px){
+  padding-bottom: 40px;
+  @media (max-width: 700px){
     align-items: center;
     text-align: center;
-    width:37%;
-    height:60%;
-    flex-wrap: wrap;
+    width:80%;
+    flex-direction: column;
   };
 `
 
 
 const TextContainer= styled.div`
    width: 300px;
-   height: 402px;
+  //  height: 402px;
    margin: 0px 20px 0px 10px;
-  
    padding: 0px 0px 0px 0px;
    border-radius:20px;
-   @media (max-width: 376px){
-    width:100%;
-   
+   @media (max-width: 700px){
+    width: 80%;
   };
 `
 
@@ -181,10 +171,6 @@ const NewText = styled.div`
   font-weight: bold;
   font-size: 12px;
   padding: 10px 0px 0px 10px;
-  @media (max-width: 376px){
-    width:100%;
-   
-  };
 
 `
 const NicknameText = styled.div`
@@ -193,46 +179,37 @@ const NicknameText = styled.div`
     font-size: 22px;
     padding: 50px 0px 40px 10px;
     letter-spacing: -1px;
-    @media (max-width: 376px){
-      width:100%;
-      padding:0px;
-    };
 
 `
 
 const ButtonContainer = styled.div`
   margin-top:40px;
-  @media (max-width: 376px){
-    width:100%;
-   
-  };
 `
 
+    
 const EditInput = styled.input`
     width: 300px;
-    height: 20px;
-    margin: 5px 0px 0px 10px;
+    box-sizing: border-box;
     border: 1px solid black;
-    @media (max-width: 376px){
-      margin:0px;
-     
+    padding: 8px 8px;
+    font-size: 17px;
+    @media (max-width: 700px){
+      width: 80%;
     };
 `
 
 const EditButton = styled.button`
   width: 300px;
-  height: 30px;
   font-weight: bold;
   border: 1px solid black;
   background-color: white;
-  font-size: 13px;
-  margin: 10px 0px 0px 15px; 
+  font-size: 17px;
+  padding: 8px 0;
+  margin: 10px 0px 0px 0px; 
   border-radius: 10px;
   cursor: pointer;
-  @media (max-width: 376px){
-    width:100%;
-    margin: 2px auto;
-   
+  @media (max-width: 700px){
+    width: 80%;
   };
 `
 
