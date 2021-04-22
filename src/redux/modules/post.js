@@ -34,7 +34,7 @@ const initialState ={
   list : [],
   mylist:[],
   userlist:[
-    {nickname:"hi"},
+    {nickname:"hi",profile:"hello"}
   ],
   is_loading: false,
   next: false,

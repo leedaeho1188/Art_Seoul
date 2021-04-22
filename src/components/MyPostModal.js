@@ -8,6 +8,7 @@ import PostWrite from './PostWrite'
 import {useSelector, useDispatch} from 'react-redux'
 import BackspaceOutlinedIcon from '@material-ui/icons/BackspaceOutlined';
 import {actionCreators as commentActions} from "../redux/modules/comment"
+import {history} from "../redux/configureStore";
 
 //해당 게시글에 대한 내용을 모달에 띄워야한다 + props로 이미지 내려주기(완) + 영역나눠주기!
 const MyPostModal = (props) => {
@@ -15,6 +16,8 @@ const MyPostModal = (props) => {
   const [ is_modal, setModal ] = useState(false)
   const [ is_writeModal, setWriteModal ] = useState(false)
   // const _id = props.match.params.id;
+  const _id = window.location.href.split("/")[4]
+
   
 
   //댓글
@@ -74,24 +77,26 @@ const MyPostModal = (props) => {
               <ModalAuthor>{props.nickname}</ModalAuthor>
             </ModalLeftHeader>
             <ModalRightHeader>
-              {/* {user_info.id==_id ? */}
+              {user_info.id==_id ?
               <MoreHorizIcon style={{padding: "10px 0px 0px 200px"}} height="14px" width="14px" cursor="pointer" 
               onClick={() => {setModal(true)
-              }}/> 
-              {/* :null} */}
+              }}/> :null}
             </ModalRightHeader>
           </ModalHeader>
      
-{/*        
-        <NicknameText>{props.nickname}</NicknameText>
-        <TitleText>{props.title}</TitleText>
-        <ContentsText>{props.contents}</ContentsText> */}
+       
+     
+        
 
         <CommentContainer>
+        <TitleText>{props.title}</TitleText>
+        <ContentsText>{props.contents}</ContentsText>
         {is_comment ? 
           comment_list.map((c, idx) => {
             
               return <ReplyBox>
+                        
+                       
                         <Replys>
                           <ReplyWriter>{c.nickname}</ReplyWriter>
                           <Reply>{c.comment}</Reply>
@@ -149,9 +154,10 @@ const Component = styled.div`
 `
 const CommentContainer =styled.div`
  width: 100%;
- height: 40%;
+ height: 70%;
 //  background-color: black;
- margin-top: 10px;
+ margin-top: 5px;
+ margin-left: 10px;
  overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
@@ -215,6 +221,7 @@ const CommentInput = styled.input`
   width: 80%;
   height: 20px;
   padding-left: 0px;
+  margin-left: 10px;
   background: transparent;
   border: none;
   outline: none;
@@ -226,16 +233,17 @@ const UploadBtn = styled.div`
   color: #3897F0;
   opacity: 1;
   font-weight: 600;
+  margin-right: 10px;
 `;
 const CommentInputBox = styled.div`
   width:  100%;
-  height: 15%;
-  margin-top: 4px;
-  padding: 0px 10px;
+  height: 10%;
+  margin: 4px 0px 0px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
+  border-top: 1px solid #EFEFEF;
 `
 
 const ModalImg = styled.img`
@@ -310,14 +318,15 @@ const NicknameText = styled.div`
 const TitleText = styled.div`
     color: black;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 22px;
     margin: 0px 0px 10px 10px;
     
 `
 const ContentsText = styled.div`
     color: black;
-    font-size: 13px;
+    font-size: 18px;
     padding-left: 10px;
+    margin-bottom: 80px;
 `
 
 const InsertTime = styled.div`

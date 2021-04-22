@@ -120,6 +120,7 @@ const PostWrite = (props) => {
 const WriteBackground = styled.div`
   position: fixed;
   top: 0;
+  left:0;
   opacity: 0.4;
   height: 100vh;
   width: 100vw;
@@ -132,6 +133,7 @@ const WriteContainer = styled.div`
   height: 100vh;
   width: 100vw;
   top: 0;
+  left:0;
   padding: 55px 0px;
   z-index: 20;
 `

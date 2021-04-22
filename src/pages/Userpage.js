@@ -51,7 +51,7 @@ const Userpage = (props) => {
           <Text>{user_info.nickname}</Text>
           <EditButton onClick={openModal}>EDIT PROFILE</EditButton> 
           </RightSideContainer1>
-          <CountPost> POST {user_list.length} </CountPost>
+          <CountPost> {user_info.nickname}님은 현재 {user_list.length}개의 게시물이 있습니다!</CountPost>
         </RightSideContainer>
       </EditProfileContainer>  
         

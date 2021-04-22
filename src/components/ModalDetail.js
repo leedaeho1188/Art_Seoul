@@ -54,6 +54,8 @@ const ModalDetail = (props) => {
             </ModalRightHeader>
           </ModalHeader>
           <ModalCmtBox>
+          <TitleText>{props.title}</TitleText>
+        <ContentsText>{props.contents}</ContentsText>
             {props.is_comment ?
             props.comment_list.map((c, idx) => {
               return <ModalCmt>
@@ -239,6 +241,20 @@ const CmtDeleteBtn = styled.button`
   &:hover {
     opacity: 1;
   };
+`
+
+const TitleText = styled.div`
+    color: black;
+    font-weight: bold;
+    font-size: 22px;
+    margin: 15px 0px 0px 10px;
+    
+`
+const ContentsText = styled.div`
+    color: black;
+    font-size: 18px;
+    padding-left: 10px;
+    margin-bottom: 80px;
 `
 
 export default ModalDetail
