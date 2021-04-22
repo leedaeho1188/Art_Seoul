@@ -69,7 +69,7 @@ const CardColumns = styled.div`
 
 const SpinContainer = styled.div`
   margin: auto;
-  margin-top: 350px;
+  margin-top: 250px;
   display: flex;
   justify-content: center;
 `
