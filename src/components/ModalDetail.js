@@ -254,7 +254,7 @@ const ContentsText = styled.div`
     color: black;
     font-size: 18px;
     padding-left: 10px;
-    margin-bottom: 80px;
+    margin-bottom: 30px;
 `
 
 export default ModalDetail
