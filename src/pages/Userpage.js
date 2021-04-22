@@ -131,7 +131,7 @@ width: 914px;
 height: 230px;
 display: flex;
 margin-top:50px;
-@media (max-width: 975px){
+@media (max-width: 375px){
   width: 100%;
 }
 border-bottom: 2px solid grey;
@@ -141,7 +141,9 @@ border-bottom: 2px solid grey;
 const LeftSideContainer = styled.div`
 width:33%;
 height: 100%;
-
+@media (max-width: 375px){
+  width: 100%;
+}
 `
 
 
@@ -150,11 +152,11 @@ height: 100%;
 const RightSideContainer = styled.div`
 width:67%;
 height: 100%;
-
+margin-left: 30px;
 top: 100px;
 left: 100px;
 display: column;
-@media (max-width: 975px){
+@media (max-width: 375px){
   width: 100%;
 }
 `
@@ -164,7 +166,7 @@ height: 30%;
 top: 100px;
 left: 100px;
 display: flex;
-@media (max-width: 975px){
+@media (max-width: 375px){
   width: 100%;
 }
 `
@@ -195,6 +197,9 @@ const PostContainer = styled.div`
   flex-wrap: wrap;
   align-content:flex-start;
   padding: 10px 5px 10px 5px;
+  @media (max-width: 375px){
+    width: 100%;
+  }
 `;
 
 const NoPost = styled.div`
@@ -245,7 +250,7 @@ const EditButton = styled.button`
   padding: 0px 0px 0px 0px;
   font-weight: bold;
   border: 1px solid grey;
- 
+  cursor: pointer;
   font-size: 14px;
   border-radius:4px;
 `

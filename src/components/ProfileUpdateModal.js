@@ -190,6 +190,7 @@ const EditButton = styled.button`
   font-size: 13px;
   margin: 10px 0px 0px 15px; 
   border-radius: 10px;
+  cursor: pointer;
 `
 
   export default ProfileUpdateModal;
