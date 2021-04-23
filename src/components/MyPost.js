@@ -6,8 +6,6 @@ import MyPostModal from './MyPostModal';
 
 
 const MyPost =(props)=>{
-    
-    console.log(props)
     //클릭하면 is_modal 상태변경! + 해당요소 범위 밖에서 삼항연산자를 사용!
     const [ is_modal, setDetailModal ] = useState();
     const [ is_mouseover, setOver ] = useState();
@@ -24,10 +22,11 @@ const MyPost =(props)=>{
     };
 
     console.log(props.image_url)
+    console.log(props._id)
     return(
         <React.Fragment>
             <Content onClick={openModal}  onMouseOver={()=> {setOver(true)}}  src={props.image_url} ></Content>
-            {is_modal ? <MyPostModal {...props} close={closeModal}/> :null}
+            {is_modal ? <MyPostModal _id={props._id} {...props} close={closeModal}/> :null}
         </React.Fragment>
     )
 }

@@ -22,7 +22,7 @@ const PostWrite = (props) => {
   const marker = marker_list[idx]
   const preview = useSelector((state) => state.image.preview)
   const is_write = title && contents ? true : false;
-
+  console.log(props._id)
 
   
   useEffect(() => {
@@ -69,7 +69,7 @@ const PostWrite = (props) => {
       image: image,
     }
     
-    if(window.location.href === "http://localhost:3000/")
+    if(!props._id)
     {
     dispatch(postActions.editPostAX(post, post_id))
     props.close()

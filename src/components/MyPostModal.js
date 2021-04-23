@@ -27,7 +27,7 @@ const MyPostModal = (props) => {
   const ok_submit = comments ? true : false
   const comment_list = useSelector((state) => state.comment.list[props.id])
   const is_comment = comment_list ? true : false
-  console.log(props, props.markerId)
+  
 
   const closeModal = () => {
     setModal(false)
@@ -97,7 +97,6 @@ const MyPostModal = (props) => {
             
               return <ReplyBox>
                         
-                       
                         <Replys>
                           <ReplyProfile src={c.profile} />
                           <ReplyWriter>{c.nickname}</ReplyWriter>
@@ -134,11 +133,11 @@ const MyPostModal = (props) => {
         <InsertTime>{time(props.date)}</InsertTime>
         </StyleBox>  */}
         </ModalRightContainer>
+      </ModalComponent>
         {is_modal? <PostUpdateModal boardId={props.id} markerId={props.markerId} nickname = {props.nickname} close={closeModal} open={openWriteModal} />
       :null}
-      {is_writeModal? <PostWrite close={closeWriteModal} {...props} />
+      {is_writeModal? <PostWrite _id={props._id} close={closeWriteModal} {...props} />
       :null}
-      </ModalComponent>
     </React.Fragment>
   )
 }

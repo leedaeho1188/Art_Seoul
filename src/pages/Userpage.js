@@ -36,7 +36,6 @@ const Userpage = (props) => {
       };
 
 
-  console.log(user_list)
   
   if(user_list.length==0 && _id === user_info.id){
     return (
@@ -81,7 +80,7 @@ const Userpage = (props) => {
     {user_list.map((item)=> {
       return(
         
-        <MyPost key={item.id} {...item}></MyPost>
+        <MyPost key={item.id} {...item} _id={_id}></MyPost>
         
       )}
     )}
@@ -110,7 +109,7 @@ const Userpage = (props) => {
     {user_list.map((item)=> {
       return(
         
-        <MyPost key={item.id} {...item}></MyPost>
+        <MyPost key={item.id} {...item} _id={_id} ></MyPost>
         
       )}
     )}
