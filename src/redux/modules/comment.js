@@ -2,8 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from 'axios';
 import { config } from "../../shared/config"
-import { CommentOutlined } from "@material-ui/icons";
-import user from "./user";
+
 
 const SET_COMMENT = "SET_COMMENT";
 const ADD_COMMENT = "ADD_COMMENT";

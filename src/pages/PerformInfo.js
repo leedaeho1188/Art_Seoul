@@ -16,7 +16,7 @@ const PerformInfo = () => {
   const [traditional, setTraditional] = useState(false)
   const [dance, setDance] = useState(false)
   
-  // 해당 카테고리가 선택되었을 때 그 카테고리만 style을 주기위한 코드입니다.
+  // <InfoHeader>안에 해당 카테고리가 선택되었을 때 그 카테고리만 style을 주기위한 코드입니다.
   const SelectDrama = () => {
     document.getElementById('drama').style.fontWeight = '600'
     document.getElementById('drama').style.textDecoration = 'underline'
