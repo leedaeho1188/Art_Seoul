@@ -14,7 +14,7 @@ import {history} from "../redux/configureStore";
 
 import About from './About'
 
-
+//모든 페이지에 들어가는 헤더입니다
 const Header = () => {
     const dispatch = useDispatch();
     const is_login = useSelector((state)=>state.user.is_login)
@@ -25,7 +25,7 @@ const Header = () => {
         setAbout(false)
     }
 
-
+    //로그인 상태라면 다른 헤더를 보여줍니다
     if(is_login){
     return(
         <React.Fragment>
@@ -60,7 +60,7 @@ const Header = () => {
         </React.Fragment>
       )
   } 
-
+  //로그인 상태가 아니라면 로그인과 회원가입이 가능한 헤더를 보여줍니다
   return(
     <React.Fragment>
         {is_about? 
@@ -181,8 +181,6 @@ const Icon = styled.div`
     };
 `
 
-
-
 const ProCircle = styled.img`
   margin: 8px;
   height: 32px;
@@ -192,6 +190,4 @@ const ProCircle = styled.img`
   cursor: pointer;
 `
 
-
-//opacity 사용 나중에 해보기!
 export default Header;

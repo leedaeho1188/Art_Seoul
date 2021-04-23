@@ -16,8 +16,6 @@ import styled from 'styled-components'
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
-
-
 function App() {
 
   const dispatch = useDispatch();

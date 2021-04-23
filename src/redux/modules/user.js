@@ -2,25 +2,14 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from 'axios';
 import {config} from '../../shared/config'
-import {useState} from 'react';
 
-
-
-
-// const LOG_IN ="LOG_IN";
 const SET_USER ="SET_USER";
 const LOG_OUT ="LOG_OUT";
-const EDIT_MY_IMAGE ="EDIT_MY_IMAGE";
 
-
-// const logIn = createAction(LOG_IN , (user) => ({user}));
 const setUser = createAction(SET_USER,(user)=>({user}));
 const logOut = createAction(LOG_OUT, (user) => ({user}));
-const editMyImage  = createAction(EDIT_MY_IMAGE, (post, post_id) => ({post, post_id})) 
 
-
-
-
+//유저정보 + 로그인상태 initialState
 const initialState = {
   user: {
   },
@@ -28,7 +17,7 @@ const initialState = {
 };
 
 
-//로그인 정보를 보내주면 토큰을 받는다
+//로그인 정보를 보내주고 토큰을 받아오고 + 다시 토큰을 보내서 유저정보를 받아옵니다
 const loginSV = (id,password)=>{                        
   
   return function (dispatch, getState, {history}){
@@ -67,7 +56,7 @@ const loginSV = (id,password)=>{
   }
 }
 
-
+//회원가입 정보를 보내주고 정상적인 회원가입인지 체크합니다(중복검사)
 const signupSV = (id,password,nickname,email)=>{
   return function (dispatch, getState, {history}){
     axios(
@@ -105,7 +94,7 @@ const signupSV = (id,password,nickname,email)=>{
 }
 
 
-//토큰을 보내주면 로그인 정보를 받아온다
+//토큰을 가지고 있으면 새로 고침해도 로그인 정보를 받아온다
 const loginCheck= (id,password) => {
   return function (dispatch, getState, {history}){
     axios.get(`${config.api}/user/`, config.token)
@@ -122,7 +111,7 @@ const loginCheck= (id,password) => {
   }
 };
 
-
+//변경할 비밀번호와 함께 토큰을 보내주면 비밀번호 변경이 된다 + 로그아웃
 const editPasswordAX= (user,data) => {
   console.log(data)
   
@@ -138,8 +127,6 @@ const editPasswordAX= (user,data) => {
           //받아온 user정보로!!
           dispatch(logOut(user));
           history.push("/login")
-          
-      
         }
       }).catch((err)=>{
         console.log(err)
@@ -148,7 +135,7 @@ const editPasswordAX= (user,data) => {
 }
 
 
-
+//변경할 이미지와 함께 토큰을 보내주고 유저정보를 수정해서 다시 유저정보를 세팅한다
 const editMyImageAX = (user_info,data) => {
   return function (dispatch, getState, {history}){
  
@@ -185,20 +172,18 @@ const editMyImageAX = (user_info,data) => {
 
 export default handleActions(
   {
+    //새로운 유저정보를 세팅하고 로그인 상태를 true로 변경한다
     [SET_USER]: (state, action) => produce(state, (draft) => {
       draft.user = action.payload.user;
       draft.is_login = true;
     }),
     
+    //토큰을 삭제하고 로그인 상태를 다시 false로 돌려놓는다
     [LOG_OUT]: (state, action) => produce(state, (draft) => {
       sessionStorage.removeItem("JWT"); 
       draft.user ={};
       draft.is_login = false;
     }),
-
-    // [EDIT_MY_IMAGE]: (state,action)=>produce(state,(draft)=>{
-
-    // }),
   },
   initialState
 )
@@ -210,7 +195,6 @@ const actionCreators = {
   loginSV,
   loginCheck,
   editPasswordAX,
-  // editMyImage,
   editMyImageAX,
 };
 

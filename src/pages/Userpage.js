@@ -6,28 +6,15 @@ import { actionCreators as postActions } from "../redux/modules/post";
 import { Settings } from "@material-ui/icons";
 import ProfileUpdateModal from "../components/ProfileUpdateModal";
 
-
-
-//해당 user가 작성한 게시글 정보를 전부 내려주면 middleware를 통해서 reducer에 정보저장
-  //해당 정보를 reducer에서 useSelector로 가져오고
+// 유저가 작성한 게시물들을 모아볼 수 있으며 
+// 다른 사람들의 게시물도 같은 형식으로 열람이 가능합니다
 const Userpage = (props) => {
- //순서 너무 중요하다...
- const _id = props.match.params.id
  const dispatch = useDispatch();
+ const _id = props.match.params.id
  const user_list = useSelector((state) => state.post.userlist);
  const user_info = useSelector((state) => state.user.user);
- console.log(user_list)
-
-
-
-  React.useEffect(() => {
-    dispatch(postActions.getuserPostAX(_id));
-    window.scrollTo(0,0)
-    },[_id]);
-  
-
-  const [ is_modal, setDetailModal ] = useState();
-
+ 
+ const [ is_modal, setDetailModal ] = useState();
     const openModal = () => {
         setDetailModal(true);
       };
@@ -35,8 +22,14 @@ const Userpage = (props) => {
         setDetailModal(false);
       };
 
-
-  
+  // url에 붙어서 나오는 id를 보내서 userlist를 업데이트합니다.
+  // + 해당 id가 변화할 때마다 리렌더링을 합니다. 
+  React.useEffect(() => {
+    dispatch(postActions.getuserPostAX(_id));
+    window.scrollTo(0,0)
+    },[_id]);
+ 
+  // 현재 유저의 페이지이며 작성한 게시물이 없는 경우입니다
   if(user_list.length==0 && _id === user_info.id){
     return (
     <React.Fragment>
@@ -59,6 +52,8 @@ const Userpage = (props) => {
         {is_modal ? <ProfileUpdateModal {...user_info} close={closeModal}/> :null}
       </NoPost>
     </React.Fragment>)
+
+  // 현재 유저의 페이지이며 작성한 게시물이 있는 경우입니다.
   }else if(_id === user_info.id){
     return(
     <React.Fragment>
@@ -84,11 +79,13 @@ const Userpage = (props) => {
         
       )}
     )}
-    
     </PostContainer> 
     {is_modal ? <ProfileUpdateModal {...user_info} close={closeModal}/> :null}
     </React.Fragment>
     )  
+
+  // 다른 유저의 페이지이며 작성한 게시물이 있는 경우입니다.
+  // 다른 유저는 게시물을 클릭해서 진입하므로 작성한 게시물이 없는 경우는 없습니다.
   }else{
     return(
     <React.Fragment>
@@ -104,24 +101,17 @@ const Userpage = (props) => {
     <CountPost> {user_list[0].nickname}님은 현재 {user_list.length}개의 게시물이 있습니다! </CountPost>
     </RightSideContainer>
     </EditProfileContainer>  
-    
     <PostContainer>
     {user_list.map((item)=> {
       return(
-        
         <MyPost key={item.id} {...item} _id={_id} ></MyPost>
-        
       )}
     )}
-    
     </PostContainer> 
     </React.Fragment>
     )
-
   }
 }
-
-
 
 const EditProfileContainer = styled.div`
   margin:auto;
@@ -142,7 +132,6 @@ const LeftSideContainer = styled.div`
   margin-right: 30px;
 `
 
-
 const RightSideContainer = styled.div`
   margin-left: 30px;
 `
@@ -159,7 +148,6 @@ const ImageCircle = styled.img`
   margin: 40px 0px 0px 60px;
 `;
 
-
 const PostContainer = styled.div`
   margin:auto;
   width:914px;
@@ -167,7 +155,8 @@ const PostContainer = styled.div`
   border-radius: 10px;
   margin-top:50px;     
   display:flex;
-  // 줄바꿈 자동으로 되도록 + flex-item간의 간격이 줄어들도록!
+
+  // 줄바꿈 자동으로 되도록 설정합니다
   align-items: center;
   flex-wrap: wrap;
   padding: 10px 5px 10px 5px;
@@ -183,13 +172,10 @@ const NoPost = styled.div`
   border-radius: 10px;
   margin-top:10px;     
   text-align: center;
-  
-  // 줄바꿈 자동으로 되도록 + flex-item간의 간격이 줄어들도록!
   flex-wrap: wrap;
   align-content:flex-start;
   padding: 10px 5px 10px 5px;
 `;
-
 
 const Text = styled.div`
    font-size: 35px;
@@ -197,7 +183,6 @@ const Text = styled.div`
    padding: 50px 0px 0px 0px;
    word-spacing: 0px; 
 `
-
 
 const CountPost =styled.div`
 font-size: 22px;

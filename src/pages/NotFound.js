@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 
-
+//올바른 주소가 아닌 경우 알려줍니다
 const NotFound =()=> {
 
   return(
