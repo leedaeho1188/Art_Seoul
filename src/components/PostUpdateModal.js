@@ -11,8 +11,9 @@ import {actionCreators as markerActions} from '../redux/modules/marker'
 const PostUpdateModal = (props) => {
   console.log(props)
   const dispatch = useDispatch()
+
+  // 수정하기 버튼을 눌렀을 때 PostUpdateModal이 사라지고 PostWrite가 보이게합니다.
   const openAndClose = () => {
-    //동기처리 + 콜백함수?
     props.open()
     props.close()
     window.scrollTo(0,0)

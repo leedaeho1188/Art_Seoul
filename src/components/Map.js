@@ -80,7 +80,7 @@ const Map = (props) => {
       kakao.maps.event.addListener(markers, 'mouseout', function(){
         infowindow.close(map, markers)
       })
-
+      // 마커를 클릭했을 때 게시물 작성버튼과 해당 게시물이 생성되게 설정했습니다.
       kakao.maps.event.addListener(markers, 'click', function(){
         markerDetail(p.id)
         setHot(false)
@@ -137,9 +137,11 @@ const Map = (props) => {
     var geocoder = new kakao.maps.services.Geocoder();
     
 
-
+    //주소입력버튼을 아이디를 통해 가져왔습니다.
     const address = document.getElementById("address")
     
+    // 주소입력버튼을 클릭했을 때 주소 입력란에 주소를 가져오고 
+    // 그 주소를 좌표값으로 전환시킨다음에 그 좌표값으로 마커를 찍습니다.
     address.addEventListener('click', function(){
       const road = document.getElementById("road").value
       geocoder.addressSearch( road , function(result, status) {
@@ -166,8 +168,11 @@ const Map = (props) => {
             }
           })
           console.log(coords, road)
+          // 마커에 좌표값을 넣어줍니다.
           marker.setPosition(coords);
+          //마커를 map에 보이게 합니다.
           marker.setMap(map);
+          // 지도 중심을 좌표값으로 옮깁니다.
           map.setCenter(coords)
           setLatitude(coords.Ma)
           setLongitude(coords.La)
@@ -176,7 +181,7 @@ const Map = (props) => {
       })
     })
 
-    // 지도에 마커를 표시합니다.
+    // 지도를 클릭했을 때 마커를 표시합니다.
     kakao.maps.event.addListener(map, 'click', function(mouseEvent){
       searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
@@ -244,7 +249,7 @@ const Map = (props) => {
   }, [normalMarker])
 
 
-
+  //useState로 map정보를 가져와서 지도 줌인아웃 기능을 추가했습니다.
   const zoomIn = () => {
     _map.setLevel(_map.getLevel() - 1);
   }
@@ -255,8 +260,11 @@ const Map = (props) => {
   
   const markerDetail = (id) => {
     setmarkerId(id)
+    // 게시물 작성 버튼이 보입니다.
     setWrite(true)
+    // 게시물 component를 보여줍니다.
     props.showPost()
+    // 해당 마커에 저장된 게시물 정보를 가져옵니다.
     dispatch(postActions.getPostAX(id))
   }
 
@@ -273,8 +281,10 @@ const Map = (props) => {
     setRoad(e.target.value)
   }
 
+  //스크롤이 움직였을 때 함수가 실행되도록 했습니다.
   window.onscroll = function() {scrollFunction()}
 
+  //스크롤이 어느정도 내려갔을 때 다시 맨 위로 올라가게하는 버튼이 생성되게 했습니다.
   const scrollFunction = () => {
     if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500){
       setTop(true)
@@ -284,6 +294,7 @@ const Map = (props) => {
 
   }
 
+  
   return(
     <React.Fragment>
         <MapSearch>

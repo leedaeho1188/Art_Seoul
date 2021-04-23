@@ -68,7 +68,8 @@ const PostWrite = (props) => {
       contents: contents,
       image: image,
     }
-    
+    // 유저페이지에서 게시물을 수정하면 props._id가 있고, 
+    // 없으면 메인페이지에서 게시글을 수정하는 경우입니다.
     if(!props._id)
     {
     dispatch(postActions.editPostAX(post, post_id))
