@@ -71,6 +71,7 @@ const PerformInfo = () => {
   return(
     <React.Fragment>
       <InfoHeader>
+      {/*버튼이 클릭됬을 때 먼저 보이면 안되는 것들부터 false로 한다음에 그 후에 불러와야될 컴포넌트에 true값을 줍니다. */}
         <Word id='drama' onClick={() => {
           setMusical(false)
           setClassic(false)
@@ -107,6 +108,7 @@ const PerformInfo = () => {
           setDance(true)
         }}>무용</Word>
       </InfoHeader>
+      {/* 위에 버튼 글 스타일링하는 함수들을 각각 알맞게 props값으로 넘겨줍니다. */}
       {drama? <Drama SelectDrama={SelectDrama} NotDance={NotDance} NotMusical={NotMusical} NotClassic={NotClassic} NotTraditional={NotTraditional} />
       :null}
       {musical? <Musical SelectMusical={SelectMusical} NotDrama={NotDrama} NotDance={NotDance} NotClassic={NotClassic} NotTraditional={NotTraditional} />
