@@ -6,12 +6,10 @@ import {history} from "../redux/configureStore";
 
 
 
-
+//로그인 
 const Login =(props)=> {
 
   const dispatch = useDispatch();
-  
-  //Input값 받아오는 과정
   const [id,setId] = React.useState(null)
   const [password,setPw] = React.useState(null)
 

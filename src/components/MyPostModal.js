@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import {time} from '../shared/Time';
 import PostUpdateModal from './PostUpdateModal';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import CloseIcon from '@material-ui/icons/Close';
@@ -8,20 +7,16 @@ import PostWrite from './PostWrite'
 import {useSelector, useDispatch} from 'react-redux'
 import BackspaceOutlinedIcon from '@material-ui/icons/BackspaceOutlined';
 import {actionCreators as commentActions} from "../redux/modules/comment"
-import {history} from "../redux/configureStore";
 
-//해당 게시글에 대한 내용을 모달에 띄워야한다 + props로 이미지 내려주기(완) + 영역나눠주기!
+//MyPost에서 진입하는 상세페이지 모달입니다
 const MyPostModal = (props) => {
-  console.log(props)
+  
+  const dispatch =useDispatch();
   const [ is_modal, setModal ] = useState(false)
   const [ is_writeModal, setWriteModal ] = useState(false)
-  // const _id = props.match.params.id;
   const _id = window.location.href.split("/")[4]
 
   
-
-  //댓글
-  const dispatch =useDispatch();
   const user_info = useSelector((state) => state.user.user)
   const [comments, setComments ] = useState();
   const ok_submit = comments ? true : false
@@ -39,26 +34,25 @@ const MyPostModal = (props) => {
     setWriteModal(false)
   }
 
-  //댓글
-
-  React.useEffect(() => {
-    dispatch(commentActions.getCommentAX(props.id))
-  }, [])
-
   const addComment = () => {
     dispatch(commentActions.addCommentAX(comments, props.id))
     setComments('')
   }
-
   const deleteComment = (id) => {
     dispatch(commentActions.deleteCommentAX(id, props.id))
   }
-
   const selectComment = (e) => {
     console.log(e.target.value)
     setComments(e.target.value)
   };
-    
+
+  
+  React.useEffect(() => {
+    dispatch(commentActions.getCommentAX(props.id))
+  }, [])
+
+  
+  //현재 user정보와 url뒤에 붙는 id값이 일치할 때 수정/삭제가 가능합니다(삼항연산자)
   return(
     <React.Fragment>
       <Component onClick={props.close}/>
@@ -83,25 +77,19 @@ const MyPostModal = (props) => {
               }}/> :null}
             </ModalRightHeader>
           </ModalHeader>
-     
-       
-     
-        
-
+    
         <CommentContainer>
         <TitleText>{props.title}</TitleText>
         <ContentsText>{props.contents}</ContentsText>
         <Markername>{props.markername}</Markername>
         {is_comment ? 
           comment_list.map((c, idx) => {
-            
               return <ReplyBox>
-                        
                         <Replys>
                           <ReplyProfile src={c.profile} />
                           <ReplyWriter>{c.nickname}</ReplyWriter>
                           <Reply>{c.comment}</Reply>
-                        </Replys>
+                          </Replys>
                           {c.userId === user_info.id ? 
                           <DeleteBtn onClick={() => {
                             deleteComment(c.id)
@@ -110,12 +98,10 @@ const MyPostModal = (props) => {
                           </DeleteBtn>
                           :null}
                       </ReplyBox>
-            
           }) 
           :null}
         </CommentContainer>
 
-        {/* 댓글입력 */}
         <CommentInputBox>
           <CommentInput type="text" placeholder='댓글달기...' onChange={selectComment} value={comments} onKeyPress={(e) => {
               if (e.key === 'Enter'){addComment()}
@@ -126,15 +112,10 @@ const MyPostModal = (props) => {
             <UploadBtn style={{opacity: "0.3"}} >게시</UploadBtn>                  
           )}
         </CommentInputBox>
-
-{/* 
-        <StyleBox> 
-        <PostPlace>{props.markername}</PostPlace>
-        <InsertTime>{time(props.date)}</InsertTime>
-        </StyleBox>  */}
         </ModalRightContainer>
       </ModalComponent>
-        {is_modal? <PostUpdateModal boardId={props.id} markerId={props.markerId} nickname = {props.nickname} close={closeModal} open={openWriteModal} />
+
+      {is_modal? <PostUpdateModal boardId={props.id} markerId={props.markerId} nickname = {props.nickname} close={closeModal} open={openWriteModal} />
       :null}
       {is_writeModal? <PostWrite _id={props._id} close={closeWriteModal} {...props} />
       :null}
@@ -315,13 +296,6 @@ const ModalProfile = styled.img`
   width: 30px;
   margin-right: 6px;
   `
-
-const NicknameText = styled.div`
-    color: black;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 0px 10px 10px 10px;
-`
 const TitleText = styled.div`
     color: black;
     font-weight: bold;
@@ -344,7 +318,4 @@ const Markername = styled.div`
   color: gray;
   font-size: 14px;
 `
-
-
-
   export default MyPostModal;

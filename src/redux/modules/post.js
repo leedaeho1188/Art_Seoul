@@ -155,43 +155,6 @@ const getPostAX = (markerId, lastId = null) => {
   }
 }
 
-// const getmyPostAX = () => {
-//   return function (dispatch){
-
-//       const _token= sessionStorage.getItem("JWT")
-//       let token = {
-//         headers : { authorization: `Bearer ${_token}`}
-//       }
-
-//       axios.get(`${config.api}/board/myboard`,token)
-//       .then((response) => {
-//         console.log(response)
-//         //my_list로 데이터 정제
-//         let my_list = [];
-//         response.data.forEach((_item) => {
-//           let item = {
-//             id: _item.boardId,
-//             title: _item.title,
-//             contents: _item.contents,
-//             nickname: _item.nickname,
-//             userId: _item.userId,
-//             date: _item.date,
-//             markerId: _item.markerId,
-//             markername: _item.markername,
-//             image_url: _item.img ? _item.img : "https://www.namdokorea.com/site/jeonnam/tour/images/noimage.gif",
-//             profile: _item.profile,
-//           }
-//           my_list.unshift(item)
-//         })
-//         console.log(my_list)
-        
-//         //redux에도 값 변경
-//         dispatch(getmyPost(my_list))
-//       }).catch((err) => {
-//         console.log(err)
-//       })
-//   }
-// }
 
 const getuserPostAX = (_id) => {
   return function (dispatch){
@@ -212,7 +175,7 @@ const getuserPostAX = (_id) => {
             markerId: _item.markerId,
             markername: _item.markername,
             image_url: _item.img ? _item.img : "https://www.namdokorea.com/site/jeonnam/tour/images/noimage.gif",
-            profile: response.data.profile, //주의
+            profile: response.data.profile, 
           }
           user_list.unshift(item)
         })
@@ -379,8 +342,6 @@ export default handleActions(
     }),
     [GET_MY_POST]: (state,action) => produce(state, (draft)=>{
       draft.mylist = [action.payload.my_list];
-
-      //코드 다시 이해할 것!!
       draft.mylist = draft.mylist.reduce((acc, cur) => {
         if(acc.findIndex(a => a.id === cur.id) === -1 ){
           return [...acc, cur];
@@ -392,16 +353,6 @@ export default handleActions(
     }),
     [GET_USER_POST]: (state,action) => produce(state, (draft)=>{
       draft.userlist = action.payload.user_list;
-
-      //코드 다시 이해할 것!!
-      // draft.userlist = draft.userlist.reduce((acc, cur) => {
-      //   if(acc.findIndex(a => a.id === cur.id) === -1 ){
-      //     return [...acc, cur];
-      //   }else{
-      //     acc[acc.findIndex((a) => a.id === cur.id)] = cur;
-      //     return acc;
-      //   }
-      // })
     }),
     [EDIT_POST]: (state, action) => produce(state, (draft) => {
       let idx = draft.list.findIndex((p) => p.id === action.payload.post_id)
@@ -411,10 +362,6 @@ export default handleActions(
       let idx = draft.userlist.findIndex((p) => p.id === action.payload.post_id)
       draft.userlist[idx] = {...draft.userlist[idx], ...action.payload.post}
     }),
-
-    
-
-
     [REMOVE_POST]: (state,action) => produce(state, (draft)=>{
       draft.list = draft.list.filter((r, idx) => {
         if(r.id !== action.payload.post_id){
@@ -422,7 +369,6 @@ export default handleActions(
         }
       })
     }),
-    
     [REMOVE_MY_POST]: (state,action) => produce(state, (draft)=>{
       draft.userlist = draft.userlist.filter((r, idx) => {
         if(r.id !== action.payload.post_id){
@@ -430,11 +376,9 @@ export default handleActions(
         }
       })
     }),
-
     [LOADING]: (state, action) => produce(state, (draft) => {
       draft.is_loading = action.payload.is_loading
     })
-
   },
   initialState
 )
@@ -448,7 +392,6 @@ const actionCreators = {
   editPostAX,
   editMyPostAX,
   getuserPostAX,
- 
 }
 
 export {actionCreators}

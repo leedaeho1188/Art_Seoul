@@ -8,26 +8,25 @@ import {actionCreators as postActions} from "../redux/modules/post"
 import Upload from '../shared/Upload'
 import ProfileUpload from '../shared/ProfileUpload'
 
-//해당 게시글에 대한 내용을 모달에 띄워야한다 + props로 이미지 내려주기(완) + 영역나눠주기!
+//프로필 수정하는 모달(프로필 이미지와 패스워드 수정이 가능하다)
 const ProfileUpdateModal = (props) => {
     const dispatch = useDispatch()
+
     const [new_password, setChange] = useState()
     const [new_password_check, setChange2] = useState()
-    
     const [image, setImage] = useState()
+    
     const user_info = useSelector((state)=>state.user.user);
-    const preview = useSelector((state) => state.image.profile_preview)
-    console.log(props)
+    const preview = useSelector((state) => state.image.profile_preview);
       
     const changePassword = (e)=>{
         setChange(e.target.value)
     };
-
     const changePasswordCheck = (e)=>{
         setChange2(e.target.value)
     };
     
-    //표현식 추가!
+    //비밀번호 변경도 마찬가지로 표현식검증을 사용한다
     const pwCheck = (new_password) => {
       let pwReg = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*\W)[a-zA-Z0-9].{4,}$/;
       return pwReg.test(new_password);
@@ -64,50 +63,44 @@ const ProfileUpdateModal = (props) => {
     }
 
 
-    console.log(image) //하위컴포넌트에서 설정되어 올라온 이미지
-    const editProfile = () =>{
-        let data ={images :  image}
-        console.log(data)
-        dispatch(userActions.editMyImageAX(user_info,data))
-        props.close()
-    }
-  return( 
-    <React.Fragment>
-      <Component onClick={props.close}/>
-      <Modal>
-       
-        <TextContainer>
-           {/* setImage={setImage} 하고 리덕스에 저장하면 그 데이터를 다시 useSelector로 불러온다 */}
-        <UploadBox><ProfileUpload setImage={setImage}/></UploadBox> 
-        <ImageInModal src={preview ? preview : user_info.profile} size={200}/>
+       //ProfileUpload에서 설정되어 올라온 이미지를 현재 유저정보와 함께 보낸다
+      const editProfile = () =>{
+          let data ={images :  image}
+          console.log(data)
+          dispatch(userActions.editMyImageAX(user_info,data))
+          props.close()
+      }
 
-        </TextContainer>
+    return( 
+      <React.Fragment>
+        <Component onClick={props.close}/>
+        <Modal>
+        
+          <TextContainer>
+          <UploadBox><ProfileUpload setImage={setImage}/></UploadBox> 
+          <ImageInModal src={preview ? preview : user_info.profile} size={200}/>
+          </TextContainer>
 
-        <TextContainer>
-        <NicknameText > Current Nickname: {user_info.nickname}</NicknameText>
-        
-        <NewText>New Password: </NewText>
-        <EditInput type="password" onChange={changePassword}></EditInput>
-        <NewText>New Password Check: </NewText>
-        <EditInput type="password" onChange={changePasswordCheck}></EditInput>
-        
-        <ButtonContainer>
-        <EditButton onClick={editPassword} >Change Password</EditButton>
-        <EditButton onClick={editProfile} >Change My Profile Image</EditButton>
-        </ButtonContainer>
-        </TextContainer>
-        
-      </Modal>
-    
-      
-    </React.Fragment>
-  )
-}
+          <TextContainer>
+          <NicknameText > Current Nickname: {user_info.nickname}</NicknameText>
+          <NewText>New Password: </NewText>
+          <EditInput type="password" onChange={changePassword}></EditInput>
+          <NewText>New Password Check: </NewText>
+          <EditInput type="password" onChange={changePasswordCheck}></EditInput>
 
-// 설정을 처음에 제대로 잡는게 중요 Container설정과 분할 제대로(재사용성 UP)
+          <ButtonContainer>
+          <EditButton onClick={editPassword} >Change Password</EditButton>
+          <EditButton onClick={editProfile} >Change My Profile Image</EditButton>
+          </ButtonContainer>
+          </TextContainer>
+          
+        </Modal>
+      </React.Fragment>
+    )
+  }
+
 const Component = styled.div`
   position: fixed;
-  // 시작점
   top:0;
   left: 0;
   opacity: 0.6;
@@ -116,7 +109,6 @@ const Component = styled.div`
   background-color: black;
   z-index: 10;
 `
-
 
 const ImageInModal = styled.img`
     --size: ${(props) => props.size}px;
@@ -138,10 +130,8 @@ const Modal = styled.div`
   width: 700px;
   top:55px;
   left: 50%;
-  //메모..
   transform: translate(-50%);
   background-color: white;
-  //다시..
   z-index: 20;
   display: flex;
   border-radius: 20px;
@@ -186,7 +176,6 @@ const ButtonContainer = styled.div`
   margin-top:40px;
 `
 
-    
 const EditInput = styled.input`
     width: 300px;
     box-sizing: border-box;
@@ -197,7 +186,6 @@ const EditInput = styled.input`
       width: 80%;
     };
 `
-
 const EditButton = styled.button`
   width: 300px;
   font-weight: bold;

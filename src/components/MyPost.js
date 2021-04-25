@@ -1,14 +1,11 @@
-import { connectRouter } from 'connected-react-router';
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import MyPostModal from './MyPostModal';
 
 
-
+//Userpage의 개별 포스트입니다 + 삼항연산자를 이용해 상세페이지로 들어갈 수 있습니다.
 const MyPost =(props)=>{
-    //클릭하면 is_modal 상태변경! + 해당요소 범위 밖에서 삼항연산자를 사용!
     const [ is_modal, setDetailModal ] = useState();
-    const [ is_mouseover, setOver ] = useState();
 
     const openModal = () => {
         setDetailModal(true);
@@ -17,21 +14,14 @@ const MyPost =(props)=>{
         setDetailModal(false);
       };
 
-    const mouseout = () => {
-        setOver(false);
-    };
-
-    console.log(props.image_url)
-    console.log(props._id)
     return(
         <React.Fragment>
-            <Content onClick={openModal}  onMouseOver={()=> {setOver(true)}}  src={props.image_url} ></Content>
+            <Content onClick={openModal} src={props.image_url} ></Content>
             {is_modal ? <MyPostModal _id={props._id} {...props} close={closeModal}/> :null}
         </React.Fragment>
     )
 }
 
-// item들 가운데 정렬 나중에 반응형 잡으면서 넣기
 const Content = styled.img`
   width: 260px;
   height: 260px;

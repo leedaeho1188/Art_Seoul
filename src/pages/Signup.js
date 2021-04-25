@@ -6,7 +6,7 @@ import {actionCreators as userActions } from '../redux/modules/user';
 
 
 
-//표현식도 사용
+//회원가입
 const Signup=()=> {
 
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Signup=()=> {
   const [nickname,setName] = React.useState(null)
   const [email,setMail] = React.useState(null)
   
-  //표현식을 체크하는 함수(.과 g에서 차이가 있었다(특수문자 허용))
+  //표현식 체크함수 
   const idCheck = (id) =>{
     let idReg = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{3,}$/g;  
     return idReg.test(id);
@@ -35,7 +35,7 @@ const Signup=()=> {
     return emailReg.test(email);
   }
  
-  //표현식 함수사용 및 체크
+  //표현식 함수사용 및 체크구문
   const signup=()=>{
     if(id===""||password===""||nickname===""||email===""){
       window.alert("모든 항목을 입력해주세요!")
