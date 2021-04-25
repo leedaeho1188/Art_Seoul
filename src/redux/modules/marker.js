@@ -110,21 +110,30 @@ export default handleActions(
       }, []);
 
     }),
+    // 게시물을 추가할 때 해당 마커의 게시물 카운트를 1 더합니다.
+    // 그리고 게시물의 숫자가 9에서 10이되면 normal marker에서 hot marker리스트로 마커정보를 옮깁니다.
     [ADD_BOARD]: (state, action) => produce(state, (draft) => {
+      
       if (action.payload.markerClass == "normal"){
         let idx = draft.normal.findIndex(m => m.id === action.payload.markerId);
         draft.normal[idx].boardcount += 1;
         if (draft.normal[idx].boardcount == 10){
+          // hot 마커로 옮기고
           draft.hot.push(draft.normal[idx])
+          // normal에있는 정보를 없앱니다.
           draft.normal.splice(idx, 1)
         }
       }
       else{
+        // 이미 hot마커이기때문에 게시물 개수 1을 더해도 똑같이 hot 마커입니다.
         let idx = draft.hot.findIndex(m => m.id === action.payload.markerId);
         draft.hot[idx].boardcount += 1;
       }
     }),
     
+    // 게시물을 삭제했을 때 마커 게시물 개수 1개를 빼고 
+    // hot marker에서 -1을 했을 때 게시물 개수가 9개이면 
+    // 해당 마커를 normal에 추가하고 hot에서 삭제합니다.
     [REMOVE_BOARD]: (state, action) => produce(state, (draft) => {
       if (draft.normal.findIndex(m => m.id === action.payload.markerId) !== -1){
         let idx = draft.normal.findIndex(m => m.id === action.payload.markerId);
