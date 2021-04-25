@@ -11,11 +11,10 @@
 2021년 4월 9일 ~ 2021년 4월 22일
 
 ## 1. 작업자
-  - 이총명 (backend-developer)
-  - 원가연 (backend-developer)
   - 이대호 (front-end-developer)
   - 권규현 (front-end-developer)
-
+  - 이총명 (backend-developer)
+  - 원가연 (backend-developer)
 
 ## 2. 기술스텍
 
