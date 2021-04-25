@@ -32,26 +32,34 @@ Javascript , JWT , Rest API
 
 ## 3. 기능구현 
 
+### 1. (카카오 맵) 마커 생성하기
 
+https://leedaeho1188.tistory.com/48
+
+### 2. (카카오 맵) 마커 눌렀을 때 해당 게시물 보여주고 게시물 생성하기
+
+https://leedaeho1188.tistory.com/49
+
+### 3. (카카오 맵) 마커 종류별로 나누기
+
+https://leedaeho1188.tistory.com/50
+
+### 4. (카카오 맵) 줌 인 아웃 버튼 넣기
+
+https://leedaeho1188.tistory.com/51
+
+### 5. (카카오 맵) 주소 입력했을 때 해당 주소에 마커 나타내기
+
+https://leedaeho1188.tistory.com/52
 
 ## 4. 사용 라이브러리
 
 라이브러리 | 설명
 ---|:---:
-sendgrid/mail | 회원가입 이메일 전송
-axios | HTTP 통신
-bcrypt | 비밀번호 암호화 
-cors | 교차 리소스 공유
-dotenv | 포트번호, DB비밀번호 등 암호화
-express | 서버
-jsonwebtoken | 회원가입 작동 방식
-moment | 날짜 포맷 설정
-moment-timezone,| 날짜 포맷 설정
-mongoose | 몽고DB
-morgan | console 원활한 확인
-multer | 이미지 데이터
-nodemon | 서버 재실행
-xml-js | XML > JSON 형식변환
+axios | 서버 통신
+redux | 클라이언트 저장소 
+material ui | 외부 ui 사용
+styled-components | 컴포넌트 스타일링
 
 
 
