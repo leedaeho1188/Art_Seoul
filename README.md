@@ -51,6 +51,10 @@ https://leedaeho1188.tistory.com/51
 
 https://leedaeho1188.tistory.com/52
 
+### 6. (카카오 맵) 클릭한 버튼 만 스타일링 주기
+
+https://leedaeho1188.tistory.com/55
+
 ## 4. 사용 라이브러리
 
 라이브러리 | 설명
