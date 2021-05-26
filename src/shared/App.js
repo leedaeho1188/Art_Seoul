@@ -4,7 +4,6 @@ import Main from  "../pages/Main"
 import Login from  "../pages/Login"
 import Signup from  "../pages/Signup"
 import Userpage from  "../pages/Userpage"
-import Question from  "../pages/Question"
 import PerformInfo from "../pages/PerformInfo"
 
 import NotFound from  "../pages/NotFound"

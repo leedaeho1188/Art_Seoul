@@ -8,13 +8,11 @@ import Marker from './modules/marker';
 import User from './modules/user';
 import Post from  './modules/post'
 import Comment from './modules/comment'
-import Question from './modules/question'
 
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
-  question: Question,
   comment: Comment,
   post: Post,
   image: Image,

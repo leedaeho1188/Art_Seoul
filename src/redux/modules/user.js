@@ -27,7 +27,7 @@ const loginSV = (id,password)=>{
         method: 'POST',
         headers: {
         },
-        url:"http://13.125.250.74/user/login",  
+        url:"http://52.78.108.93/user/login",  
         data:{
           id : id,
           password : password,
@@ -64,7 +64,7 @@ const signupSV = (id,password,nickname,email)=>{
         method: 'POST',
         headers: {
         },
-        url:"http://13.125.250.74/user/register",
+        url:"http://52.78.108.93/user/register",
         data:{
           id : id,
           password : password,
