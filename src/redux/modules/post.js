@@ -43,7 +43,7 @@ const initialState ={
 const addPostAX = (post) => {
   return function (dispatch, getState){
     const profile = getState().user.user.profile
-    console.log(profile)
+    // console.log(profile)
 
     const formData = new FormData();
     formData.append("images", post.image);
@@ -61,7 +61,7 @@ const addPostAX = (post) => {
         if(res.status == 200){
           window.alert("게시물이 잘 저장되었습니다.😀")
         }
-        console.log(res)
+        // console.log(res)
         // console.log(res)
         // let _post = res.data.result
         // let post_info = {
@@ -90,7 +90,7 @@ const getPostAX = (markerId, lastId = null) => {
     if (!lastId){
       axios.get(`${config.api}/board/${markerId}`)
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         let post_list = [];
         let next
         if (response.data.status !== "end"){
@@ -113,7 +113,7 @@ const getPostAX = (markerId, lastId = null) => {
           }
           post_list.push(post)
         })
-        console.log(post_list)
+        // console.log(post_list)
         dispatch(setPost(post_list, next))
       }).catch((err) => {
         console.log(err)
@@ -147,7 +147,7 @@ const getPostAX = (markerId, lastId = null) => {
           post_list.push(post)
         })
         post_list.unshift(..._post)
-        console.log(post_list)
+        // console.log(post_list)
         dispatch(setPost(post_list, next))
       }).catch((err) => {
         console.log(err)
@@ -161,7 +161,7 @@ const getuserPostAX = (_id) => {
 
       axios.get(`${config.api}/board/other/${_id}`)
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         
         let user_list = [];
         response.data.contents.forEach((_item) => {
@@ -179,7 +179,7 @@ const getuserPostAX = (_id) => {
           }
           user_list.unshift(item)
         })
-        console.log(user_list)
+        // console.log(user_list)
         
         //redux에도 값 변경
         dispatch(getuserPost(user_list))
@@ -195,10 +195,10 @@ const removePostAX = (boardId) => {
     let token = {
       headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
     }
-    console.log(boardId)
+    // console.log(boardId)
     axios.delete(`${config.api}/board/${boardId}`, token)
       .then((reponse) => { 
-        console.log(reponse.data)
+        // console.log(reponse.data)
         dispatch(removePost(boardId))
       })
   }
@@ -225,10 +225,10 @@ const editPostAX = (post, boardId) => {
       let token = {
         headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
       }
-      console.log(post)
+      // console.log(post)
       axios.put(`${config.api}/board/${boardId}`, formData, token )
         .then((response) => {
-          console.log(response.data)
+          // console.log(response.data)
           let post_info = {
             title: post.title,
             contents: post.contents,
@@ -247,10 +247,10 @@ const editPostAX = (post, boardId) => {
       let token = {
         headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
       }
-      console.log(post)
+      // console.log(post)
       axios.put(`${config.api}/board/${boardId}`, formData, token )
         .then((response) => {
-          console.log(response.data.boardsData[0].img)
+          // console.log(response.data.boardsData[0].img)
           let post_info = {
             title: post.title,
             contents: post.contents,
@@ -278,10 +278,10 @@ const editMyPostAX = (post, boardId) => {
       let token = {
         headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
       }
-      console.log(post)
+      // console.log(post)
       axios.put(`${config.api}/board/${boardId}`, formData, token )
         .then((response) => {
-          console.log(response.data)
+          // console.log(response.data)
           let post_info = {
             title: post.title,
             contents: post.contents,
@@ -300,10 +300,10 @@ const editMyPostAX = (post, boardId) => {
       let token = {
         headers: { authorization: `Bearer ${sessionStorage.getItem('JWT')}`}
       }
-      console.log(post)
+      // console.log(post)
       axios.put(`${config.api}/board/${boardId}`, formData, token )
         .then((response) => {
-          console.log(response.data.boardsData[0].img)
+          // console.log(response.data.boardsData[0].img)
           let post_info = {
             title: post.title,
             contents: post.contents,

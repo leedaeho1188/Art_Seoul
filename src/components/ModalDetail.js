@@ -25,7 +25,7 @@ const ModalDetail = (props) => {
   }
 
   const cmtKeyPress = (e) => {
-    console.log(e)
+    // console.log(e)
     if (e.key === "Enter"){
       addComment()
     }

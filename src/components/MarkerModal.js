@@ -15,7 +15,7 @@ const MarkerModal =(props) => {
 
 
   const selectTitle = (e) => {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setTitle(e.target.value)
   }
 

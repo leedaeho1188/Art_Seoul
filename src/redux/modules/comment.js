@@ -31,7 +31,7 @@ const addCommentAX = (comment, post_id) => {
     }
     axios.post(`${config.api}/comment/${post_id}`, {commentContents : comment} ,token)
       .then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
         let _comment = res.data.result
         let comment_info = {
           comment : _comment.commentContents,
@@ -51,7 +51,7 @@ const getCommentAX = (post_id = null) => {
   return function (dispatch) {
     axios.get(`${config.api}/comment/${post_id}`)
       .then((response) => {
-        console.log(response, post_id)
+        // console.log(response, post_id)
         let comment_list = []
         response.data.comments.forEach((_comment) => {
           let comment = {
@@ -81,7 +81,7 @@ const deleteCommentAX = (id, post_id) => {
     }
     axios.delete(`${config.api}/comment/${id}`,  token)
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         dispatch(deleteComment(id, post_id));
       }).catch((err) => {
         window.alert("게시물 삭제에 문제가 있어요!")

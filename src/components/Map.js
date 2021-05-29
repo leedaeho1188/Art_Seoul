@@ -167,7 +167,7 @@ const Map = (props) => {
               setAddress(result[0].address.address_name)
             }
           })
-          console.log(coords, road)
+          // console.log(coords, road)
           // 마커에 좌표값을 넣어줍니다.
           marker.setPosition(coords);
           //마커를 map에 보이게 합니다.

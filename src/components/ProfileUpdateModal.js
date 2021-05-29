@@ -66,7 +66,7 @@ const ProfileUpdateModal = (props) => {
        //ProfileUpload에서 설정되어 올라온 이미지를 현재 유저정보와 함께 보낸다
       const editProfile = () =>{
           let data ={images :  image}
-          console.log(data)
+          // console.log(data)
           dispatch(userActions.editMyImageAX(user_info,data))
           props.close()
       }

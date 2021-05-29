@@ -21,7 +21,7 @@ const initialState = {
 const loginSV = (id,password)=>{                        
   
   return function (dispatch, getState, {history}){
-    console.log(id, password)
+    // console.log(id, password)
     axios(
       {
         method: 'POST',
@@ -40,7 +40,7 @@ const loginSV = (id,password)=>{
         }
         axios.get(`${config.api}/user/`, token)
             .then((res) => {
-              console.log(res.data)
+              // console.log(res.data)
               let user = {
                 id: res.data[0].id,
                 nickname: res.data[1].nickname,
@@ -73,7 +73,7 @@ const signupSV = (id,password,nickname,email)=>{
         },
       })
       .then((response)=>{
-        console.log(response);
+        // console.log(response);
         if(response.data.err=="이미 가입된 아이디가 있습니다."){
           window.alert("이런! 해당 아이디가 이미 존재합니다😅")
           
@@ -99,7 +99,7 @@ const loginCheck= (id,password) => {
   return function (dispatch, getState, {history}){
     axios.get(`${config.api}/user/`, config.token)
       .then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
         let user = {
           id: res.data[0].id,
           nickname: res.data[1].nickname,
@@ -113,7 +113,7 @@ const loginCheck= (id,password) => {
 
 //변경할 비밀번호와 함께 토큰을 보내주면 비밀번호 변경이 된다 + 로그아웃
 const editPasswordAX= (user,data) => {
-  console.log(data)
+  // console.log(data)
   
   let token = {
     headers : { authorization: `Bearer ${sessionStorage.getItem("JWT")}`}
@@ -121,7 +121,7 @@ const editPasswordAX= (user,data) => {
   return function (dispatch, getState, {history}){
     axios.post(`${config.api}/user/newpassword`,{newpassword : data.password}, token)
       .then((res) => {
-        console.log(res.status)
+        // console.log(res.status)
         if(res.request.status==200){
           window.alert("비밀번호 변경이 완료되었습니다🎉");
           //받아온 user정보로!!

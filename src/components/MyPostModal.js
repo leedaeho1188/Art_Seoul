@@ -42,7 +42,7 @@ const MyPostModal = (props) => {
     dispatch(commentActions.deleteCommentAX(id, props.id))
   }
   const selectComment = (e) => {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setComments(e.target.value)
   };
 

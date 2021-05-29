@@ -45,7 +45,7 @@ const getMarkerAX = () => {
   return function (dispatch){
     axios.get(`${config.api}/marker/display/detail`)
       .then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
         let hotMarker_list = [];
         let normalMarker_list = [];
         res.data.hot_marker.forEach((_marker) => {
@@ -74,7 +74,7 @@ const getMarkerAX = () => {
 
           normalMarker_list.unshift(marker)
         })
-        console.log(hotMarker_list, normalMarker_list)
+        // console.log(hotMarker_list, normalMarker_list)
         dispatch(setMarker(hotMarker_list, normalMarker_list))
       })
   }

@@ -15,7 +15,7 @@ const initialState = {
 
 export default handleActions({
   [SET_PREVIEW]: (state, action) => produce(state, (draft) => {
-    console.log(action.payload.preview)
+    // console.log(action.payload.preview)
     draft.preview = action.payload.preview;
   }),
   [PROFILE_PREVIEW]: (state, action) => produce(state, (draft) => {

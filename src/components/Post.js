@@ -31,7 +31,7 @@ const Post = (props) => {
   }, [])
 
   const selectComment = (e) => {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setComments(e.target.value)
   };
 

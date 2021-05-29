@@ -22,7 +22,7 @@ const PostWrite = (props) => {
   const marker = marker_list[idx]
   const preview = useSelector((state) => state.image.preview)
   const is_write = title && contents ? true : false;
-  console.log(props._id)
+  // console.log(props._id)
 
   
   useEffect(() => {
@@ -51,7 +51,7 @@ const PostWrite = (props) => {
       contents: contents,
       image: image,
     }
-    console.log(post)
+    // console.log(post)
     dispatch(postActions.addPostAX(post))
     dispatch(markerActions.addBoard(props.markerId, markerClass ))
     props.close()

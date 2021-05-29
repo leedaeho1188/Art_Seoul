@@ -16,7 +16,7 @@ const Classic = (props) => {
     const get = async() => {
       setLoading(true)
       const result = await axios.get(`${config.api}/artinfo/classic`)
-      console.log(result)
+      // console.log(result)
       setData(result.data.dbs.db)
       setLoading(false)
     }
