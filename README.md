@@ -59,6 +59,12 @@ https://leedaeho1188.tistory.com/52
 
 https://leedaeho1188.tistory.com/55
 
+### 7. (로그인,게시물 및 유저페이지) 토큰을 통한 로그인 & CRUD 
+https://oreokyuhyun.tistory.com/45
+
+### 8. (프로필, 게시물 및 유저페이지) CRUD 
+https://oreokyuhyun.tistory.com/46
+
 ## 4. 사용 라이브러리
 
 라이브러리 | 설명
