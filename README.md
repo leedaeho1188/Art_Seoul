@@ -1,11 +1,6 @@
 # Art Seoul
 
-## 사이트 주소
-http://artseoul.shop/
-
-## 유튜브 링크
-https://www.youtube.com/watch?v=O4OlXNPkQ_Q
-
+[**Website link**](http://artseoul.shop/) / [**YouTube link**](https://www.youtube.com/watch?v=O4OlXNPkQ_Q) <br/>
 
 ![image](https://user-images.githubusercontent.com/79817676/115675644-bf48d300-a389-11eb-813d-384927d19e06.png)
 ![image](https://user-images.githubusercontent.com/79817676/115675771-de476500-a389-11eb-90c5-bd65735c1ad4.png)
