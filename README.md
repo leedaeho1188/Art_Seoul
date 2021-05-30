@@ -1,8 +1,12 @@
 # Art Seoul
 
-[**Website link**](http://artseoul.shop/) / [**YouTube link**](https://www.youtube.com/watch?v=O4OlXNPkQ_Q) <br/>
+[**Website link**](http://artseoul.shop/) / [**YouTube link**](https://www.youtube.com/watch?v=O4OlXNPkQ_Q) 
+
+<br/>
+<br/>
 
 ![image](https://user-images.githubusercontent.com/79817676/115675644-bf48d300-a389-11eb-813d-384927d19e06.png)
+<br/>
 ![image](https://user-images.githubusercontent.com/79817676/115675771-de476500-a389-11eb-90c5-bd65735c1ad4.png)
 
 
