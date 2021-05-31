@@ -5,24 +5,30 @@
 ![image](https://user-images.githubusercontent.com/79817676/115675771-de476500-a389-11eb-90c5-bd65735c1ad4.png)
 
 
-## 링크
+## ✨링크
 [**Website link**](http://artseoul.shop/) / [**YouTube link**](https://www.youtube.com/watch?v=O4OlXNPkQ_Q) 
 
 <br/>
 
-## 프로젝트 소개
+## 🎈프로젝트 소개
  ART Seoul은 서울안에 자신이 관람한 공연이나 전시 후기를 다른사람과 공유하는 사이트입니다. 후기를 남기실 때는 지도안에있는 마커를 클릭해서 남기실 수 있습니다. 자신이 다녀온 곳에 이미 마커가 찍혀있다면 해당 마커를 사용하시면되고, 마커가 찍혀있지 않으면 직접 마커를 만드셔서 사용하시면 됩니다. 지도에서 원하는 장소를 찾으실 때는 직접 지도를 사용하시거나 해당 주소를 입력을 해서 찾으실 수 있습니다! 공연정보 페이지에 들어가면 현재 서울에서 관람할 수 있는 공연 정보들을 카테고리별로 나눠서 제공하고있습니다.
 
-## 프로젝트 기간
+<br/>
+
+## 🗓프로젝트 기간
 2021년 4월 9일 ~ 2021년 4월 22일
 
-## 1. 작업자
+<br/>
+
+## 👨‍💻작업자
   - 이대호 (front-end-developer)
   - 권규현 (front-end-developer)
   - 이총명 (backend-developer)
   - 원가연 (backend-developer)
 
-## 2. 기술스텍
+<br/>
+
+## 🛠기술스택
 
 Front | Back
 ---|---:
@@ -34,8 +40,9 @@ Axios | MongoDB
 ---|
 Javascript , JWT , Rest API
 
+<br/>
 
-## 3. 기능구현 
+## 💻 기능구현 
 
 ### 1. (카카오 맵) 마커 생성하기
 
@@ -67,7 +74,9 @@ https://oreokyuhyun.tistory.com/45
 ### 8. (프로필, 게시물 및 유저페이지) CRUD 
 https://oreokyuhyun.tistory.com/46
 
-## 4. 사용 라이브러리
+<br/>
+
+## 사용 라이브러리
 
 라이브러리 | 설명
 ---|:---:
@@ -76,13 +85,17 @@ redux | 클라이언트 저장소
 material ui | 외부 ui 사용
 styled-components | 컴포넌트 스타일링
 
+<br/>
 
-
-## 5. 배포방식
+## 배포방식
 AWS S3,  Route 53
 
-## 6. 상세 설명 페이지
+<br/>
+
+## 상세 설명 페이지
 https://www.notion.so/ART-SEOUL-2-4821f7a5fc644af7a37e44a8f610dc4d
 
-## 7. Back-End(Node Js) 코드 
+<br/>
+
+## Back-End(Node Js) 코드 
 https://github.com/Lee-ChongMyeong/Art_Korea
