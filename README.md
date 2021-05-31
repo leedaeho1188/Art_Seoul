@@ -77,7 +77,7 @@ styled-components | 컴포넌트 스타일링
 
 
 ## 5. 배포방식
-AWS S3
+AWS S3,  Route 53
 
 ## 6. 상세 설명 페이지
 https://www.notion.so/ART-SEOUL-2-4821f7a5fc644af7a37e44a8f610dc4d
