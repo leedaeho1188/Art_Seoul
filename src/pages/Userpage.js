@@ -13,7 +13,7 @@ const Userpage = (props) => {
  const _id = props.match.params.id
  const user_list = useSelector((state) => state.post.userlist);
  const user_info = useSelector((state) => state.user.user);
- console.log(user_list);
+console.log(user_list);
  const [ is_modal, setDetailModal ] = useState();
     const openModal = () => {
         setDetailModal(true);
@@ -25,7 +25,7 @@ const Userpage = (props) => {
   // url에 붙어서 나오는 id를 보내서 userlist를 업데이트합니다.
   // + 해당 id가 변화할 때마다 리렌더링을 합니다. 
   React.useEffect(() => {
-    dispatch(postActions.getuserPostAX(_id));
+    dispatch(postActions.getuserPostAX(props.match.params.id));
     window.scrollTo(0,0)
     },[_id]);
  
