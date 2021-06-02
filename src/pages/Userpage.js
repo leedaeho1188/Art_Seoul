@@ -13,7 +13,7 @@ const Userpage = (props) => {
  const _id = props.match.params.id
  const user_list = useSelector((state) => state.post.userlist);
  const user_info = useSelector((state) => state.user.user);
- 
+ console.log(user_list);
  const [ is_modal, setDetailModal ] = useState();
     const openModal = () => {
         setDetailModal(true);

@@ -5,6 +5,7 @@ import { history } from "../configureStore"
 import { config } from "../../shared/config"
 import "moment";
 import moment from "moment";
+import user from "./user";
 
 
 
@@ -123,7 +124,7 @@ const getPostAX = (markerId, lastId = null) => {
 
     axios.get(`${config.api}/board/${markerId}?lastId=${lastId}`)
       .then((response) => {
-        console.log(response)
+     
         let post_list = [];
         let next
         if (response.data.status !== "end"){
@@ -161,16 +162,16 @@ const getuserPostAX = (_id) => {
 
       axios.get(`${config.api}/board/other/${_id}`)
       .then((response) => {
-        // console.log(response)
-        
+       
+        console.log(response);
         let user_list = [];
         response.data.contents.forEach((_item) => {
           let item = {
             id: _item.boardId,
             title: _item.title,
             contents: _item.contents,
-            nickname: _item.nickname,
             userId: _item.userId,
+            nickname: response.data.nickname,
             date: _item.date,
             markerId: _item.markerId,
             markername: _item.markername,
@@ -178,7 +179,9 @@ const getuserPostAX = (_id) => {
             profile: response.data.profile, 
           }
           user_list.unshift(item)
+         
         })
+      
         // console.log(user_list)
         
         //redux에도 값 변경
